@@ -33,12 +33,14 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-    
+	void initSprites();
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+private:
+	/*Sprite *BG;*/
 };
 
 #endif // __HELLOWORLD_SCENE_H__
