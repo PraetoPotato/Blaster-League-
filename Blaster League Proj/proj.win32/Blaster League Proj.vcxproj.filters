@@ -24,6 +24,12 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="HillSideScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -33,6 +39,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="HillsideScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
