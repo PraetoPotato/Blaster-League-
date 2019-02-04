@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
+//replace numbers with these words(e.g 1=Idle,etc)
 enum InputState
 {
 	Idle,

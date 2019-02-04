@@ -18,6 +18,7 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
+//Initialize everything
 bool Hillside::init()
 {
 	//Ensure the parent init function was called first. If it wasn't, exit this one
@@ -49,7 +50,8 @@ bool Hillside::init()
 	//Let cocos know that the init function was successful
 	return true;
 }
-//
+
+//main game loop, updates everything
 void Hillside::update(float deltatime)
 {
 
@@ -57,7 +59,7 @@ void Hillside::update(float deltatime)
 
 void Hillside::initListeners()
 {
-	//Init the mouse listenerr
+	//Init the mouse listener
 	initMouseListener();
 
 	//Init the keyboard listener
