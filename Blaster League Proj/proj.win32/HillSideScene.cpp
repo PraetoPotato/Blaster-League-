@@ -54,7 +54,16 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
-
+	/*
+	if (pressingA==true)
+	{
+	sprite->posit
+	}
+	*/
+	if (KeyboardSpacePressed == true)
+	{
+		//insert what happens here
+	}
 }
 
 void Hillside::initListeners()
@@ -155,6 +164,76 @@ void Hillside::initKeyboardListener()
 	keyboardListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
 
+		// If Statement for Spacebar Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+		{
+			std::cout << "Space Bar Was Pressed!" << std::endl;
+			KeyboardSpacePressed = true;
+
+		}
+
+		// If Statement for Key Up Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)
+		{
+			std::cout << "Up Key Was Pressed!" << std::endl;
+			KeyUpPressed = true;
+		}
+
+		// If Statement for Key Down Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)
+		{
+			std::cout << "Down Key Was Pressed!" << std::endl;
+			KeyDownPressed = true;
+		}
+
+		// If Statement for Key Right Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+		{
+			std::cout << "Down Key Was Pressed!" << std::endl;
+			KeyRightPressed = true;
+		}
+
+		// If Statement for Key Left Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+		{
+			std::cout << "Left Key Was Pressed!" << std::endl;
+			KeyLeftPressed = true;
+		}
+
+		// If Statement for a_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_A)
+		{
+			std::cout << "a Key Was Pressed!" << std::endl;
+			KeyaPressed = true;
+		}
+
+		// If Statement for s_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_S)
+		{
+			std::cout << "s Key Was Pressed!" << std::endl;
+			KeysPressed = true;
+		}
+
+		// If Statement for w_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_W)
+		{
+			std::cout << "w Key Was Pressed!" << std::endl;
+			KeywPressed = true;
+		}
+
+		// If Statement for d_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_D)
+		{
+			std::cout << "d Key Was Pressed!" << std::endl;
+			KeydPressed = true;
+		}
+
+
+
+
+
+
+
 	};
 
 
@@ -164,6 +243,8 @@ void Hillside::initKeyboardListener()
 		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 		{
 			std::cout << "Space Bar Was Released!" << std::endl;
+			KeyboardSpacePressed = false;
+
 		}
 	};
 
