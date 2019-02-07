@@ -246,6 +246,61 @@ void Hillside::initKeyboardListener()
 			KeyboardSpacePressed = false;
 
 		}
+		// If Statement for Key Up Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)
+		{
+			std::cout << "Up Key Was Released!" << std::endl;
+			KeyUpPressed = false;
+		}
+
+		// If Statement for Key Down Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)
+		{
+			std::cout << "Down Key Was Released!" << std::endl;
+			KeyDownPressed = false;
+		}
+
+		// If Statement for Key Right Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+		{
+			std::cout << "Down Key Was Released!" << std::endl;
+			KeyRightPressed = false;
+		}
+
+		// If Statement for Key Left Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+		{
+			std::cout << "Left Key Was Released!" << std::endl;
+			KeyLeftPressed = false;
+		}
+
+		// If Statement for a_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_A)
+		{
+			std::cout << "a Key Was Released!" << std::endl;
+			KeyaPressed = false;
+		}
+
+		// If Statement for s_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_S)
+		{
+			std::cout << "s Key Was Released!" << std::endl;
+			KeysPressed = false;
+		}
+
+		// If Statement for w_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_W)
+		{
+			std::cout << "w Key Was Released!" << std::endl;
+			KeywPressed = false;
+		}
+
+		// If Statement for d_lowercase Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_D)
+		{
+			std::cout << "d Key Was Released!" << std::endl;
+			KeydPressed = false;
+		}
 	};
 
 

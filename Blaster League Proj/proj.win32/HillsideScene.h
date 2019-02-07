@@ -24,4 +24,13 @@ private:
 	EventListenerKeyboard* keyboardListener;
 	Vec2 mousePosition;
 	Sprite *BG;
+	bool KeyboardSpacePressed;
+	bool KeyUpPressed;
+	bool KeyDownPressed;
+	bool KeyLeftPressed;
+	bool KeyRightPressed;
+	bool KeyaPressed;
+	bool KeywPressed;
+	bool KeysPressed;
+	bool KeydPressed;
 };
