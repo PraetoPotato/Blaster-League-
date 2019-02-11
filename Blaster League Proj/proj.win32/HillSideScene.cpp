@@ -26,22 +26,13 @@ bool Hillside::init()
 		return false;
 
 
-
 	//Get the director from cocos so we can use it when needed
 	director = Director::getInstance();
 
 	//Init the sprites
-	auto Sprite = Sprite::create("BackGrounds/Hillside Stage.png");
-	if (Sprite == nullptr)
-	{
-		problemLoading("'BackGrounds/HillSide Stage.png'");
-	}
-	else
-	{
-		Sprite->setPosition(Vec2(2500,1500));
-		Sprite->setScale(0.4075);
-		this->addChild(Sprite, 1);
-	}
+	initSprites();
+
+	//Init the mouse/ keyboard listeners
 	initListeners();
 
 	//Allow for the update() function to be called by cocos
@@ -73,6 +64,41 @@ void Hillside::initListeners()
 
 	//Init the keyboard listener
 	initKeyboardListener();
+}
+
+void Hillside::initSprites()
+{
+	//Initialize the Background 
+	auto Sprite = Sprite::create("BackGrounds/Hillside Stage.png");
+	if (Sprite == nullptr)
+	{
+		problemLoading("'BackGrounds/HillSide Stage.png'");
+	}
+	else
+	{
+		Sprite->setPosition(Vec2(2500, 1500));
+		Sprite->setScale(0.4075);
+		this->addChild(Sprite, 1);
+	}
+
+	//Initialize the Stage
+	//Btw one this is invisible
+	Stage = new Character({ 2500,700 }, "Platforms/Platform.png");
+	Stage->getSprite()->setPhysicsBody(PhysicsBody::createBox(Stage->getSprite()->getContentSize()));//Create a box Physics body
+	Stage->getSprite()->getPhysicsBody()->setDynamic(false);
+	this->addChild(Stage->getSprite(), 2);
+
+	DisplayedStage= new Character({ 2500,575 }, "Platforms/Platform 2.png");
+	this->addChild(DisplayedStage->getSprite(), 2);
+
+	PhysicsBody* body_Ground = PhysicsBody::createBox(Size(director->getWinSizeInPixels().width * 5, 15.0f)); //Create a box collider for the 
+	body_Ground->setDynamic(false); //We don't want the box collider to move around, we just want other stuff to hit
+	body_Ground->setPositionOffset(Vec2(0.0f, -215.0f)); //Move the collider to where the grass portion of the background sprite is
+	
+	//Initialize the fighters
+	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
+	Chandy->getSprite()->setPhysicsBody(PhysicsBody::createCircle((Chandy->getSprite()->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f));//Set Physics Body
+	this->addChild(Chandy->getSprite(), 3);
 }
 
 void Hillside::initMouseListener()
