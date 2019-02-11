@@ -30,6 +30,9 @@
     <ClCompile Include="Character.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Fighter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -45,6 +48,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

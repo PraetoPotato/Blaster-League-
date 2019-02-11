@@ -1,11 +1,11 @@
 #include "InputHandler.h"
 
-//--- Static Variables ---//
+//Static Variables
 InputHandler* InputHandler::inst = 0;
 
 
 
-//--- Constructor and Destructor ---//
+//Constructor and Destructor
 InputHandler::InputHandler()
 {
 
@@ -20,7 +20,8 @@ InputHandler::~InputHandler()
 
 
 
-//--- Setters and Getters ---//
+//Setters and Getters
+
 //Mouse
 Vec2 InputHandler::getMousePosition() const
 {
@@ -74,7 +75,7 @@ bool InputHandler::getKey(KeyCode key) const
 
 
 
-//--- Methods ---//
+//Methods
 void InputHandler::updateInputs()
 {
 	//Loop through the mouse buttons and update their states. If they were pressed last frame, they are now held. If they were released last frame, they are now idle.
@@ -104,7 +105,7 @@ void InputHandler::updateInputs()
 
 
 
-//--- Singleton Instance ---//
+//Singleton Instance
 InputHandler* InputHandler::getInstance()
 {
 	//Generate the singleton if it hasn't been created yet

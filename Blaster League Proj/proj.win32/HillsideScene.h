@@ -1,5 +1,7 @@
 #pragma once
 #include "cocos2d.h"
+#include "Character.h"
+#include "Fighter.h"
 
 //Namespaces
 using namespace cocos2d;
@@ -15,6 +17,7 @@ public:
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
+	void initSprites();
 	void initMouseListener();
 	void initKeyboardListener();
 private:
@@ -23,7 +26,8 @@ private:
 	EventListenerMouse* mouseListener;
 	EventListenerKeyboard* keyboardListener;
 	Vec2 mousePosition;
-	Sprite *BG;
+
+	//Keyboard input booleans
 	bool KeyboardSpacePressed;
 	bool KeyUpPressed;
 	bool KeyDownPressed;
@@ -33,4 +37,10 @@ private:
 	bool KeywPressed;
 	bool KeysPressed;
 	bool KeydPressed;
+
+	//Sprites 
+	Sprite *BG;
+	Character *Stage;
+	Character *DisplayedStage;
+	Fighter *Chandy;
 };
