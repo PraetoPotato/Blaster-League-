@@ -44,6 +44,11 @@ Vec2 Character::getPosition() {
 	return sprite->getPosition();
 }
 
+void Character::addForce(Vec2 force)
+{
+	acceleration += force;
+}
+
 Character::~Character()
 {
 	//delete sprite;
