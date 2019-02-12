@@ -11,6 +11,9 @@ public:
 	void update(float deltaTime);//get delta time so we don't have to keep calling elapsed time per seconds
 	Sprite* getSprite();
 	PhysicsBody* getBody();
+	void setVelocity(Vec2 veloc);
+	void setAcceleration(Vec2 accel);
+	void setPosition(Vec2 pos);
 	Vec2 getPosition();
 	void addForce(Vec2 force);
 	Vec2 position;

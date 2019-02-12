@@ -16,20 +16,31 @@ void Character::load(Vec2 position, std::string texturePath)
 	sprite->setPosition(position);
 	sprite->setScale(0.25f); //Scale the bird since it loads in quite large 
 	sprite->setAnchorPoint(Vec2(0.5f, 0.5f)); //Ensure the middle of the character is the anchor point
-	auto body = PhysicsBody::createCircle((sprite->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f); //This makes the hitbox a circle
+	//auto body = PhysicsBody::createCircle((sprite->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f); //This makes the hitbox a circle
 	//auto body = PhysicsBody::createCircle(32.0f); //Use a circle since the bird is roughly circular
 	std::cout << sprite->getSpriteFrame()->getRectInPixels().size.height * sprite->getScale() * 0.5f << std::endl;
-	body->setContactTestBitmask(0xFFFFFFFF);
 	//sprite->setPhysicsBody(body); //Connect the physics body and the sprite
 }
 
 //Updates the positon of the character
 void Character::update(float deltaTime)
 {
+	//if (acceleration.x >= 100 || acceleration.x <= -100)
+	//{
+	//	acceleration.x=100;
+	//}
+	if (position.y <= 1500)
+	{
+		acceleration.y = 0;
+		velocity.y = 0;
+		
+	}
 	velocity += acceleration * deltaTime;
 	position = sprite->getPosition();
 	position += velocity * deltaTime;
 	sprite->setPosition(position);
+
+	
 	
 }
 Sprite* Character::getSprite() {
@@ -38,6 +49,21 @@ Sprite* Character::getSprite() {
 
 PhysicsBody* Character::getBody() {
 	return sprite->getPhysicsBody();
+}
+
+void Character::setVelocity(Vec2 veloc)
+{
+	velocity = veloc;
+}
+
+void Character::setAcceleration(Vec2 accel)
+{
+	acceleration = Vec2(0, 0);
+}
+
+void Character::setPosition(Vec2 pos)
+{
+	position = Vec2(0, 0);
 }
 
 Vec2 Character::getPosition() {

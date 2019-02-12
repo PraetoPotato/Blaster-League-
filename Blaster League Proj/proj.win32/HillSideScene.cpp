@@ -45,16 +45,29 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
+	Vec2 gravity(0,-98);
 	/*
 	if (pressingA==true)
 	{
 	sprite->posit
 	}
 	*/
+	if (KeydPressed == true)
+	{
+		Chandy->addForce(Vec2(15, 0));
+		
+	}
+	if (KeyaPressed == true)
+	{
+		Chandy->addForce(Vec2(-15, 0));
+		
+	}
 	if (KeyboardSpacePressed == true)
 	{
 		//insert what happens here
 	}
+	Chandy->addForce(gravity);
+	Chandy->update(deltatime);
 }
 
 void Hillside::initListeners()
@@ -86,8 +99,7 @@ void Hillside::initSprites()
 	//Btw one this is invisible
 	//This basically stops the player falling down
 	Stage = new Character({ 2500,700 }, "Platforms/Platform.png");
-	Stage->getSprite()->setPhysicsBody(PhysicsBody::createBox(Stage->getSprite()->getContentSize()));//Create a box Physics body
-	Stage->getSprite()->getPhysicsBody()->setDynamic(false);
+
 	this->addChild(Stage->getSprite(), 2);
 	//this is the platform
 	DisplayedStage= new Character({ 2500,575 }, "Platforms/Platform 2.png");
@@ -96,7 +108,7 @@ void Hillside::initSprites()
 
 	//Initialize the fighters
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
-	Chandy->getSprite()->setPhysicsBody(PhysicsBody::createCircle((Chandy->getSprite()->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f));//Set Physics Body
+	
 	this->addChild(Chandy->getSprite(), 3);
 }
 
@@ -214,8 +226,12 @@ void Hillside::initKeyboardListener()
 		// If Statement for Key Right Pressed
 		if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
 		{
-			std::cout << "Down Key Was Pressed!" << std::endl;
+			std::cout << "Right Key Was Pressed!" << std::endl;
 			KeyRightPressed = true;
+
+			
+
+
 		}
 
 		// If Statement for Key Left Pressed
