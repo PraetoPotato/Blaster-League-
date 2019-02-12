@@ -82,19 +82,18 @@ void Hillside::initSprites()
 	}
 
 	//Initialize the Stage
+
 	//Btw one this is invisible
+	//This basically stops the player falling down
 	Stage = new Character({ 2500,700 }, "Platforms/Platform.png");
 	Stage->getSprite()->setPhysicsBody(PhysicsBody::createBox(Stage->getSprite()->getContentSize()));//Create a box Physics body
 	Stage->getSprite()->getPhysicsBody()->setDynamic(false);
 	this->addChild(Stage->getSprite(), 2);
-
+	//this is the platform
 	DisplayedStage= new Character({ 2500,575 }, "Platforms/Platform 2.png");
 	this->addChild(DisplayedStage->getSprite(), 2);
 
-	PhysicsBody* body_Ground = PhysicsBody::createBox(Size(director->getWinSizeInPixels().width * 5, 15.0f)); //Create a box collider for the 
-	body_Ground->setDynamic(false); //We don't want the box collider to move around, we just want other stuff to hit
-	body_Ground->setPositionOffset(Vec2(0.0f, -215.0f)); //Move the collider to where the grass portion of the background sprite is
-	
+
 	//Initialize the fighters
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
 	Chandy->getSprite()->setPhysicsBody(PhysicsBody::createCircle((Chandy->getSprite()->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f));//Set Physics Body
