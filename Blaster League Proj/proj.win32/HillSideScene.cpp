@@ -52,20 +52,69 @@ void Hillside::update(float deltatime)
 	sprite->posit
 	}
 	*/
+	if (KeywPressed == true)
+	{
+		if (Chandy->position.y <= 1500)
+		{
+			Chandy->position.y = 1501;
+		}
+		Chandy->position.y = Chandy->position.y + 0.01;
+		Chandy->velocity.y=1000;
+		KeywPressed = false;
+	}
 	if (KeydPressed == true)
 	{
-		Chandy->addForce(Vec2(15, 0));
+		Chandy->addForce(Vec2(500, 0));
 		
 	}
 	if (KeyaPressed == true)
 	{
-		Chandy->addForce(Vec2(-15, 0));
+		Chandy->addForce(Vec2(-500, 0));
 		
 	}
 	if (KeyboardSpacePressed == true)
 	{
 		//insert what happens here
 	}
+	if (KeydPressed == false)
+	{
+		//Drastically slow the movement until you come to a stop if you let go
+		if (Chandy->acceleration.x != 0)
+		{
+			Chandy->acceleration.x -= 10000;
+			
+		}
+		if (Chandy->velocity.x<=0&&KeyaPressed==false&& KeywPressed == true)
+		{
+			Chandy->velocity.x = 0;
+			Chandy->acceleration.x = 0;
+			/*Chandy->position.x = Chandy->getPositionX();*/
+		}
+		
+	
+	}
+	if (KeyaPressed == false)
+	{
+		//Drastically slow the movement until you come to a stop if you let go
+		if (Chandy->acceleration.x != 0)
+		{
+			Chandy->acceleration.x += 10000;
+
+		}
+		if (Chandy->velocity.x >= 0&& KeydPressed == false&&KeywPressed==true)
+		{
+			Chandy->velocity.x = 0;
+			Chandy->acceleration.x = 0;
+			Chandy->position.x = Chandy->getPositionX();
+		}
+
+	}
+	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 1500)
+	{
+		Chandy->velocity.x = 0;
+		Chandy->acceleration.x = 0;
+	}
+	
 	Chandy->addForce(gravity);
 	Chandy->update(deltatime);
 }

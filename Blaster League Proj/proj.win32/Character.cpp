@@ -25,20 +25,22 @@ void Character::load(Vec2 position, std::string texturePath)
 //Updates the positon of the character
 void Character::update(float deltaTime)
 {
-	//if (acceleration.x >= 100 || acceleration.x <= -100)
-	//{
-	//	acceleration.x=100;
-	//}
+
 	if (position.y <= 1500)
 	{
 		acceleration.y = 0;
 		velocity.y = 0;
 		
+		
 	}
+	acceleration.clamp(Vec2(-1000, -1000), Vec2(1000, 1000));//limit the acceleration
 	velocity += acceleration * deltaTime;
 	position = sprite->getPosition();
 	position += velocity * deltaTime;
 	sprite->setPosition(position);
+	
+	
+
 
 	
 	
@@ -68,6 +70,11 @@ void Character::setPosition(Vec2 pos)
 
 Vec2 Character::getPosition() {
 	return sprite->getPosition();
+}
+
+float Character::getPositionX()
+{
+	return position.x;
 }
 
 void Character::addForce(Vec2 force)
