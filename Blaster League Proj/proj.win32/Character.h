@@ -12,6 +12,7 @@ public:
 	Sprite* getSprite();
 	PhysicsBody* getBody();
 	Vec2 getPosition();
+	void addForce(Vec2 force);
 	Vec2 position;
 	Vec2 acceleration;
 	Vec2 velocity;
