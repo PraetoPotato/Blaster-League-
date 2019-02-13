@@ -45,7 +45,7 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
-	Vec2 gravity(0,-98);
+	Vec2 gravity(0,-980);
 	/*
 	if (pressingA==true)
 	{
@@ -72,9 +72,11 @@ void Hillside::update(float deltatime)
 		Chandy->addForce(Vec2(-500, 0));
 		
 	}
-	if (KeyboardSpacePressed == true)
+	
+	if (KeysPressed == true)
 	{
-		//insert what happens here
+		Chandy->addForce(Vec2(0,-900));
+
 	}
 	if (KeydPressed == false)
 	{
@@ -109,7 +111,7 @@ void Hillside::update(float deltatime)
 		}
 
 	}
-	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 1500)
+	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 1500)//stops movement for chandy if you let go of the a or d
 	{
 		Chandy->velocity.x = 0;
 		Chandy->acceleration.x = 0;
@@ -145,13 +147,8 @@ void Hillside::initSprites()
 
 	//Initialize the Stage
 
-	//Btw one this is invisible
-	//This basically stops the player falling down
-	Stage = new Character({ 2500,700 }, "Platforms/Platform.png");
-
-	this->addChild(Stage->getSprite(), 2);
 	//this is the platform
-	DisplayedStage= new Character({ 2500,575 }, "Platforms/Platform 2.png");
+	DisplayedStage= new Character({ 2500,805 }, "Platforms/Platform 2.png");
 	this->addChild(DisplayedStage->getSprite(), 2);
 
 
