@@ -78,6 +78,11 @@ float Character::getPositionX()
 	return position.x;
 }
 
+float Character::getPositionY()
+{
+	return position.y;
+}
+
 void Character::addForce(Vec2 force)
 {
 	acceleration += force;
