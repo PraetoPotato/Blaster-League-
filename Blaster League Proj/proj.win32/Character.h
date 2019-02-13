@@ -16,6 +16,7 @@ public:
 	void setPosition(Vec2 pos);
 	Vec2 getPosition();
 	float getPositionX();
+	float getPositionY();
 	void addForce(Vec2 force);
 	Vec2 position;
 	Vec2 acceleration;
