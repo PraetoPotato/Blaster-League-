@@ -61,15 +61,17 @@ void Hillside::update(float deltatime)
 		}
 		Chandy->position.y = Chandy->position.y + 0.01;
 		Chandy->velocity.y=1000;
-		KeywPressed = false;
+		
 	}
 
 	if (KeyboardSpacePressed == true)
 	{
 		ChandyCandy= new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
+		ChandyCandy->IsBullet=true;
 		ChandyCandy->velocity=(Vec2(10000, 0));
 		ChandyCandies.push_back(ChandyCandy);
 		this->addChild(ChandyCandy->getSprite(),2);
+		
 	}
 	if (KeydPressed == true)
 	{
@@ -169,7 +171,7 @@ void Hillside::initSprites()
 
 	//Initialize the fighters
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
-	
+	Chandy->IsBullet=false;
 	this->addChild(Chandy->getSprite(), 3);
 }
 
