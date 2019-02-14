@@ -52,8 +52,9 @@ void Hillside::update(float deltatime)
 	sprite->posit
 	}
 	*/
-	if (KeywPressed == true)
+	if (KeywPressed == true && Chandy->position.y <= 1500)
 	{
+		
 		if (Chandy->position.y <= 1500)
 		{
 			Chandy->position.y = 1501;
