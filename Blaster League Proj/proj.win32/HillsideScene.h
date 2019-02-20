@@ -43,8 +43,10 @@ private:
 	Character *Stage;
 	Character *DisplayedStage;
 	Fighter *Chandy;
+	Fighter *Opponent;
 
 	//Projectiles
 	Character *ChandyCandy;
 	std::vector<Character*>ChandyCandies;
+	
 };

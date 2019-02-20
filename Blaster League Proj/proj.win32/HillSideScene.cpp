@@ -45,13 +45,18 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
-	Vec2 gravity(0,-980);
+	Vec2 gravity(0,-980);   //980
 	/*
 	if (pressingA==true)
 	{
 	sprite->posit
 	}
 	*/
+
+
+//-----------------------------------------movement for first fighter-------------------------------------------------
+
+
 	if (KeywPressed == true && Chandy->position.y <= 1500)
 	{
 		
@@ -68,11 +73,22 @@ void Hillside::update(float deltatime)
 	{
 		ChandyCandy= new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
 		ChandyCandy->IsBullet=true;
-		ChandyCandy->velocity=(Vec2(10000, 0));
+		ChandyCandy->velocity=(Vec2(500, 0));
 		ChandyCandies.push_back(ChandyCandy);
 		this->addChild(ChandyCandy->getSprite(),2);
 		
+		
 	}
+
+/*	if (KeyboardSpacePressed == false)
+	{
+		ChandyCandy->IsBullet == false;
+	}
+*/
+
+
+
+
 	if (KeydPressed == true)
 	{
 		Chandy->addForce(Vec2(500, 0));
@@ -127,6 +143,113 @@ void Hillside::update(float deltatime)
 		Chandy->velocity.x = 0;
 		Chandy->acceleration.x = 0;
 	}
+
+
+	//---------------------------------movement for the other fighter-------------------------------------------
+
+
+
+	if (KeyUpPressed == true && Opponent->position.y <= 1500)
+	{
+
+		if (Opponent->position.y <= 1500)
+		{
+			Opponent->position.y = 1501;
+		}
+		Opponent->position.y = Opponent->position.y + 0.01;
+		Opponent->velocity.y = 1000;
+
+	}
+
+
+
+
+
+
+
+	/*
+	if (KeyboardSpacePressed == true)
+	{
+		ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
+		ChandyCandy->IsBullet = true;
+		ChandyCandy->velocity = (Vec2(10000, 0));
+		ChandyCandies.push_back(ChandyCandy);
+		this->addChild(ChandyCandy->getSprite(), 2);
+
+	}
+	*/
+
+
+
+
+
+	if (KeyRightPressed == true)
+	{
+		Opponent->addForce(Vec2(500, 0));
+
+	}
+	if (KeyLeftPressed == true)
+	{
+		Opponent->addForce(Vec2(-500, 0));
+
+	}
+
+	if (KeyDownPressed == true)
+	{
+		Opponent->addForce(Vec2(0, -900));
+
+	}
+	if (KeyRightPressed == false)
+	{
+		//Drastically slow the movement until you come to a stop if you let go
+		if (Opponent->acceleration.x != 0)
+		{
+			Opponent->acceleration.x -= 10000;
+
+		}
+		if (Opponent->velocity.x <= 0 && KeyLeftPressed == false && KeyUpPressed == true)
+		{
+			Opponent->velocity.x = 0;
+			Opponent->acceleration.x = 0;
+			/*Chandy->position.x = Chandy->getPositionX();*/
+		}
+
+
+	}
+	if (KeyLeftPressed == false)
+	{
+		//Drastically slow the movement until you come to a stop if you let go
+		if (Opponent->acceleration.x != 0)
+		{
+			Opponent->acceleration.x += 10000;
+
+		}
+		if (Opponent->velocity.x >= 0 && KeyRightPressed == false && KeyUpPressed == true)
+		{
+			Opponent->velocity.x = 0;
+			Opponent->acceleration.x = 0;
+			Opponent->position.x = Opponent->getPositionX();
+		}
+
+	}
+	if (KeyLeftPressed == false && KeyRightPressed == false && Opponent->position.y <= 1500)//stops movement for chandy if you let go of the a or d
+	{
+		Opponent->velocity.x = 0;
+		Opponent->acceleration.x = 0;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	//-----------------------------gives the charcters gravity ----------------------------------------------
 	
 
 	Chandy->addForce(gravity);
@@ -136,6 +259,9 @@ void Hillside::update(float deltatime)
 
 	}
 	Chandy->update(deltatime);
+
+	Opponent->addForce(gravity);
+	Opponent->update(deltatime);
 }
 
 void Hillside::initListeners()
@@ -173,6 +299,10 @@ void Hillside::initSprites()
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
 	Chandy->IsBullet=false;
 	this->addChild(Chandy->getSprite(), 3);
+
+	Opponent = new Fighter({ 2500, 2000 }, "Fighters/Chandy Sprite2.png");
+	Opponent->IsBullet = false;
+	this->addChild(Opponent->getSprite(), 3);
 }
 
 void Hillside::initMouseListener()
