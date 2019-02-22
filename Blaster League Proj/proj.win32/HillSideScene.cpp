@@ -72,19 +72,23 @@ void Hillside::update(float deltatime)
 	if (KeyboardSpacePressed == true)
 	{
 		ChandyCandy= new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
-		ChandyCandy->IsBullet=true;
+		ChandyCandy->IsBullet = true;
+
+
+	
+
+		
 		ChandyCandy->velocity=(Vec2(500, 0));
 		ChandyCandies.push_back(ChandyCandy);
 		this->addChild(ChandyCandy->getSprite(),2);
+
+
+		
 		
 		
 	}
 
-/*	if (KeyboardSpacePressed == false)
-	{
-		ChandyCandy->IsBullet == false;
-	}
-*/
+
 
 
 
@@ -145,6 +149,13 @@ void Hillside::update(float deltatime)
 	}
 
 
+
+		if (KeyboardSpacePressed == false)
+	{
+	ChandyCandy->IsBullet == false;
+	}
+	
+
 	//---------------------------------movement for the other fighter-------------------------------------------
 
 
@@ -167,7 +178,7 @@ void Hillside::update(float deltatime)
 
 
 
-	/*
+/*	
 	if (KeyboardSpacePressed == true)
 	{
 		ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
@@ -177,10 +188,10 @@ void Hillside::update(float deltatime)
 		this->addChild(ChandyCandy->getSprite(), 2);
 
 	}
+	
+
+
 	*/
-
-
-
 
 
 	if (KeyRightPressed == true)
@@ -255,7 +266,9 @@ void Hillside::update(float deltatime)
 	Chandy->addForce(gravity);
 	for (unsigned int i = 0; i < ChandyCandies.size(); i++)
 	{
+		//ChandyCandies[i]->addForce(gravity);
 		ChandyCandies[i]->update(deltatime);
+
 
 	}
 	Chandy->update(deltatime);

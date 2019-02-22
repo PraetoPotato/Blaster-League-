@@ -53,6 +53,12 @@
     <ClInclude Include="Fighter.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="FighterSelect.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

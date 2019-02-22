@@ -160,9 +160,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Fighter.h" />
+    <ClInclude Include="FighterSelect.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="HillsideScene.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
