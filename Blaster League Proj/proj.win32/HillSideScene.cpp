@@ -45,7 +45,7 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
-	Vec2 gravity(0,-980);   //980
+	Vec2 gravity(0,-1700);   
 
 //-----------------------------------------updating cool down timer------------------
 	
@@ -64,7 +64,7 @@ void Hillside::update(float deltatime)
 			Chandy->position.y = 1501;
 		}
 		Chandy->position.y = Chandy->position.y + 0.01;
-		Chandy->velocity.y=1000;
+		Chandy->velocity.y=1500;
 
 		
 	}
@@ -157,7 +157,7 @@ void Hillside::update(float deltatime)
 			Opponent->position.y = 1501;
 		}
 		Opponent->position.y = Opponent->position.y + 0.01;
-		Opponent->velocity.y = 1000;
+		Opponent->velocity.y = 1500;
 
 	}
 
@@ -457,9 +457,6 @@ void Hillside::initKeyboardListener()
 			std::cout << "d Key Was Pressed!" << std::endl;
 			KeydPressed = true;
 		}
-
-
-
 
 
 

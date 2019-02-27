@@ -36,8 +36,8 @@ void Character::update(float deltaTime)
 	
 	if (IsBullet == false)
 	{
-		acceleration.clamp(Vec2(-1000, -1000), Vec2(1000, 1000));//limit the acceleration
-		velocity.clamp(Vec2(-1000, -1000), Vec2(1000, 1000));//limit the velocity
+		acceleration.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the acceleration
+		velocity.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the velocity
 	}
 	velocity += acceleration * deltaTime;
 	position = sprite->getPosition();
