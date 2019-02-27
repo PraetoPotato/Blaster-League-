@@ -73,6 +73,10 @@ void TitleScreen::initSprites()
 		this->addChild(Sprite, 1);
 	}
 
+	StartButton = new Character({ 2500,805 }, "Menu/StartButton.png");
+	this->addChild(StartButton->getSprite(), 2);
+
+
 	
 }
 

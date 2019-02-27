@@ -49,6 +49,7 @@ private:
 	Fighter *Chandy;
 	Fighter *Opponent;
 
+
 	//Projectiles
 	Character *ChandyCandy;
 	std::vector<Character*>ChandyCandies;
