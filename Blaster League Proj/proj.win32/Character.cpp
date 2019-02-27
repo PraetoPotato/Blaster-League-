@@ -33,6 +33,7 @@ void Character::update(float deltaTime)
 		
 		
 	}
+	
 	if (IsBullet == false)
 	{
 		acceleration.clamp(Vec2(-1000, -1000), Vec2(1000, 1000));//limit the acceleration

@@ -46,13 +46,13 @@ bool Hillside::init()
 void Hillside::update(float deltatime)
 {
 	Vec2 gravity(0,-980);   //980
-	/*
-	if (pressingA==true)
-	{
-	sprite->posit
-	}
-	*/
 
+//-----------------------------------------updating cool down timer------------------
+	if (Chandy->coolDowntimer >= 0.f) {
+		Chandy->coolDowntimer -= deltatime;
+
+
+	}
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
@@ -66,31 +66,25 @@ void Hillside::update(float deltatime)
 		}
 		Chandy->position.y = Chandy->position.y + 0.01;
 		Chandy->velocity.y=1000;
+
 		
 	}
 
 	if (KeyboardSpacePressed == true)
 	{
-		ChandyCandy= new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
-		ChandyCandy->IsBullet = true;
+		if (Chandy->coolDowntimer <= 0.f) {
+			// timer ran out; react here
+			ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
+			ChandyCandy->IsBullet = true;
 
-
-	
-
-		
-		ChandyCandy->velocity=(Vec2(500, 0));
-		ChandyCandies.push_back(ChandyCandy);
-		this->addChild(ChandyCandy->getSprite(),2);
-
-
-		
+			ChandyCandy->velocity = (Vec2(5000, 0));
+			ChandyCandies.push_back(ChandyCandy);
+			this->addChild(ChandyCandy->getSprite(), 2);
+			
+		}
 		
 		
 	}
-
-
-
-
 
 
 	if (KeydPressed == true)
@@ -150,10 +144,6 @@ void Hillside::update(float deltatime)
 
 
 
-		if (KeyboardSpacePressed == false)
-	{
-	ChandyCandy->IsBullet == false;
-	}
 	
 
 	//---------------------------------movement for the other fighter-------------------------------------------
@@ -171,11 +161,6 @@ void Hillside::update(float deltatime)
 		Opponent->velocity.y = 1000;
 
 	}
-
-
-
-
-
 
 
 /*	
@@ -256,14 +241,12 @@ void Hillside::update(float deltatime)
 
 
 
-
-
-
-
 	//-----------------------------gives the charcters gravity ----------------------------------------------
 	
 
 	Chandy->addForce(gravity);
+
+	//-----------------------------udate the state of everything on the scene------------------------------------
 	for (unsigned int i = 0; i < ChandyCandies.size(); i++)
 	{
 		//ChandyCandies[i]->addForce(gravity);
@@ -310,6 +293,7 @@ void Hillside::initSprites()
 
 	//Initialize the fighters
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
+	Chandy->coolDowntimer = 2;
 	Chandy->IsBullet=false;
 	this->addChild(Chandy->getSprite(), 3);
 

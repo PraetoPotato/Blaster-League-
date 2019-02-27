@@ -22,6 +22,7 @@ public:
 	Vec2 acceleration;
 	Vec2 velocity;
 	bool IsBullet;
+	float coolDowntimer;//cool down timer
 protected:
 	Sprite* sprite;
 

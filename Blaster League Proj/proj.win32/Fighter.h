@@ -8,11 +8,12 @@ class Fighter :public Character //this is derived from the character class
 public:
 	Fighter() = default;
 	Fighter(Vec2 position, std::string texturePath);
-	void addforce(Vec2 force);//adds force
-	float temporaryInvincibility;//The amount of time left for invincibility after you died
-	int lives;//the number of lives you have
+	//void addforce(Vec2 force);//adds force
+
 
 
 private:
-
+	float temporaryInvincibility;//The amount of time left for invincibility after you died
+	int lives;//the number of lives you have
+	
 };

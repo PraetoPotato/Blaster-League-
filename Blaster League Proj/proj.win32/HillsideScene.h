@@ -38,6 +38,10 @@ private:
 	bool KeysPressed;
 	bool KeydPressed;
 
+	//Specific Conditions
+	bool FirstShotfromPlayer1 = false;
+	bool FirstShotfromPlayer2 = false;
+
 	//Sprites 
 	Sprite *BG;
 	Character *Stage;
