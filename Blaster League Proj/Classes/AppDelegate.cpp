@@ -25,6 +25,7 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "HillSideScene.h"
+#include "TitleScreen.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -124,7 +125,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     /*auto scene = HelloWorld::createScene();*/
-	auto scene = Hillside::createScene();
+	auto scene = TitleScreen::createScene();
     // run
     director->runWithScene(scene);
 

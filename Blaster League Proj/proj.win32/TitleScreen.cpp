@@ -42,9 +42,6 @@ bool TitleScreen::init()
 	return true;
 }
 
-void TitleScreen::onExit()
-{
-}
 
 //main game loop for this scene, updates everything
 void TitleScreen::update(float deltatime)
