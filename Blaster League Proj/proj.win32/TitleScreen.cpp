@@ -42,9 +42,6 @@ bool TitleScreen::init()
 	return true;
 }
 
-void TitleScreen::onExit()
-{
-}
 
 //main game loop for this scene, updates everything
 void TitleScreen::update(float deltatime)
@@ -75,6 +72,10 @@ void TitleScreen::initSprites()
 		Sprite->setScale(0.4075);
 		this->addChild(Sprite, 1);
 	}
+
+	StartButton = new Character({ 2500,805 }, "Menu/StartButton.png");
+	this->addChild(StartButton->getSprite(), 2);
+
 
 	
 }

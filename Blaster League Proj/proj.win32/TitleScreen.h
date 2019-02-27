@@ -19,6 +19,8 @@ public:
 	void initSprites();
 	void initMouseListener();
 	void initKeyboardListener();
+
+	Character *StartButton;
 private:
 	//Engine
 	Director* director;
