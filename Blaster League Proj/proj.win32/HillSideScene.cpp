@@ -48,11 +48,10 @@ void Hillside::update(float deltatime)
 	Vec2 gravity(0,-980);   //980
 
 //-----------------------------------------updating cool down timer------------------
-	if (Chandy->coolDowntimer >= 0.f) {
-		Chandy->coolDowntimer -= deltatime;
+	
+	Chandy->coolDowntimer -= deltatime;
 
 
-	}
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
@@ -80,7 +79,7 @@ void Hillside::update(float deltatime)
 			ChandyCandy->velocity = (Vec2(5000, 0));
 			ChandyCandies.push_back(ChandyCandy);
 			this->addChild(ChandyCandy->getSprite(), 2);
-			
+			Chandy->coolDowntimer = 0.25;
 		}
 		
 		
@@ -293,7 +292,7 @@ void Hillside::initSprites()
 
 	//Initialize the fighters
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
-	Chandy->coolDowntimer = 2;
+	Chandy->coolDowntimer = 0.25;
 	Chandy->IsBullet=false;
 	this->addChild(Chandy->getSprite(), 3);
 
