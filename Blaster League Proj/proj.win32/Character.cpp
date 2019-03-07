@@ -26,18 +26,12 @@ void Character::load(Vec2 position, std::string texturePath)
 void Character::update(float deltaTime)
 {
 
-	if (position.y <= 1500)
-	{
-		acceleration.y = 0;
-		velocity.y = 0;
-		
-		
-	}
+	
 	
 	if (IsBullet == false)
 	{
 		acceleration.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the acceleration
-		velocity.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the velocity
+		velocity.clamp(Vec2(-2000, -2000), Vec2(2000, 2000));//limit the velocity
 	}
 	velocity += acceleration * deltaTime;
 	position = sprite->getPosition();
@@ -90,6 +84,17 @@ float Character::getPositionY()
 void Character::addForce(Vec2 force)
 {
 	acceleration += force;
+}
+
+bool Character::IsCollidingWith(Character* otherCharacter)
+{
+	Rect Rect1 = getSprite()->getBoundingBox();
+	Rect Rect2 = otherCharacter->getSprite()->getBoundingBox();
+	if (Rect1.intersectsRect(Rect2)==true)
+	{
+		return true;
+	}
+	return false;
 }
 
 Character::~Character()

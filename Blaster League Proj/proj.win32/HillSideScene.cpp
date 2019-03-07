@@ -32,6 +32,8 @@ bool Hillside::init()
 	//Init the sprites
 	initSprites();
 
+	//init hitboxes
+	initHitBoxes();
 	//Init the mouse/ keyboard listeners
 	initListeners();
 
@@ -55,6 +57,17 @@ void Hillside::update(float deltatime)
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
+	if (Chandy->IsCollidingWith(DisplayedStage) == true)
+	{
+		Chandy->acceleration.y = 0;
+		Chandy->velocity.y = 0;
+		gravity = Vec2(0, 0);
+	
+	}
+	if (DisplayedStage->getSprite()->getBoundingBox().getMinX() && Chandy->position.y <= 1500&& Chandy->IsCollidingWith(DisplayedStage) == true)
+	{
+
+	}
 
 	if (KeywPressed == true && Chandy->position.y <= 1500)
 	{
@@ -180,12 +193,12 @@ void Hillside::update(float deltatime)
 
 	if (KeyRightPressed == true)
 	{
-		Opponent->addForce(Vec2(500, 0));
+		Opponent->addForce(Vec2(1000, 0));
 
 	}
 	if (KeyLeftPressed == true)
 	{
-		Opponent->addForce(Vec2(-500, 0));
+		Opponent->addForce(Vec2(-1000, 0));
 
 	}
 
@@ -299,6 +312,11 @@ void Hillside::initSprites()
 	Opponent = new Fighter({ 2500, 2000 }, "Fighters/Chandy Sprite2.png");
 	Opponent->IsBullet = false;
 	this->addChild(Opponent->getSprite(), 3);
+}
+
+void Hillside::initHitBoxes()
+{
+	
 }
 
 void Hillside::initMouseListener()

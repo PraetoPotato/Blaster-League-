@@ -18,6 +18,7 @@ public:
 	float getPositionX();
 	float getPositionY();
 	void addForce(Vec2 force);
+	bool IsCollidingWith(Character* otherCharacter);
 	Vec2 position;
 	Vec2 acceleration;
 	Vec2 velocity;

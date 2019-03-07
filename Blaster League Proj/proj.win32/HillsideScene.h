@@ -18,6 +18,7 @@ public:
 
 	void initListeners();
 	void initSprites();
+	void initHitBoxes();
 	void initMouseListener();
 	void initKeyboardListener();
 private:
@@ -48,6 +49,10 @@ private:
 	Character *DisplayedStage;
 	Fighter *Chandy;
 	Fighter *Opponent;
+
+	//Hitboxes
+	Vec2 PositionRect;
+	DrawNode *Node;
 
 
 	//Projectiles
