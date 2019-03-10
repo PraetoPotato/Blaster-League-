@@ -28,7 +28,7 @@ void Character::update(float deltaTime)
 
 	
 	
-	if (IsBullet == false)
+	if (IsBullet == false||isHit==false)
 	{
 		acceleration.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the acceleration
 		velocity.clamp(Vec2(-2000, -2000), Vec2(2000, 2000));//limit the velocity
@@ -122,6 +122,7 @@ float Character::getPositionY()
 {
 	return position.y;
 }
+
 
 void Character::addForce(Vec2 force)
 {

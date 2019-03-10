@@ -21,10 +21,12 @@ public:
 	float getPositionY();
 	void addForce(Vec2 force);
 	bool IsCollidingWith(Character* otherCharacter);
+	bool isHit;
 	Vec2 position;
 	Vec2 acceleration;
 	Vec2 velocity;
 	bool IsBullet;
+	float hitStunTimer;
 	float coolDowntimer;//cool down timer
 protected:
 	Sprite* sprite;

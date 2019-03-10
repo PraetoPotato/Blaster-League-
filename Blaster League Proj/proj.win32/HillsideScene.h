@@ -14,7 +14,7 @@ public:
 	virtual bool init();
 	virtual void onExit();
 	void update(float deltaTime);
-	void loseLife();
+	void loseLifeP1();
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
@@ -39,6 +39,7 @@ private:
 	bool KeywPressed;
 	bool KeysPressed;
 	bool KeydPressed;
+
 
 	//Specific Conditions
 	bool FirstShotfromPlayer1 = false;

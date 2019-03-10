@@ -61,36 +61,80 @@ void Hillside::update(float deltatime)
 //-----------------------------------------updating cool down timer------------------
 	
 	Chandy->coolDowntimer -= deltatime;
-
-
-
-//-----------------------------------------movement for first fighter-------------------------------------------------
-
+//------------------------------------------Check for Collisions--------------------------------------
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
 		Chandy->velocity.y = 0;
 		Chandy->acceleration.y = 0;
-		gravity = Vec2(0, 0);
-	/*	if (DisplayedStage->getSprite()->getBoundingBox().getMaxY()-5 > Chandy->getSprite()->getBoundingBox().getMinY() )
-		{
-			Chandy->velocity.x = 0;
-			Chandy->acceleration.x = 0;
-			gravity = Vec2(0, -1700);
-		}*/
 
+		/*	if (DisplayedStage->getSprite()->getBoundingBox().getMaxY()-5 > Chandy->getSprite()->getBoundingBox().getMinY() )
+			{
+				Chandy->velocity.x = 0;
+				Chandy->acceleration.x = 0;
+				gravity = Vec2(0, -1700);
+			}*/
+
+
+
+	}
+
+	if (Opponent->IsCollidingWith(DisplayedStage) == true)
+	{
+		Opponent->velocity.y = 0;
+		Opponent->acceleration.y = 0;
+
+		/*	if (DisplayedStage->getSprite()->getBoundingBox().getMaxY()-5 > Chandy->getSprite()->getBoundingBox().getMinY() )
+			{
+				Chandy->velocity.x = 0;
+				Chandy->acceleration.x = 0;
+				gravity = Vec2(0, -1700);
+			}*/
+
+
+
+	}
+
+	for (int i = 0; i < ChandyCandies.size(); i++)
+	{
+		if (ChandyCandies[i]->IsCollidingWith(Opponent)==true)
+		{
 	
+
+			if (Chandy->position.x >= Opponent->position.x)
+			{
+				Opponent->isHit = true;
+				Opponent->velocity = (Vec2(-1000, 0));
+				ChandyCandies[i]->getSprite()->removeFromParent();
+				delete ChandyCandies[i];
+				ChandyCandies.erase(ChandyCandies.begin() + i);
+			
+
+			}
+			Opponent->isHit = true;
+			Opponent->velocity = (Vec2(1000, 0));
+			ChandyCandies[i]->getSprite()->removeFromParent();
+			delete ChandyCandies[i];
+			ChandyCandies.erase(ChandyCandies.begin() + i);
+			
+
+
+		}
 	
+		else
+		{
+			Opponent->isHit = false;
+
+		}
 	}
 
 
-	if (KeywPressed == true && (Chandy->position.y <= 1500 && Chandy->position.y >= 1350))         
-	{
+//-----------------------------------------movement for first fighter-------------------------------------------------
+
 	
-		if (Chandy->position.y <= 1500)
-		{
-			Chandy->position.y = 1501;
-		}
-		Chandy->position.y = Chandy->position.y + 0.01;
+
+
+	if (KeywPressed == true )         
+	{
 		Chandy->velocity.y=1500;
 
 		
@@ -177,7 +221,8 @@ void Hillside::update(float deltatime)
 
 	//---------------------------------movement for the other fighter-------------------------------------------
 
-
+	
+	
 
 	if (KeyUpPressed == true && Opponent->position.y <= 1500)
 	{
@@ -227,13 +272,14 @@ void Hillside::update(float deltatime)
 	if (KeyRightPressed == false)
 	{
 		//Drastically slow the movement until you come to a stop if you let go
-		if (Opponent->acceleration.x != 0)
+		if (Opponent->acceleration.x != 0 && Opponent->isHit == false)
 		{
 			Opponent->acceleration.x -= 10000;
 
 		}
-		if (Opponent->velocity.x <= 0 && KeyLeftPressed == false && KeyUpPressed == true)
+		if (Opponent->velocity.x <= 0 && KeyLeftPressed == false && KeyUpPressed == true && Opponent->isHit == false)
 		{
+			
 			Opponent->velocity.x = 0;
 			Opponent->acceleration.x = 0;
 			/*Chandy->position.x = Chandy->getPositionX();*/
@@ -244,7 +290,7 @@ void Hillside::update(float deltatime)
 	if (KeyLeftPressed == false)
 	{
 		//Drastically slow the movement until you come to a stop if you let go
-		if (Opponent->acceleration.x != 0)
+		if (Opponent->acceleration.x != 0 && Opponent->isHit == false)
 		{
 			Opponent->acceleration.x += 10000;
 
@@ -257,7 +303,7 @@ void Hillside::update(float deltatime)
 		}
 
 	}
-	if (KeyLeftPressed == false && KeyRightPressed == false && Opponent->position.y <= 1500)//stops movement for chandy if you let go of the a or d
+	if (KeyLeftPressed == false && KeyRightPressed == false && Opponent->getSprite()->getBoundingBox().getMinY() <= DisplayedStage->getSprite()->getBoundingBox().getMaxY()&& Opponent->isHit == false)//stops movement for chandy if you let go of the a or d
 	{
 		Opponent->velocity.x = 0;
 		Opponent->acceleration.x = 0;
@@ -272,8 +318,16 @@ void Hillside::update(float deltatime)
 
 	//-----------------------------gives the charcters gravity ----------------------------------------------
 	
+	if (Chandy->IsCollidingWith(DisplayedStage) == false)
+	{
+		Chandy->addForce(gravity);
+	}
 
-	Chandy->addForce(gravity);
+	if (Opponent->IsCollidingWith(DisplayedStage) == false)
+	{
+		Opponent->addForce(gravity);
+	}
+	
 
 	//-----------------------------udate the state of everything on the scene------------------------------------
 	for (unsigned int i = 0; i < ChandyCandies.size(); i++)
@@ -285,7 +339,7 @@ void Hillside::update(float deltatime)
 	}
 	Chandy->update(deltatime);
 
-	Opponent->addForce(gravity);
+	
 	Opponent->update(deltatime);
 
 	//-------Update Character position when they fall off stage
@@ -300,7 +354,7 @@ void Hillside::update(float deltatime)
 	if (Chandy->position.y < 0)
 	{
 		
-		loseLife();
+		loseLifeP1();
 		
 	}
 
@@ -322,15 +376,16 @@ void Hillside::update(float deltatime)
 
 }
 
-int lives = 3;
+int P1Lives = 3;
+int P2Lives = 3;
 
-void Hillside::loseLife()
+void Hillside::loseLifeP1()
 {
 
 
-	lives--;
+	P1Lives--;
 
-	if (lives == 2)
+	if (P1Lives == 2)
 	{
 		Chandy->position.y = 2000;
 		Chandy->getSprite()->setPositionY(2000);
@@ -342,7 +397,7 @@ void Hillside::loseLife()
 	}
 
 	
-	if (lives == 1)
+	if (P1Lives == 1)
 	{
 		Chandy->position.y = 2000;
 		Chandy->getSprite()->setPositionY(2000);
@@ -353,7 +408,7 @@ void Hillside::loseLife()
 		this->addChild(One->getSprite(), 3);
 	}
 
-	if (lives == 0)
+	if (P1Lives == 0)
 	{
 		One->getSprite()->removeFromParent();
 		Zero = new Character({ 520,2770 }, "Fighters/0.png");
@@ -410,10 +465,12 @@ void Hillside::initSprites()
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
 	Chandy->coolDowntimer = 0.25;
 	Chandy->IsBullet=false;
+	Chandy->isHit = false;
 	this->addChild(Chandy->getSprite(), 3);
 
 	Opponent = new Fighter({ 2500, 2000 }, "Fighters/Chandy Sprite2.png");
 	Opponent->IsBullet = false;
+	Opponent->isHit = false;
 	this->addChild(Opponent->getSprite(), 3);
 }
 
