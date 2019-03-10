@@ -1,5 +1,11 @@
 #include "HillsideScene.h"
 #include <iostream>
+
+
+
+
+
+
 cocos2d::Scene * Hillside::createScene()
 {
 
@@ -47,6 +53,9 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
+
+
+	
 	Vec2 gravity(0,-1700);   
 
 //-----------------------------------------updating cool down timer------------------
@@ -61,17 +70,23 @@ void Hillside::update(float deltatime)
 	{
 		Chandy->acceleration.y = 0;
 		Chandy->velocity.y = 0;
+		//Chandy->acceleration.x = 0;
+		//Chandy->velocity.x = 0;
 		gravity = Vec2(0, 0);
 	
 	}
+
+
+
+
 	if (DisplayedStage->getSprite()->getBoundingBox().getMinX() && Chandy->position.y <= 1500&& Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
 
 	}
 
-	if (KeywPressed == true && Chandy->position.y <= 1500)
+	if (KeywPressed == true && (Chandy->position.y <= 1500 && Chandy->position.y >= 1350))         
 	{
-		
+	
 		if (Chandy->position.y <= 1500)
 		{
 			Chandy->position.y = 1501;
@@ -93,6 +108,9 @@ void Hillside::update(float deltatime)
 			ChandyCandies.push_back(ChandyCandy);
 			this->addChild(ChandyCandy->getSprite(), 2);
 			Chandy->coolDowntimer = 0.25;
+			
+			//Two = new Character({ 520,2770 }, "Fighters/2.png");
+			//this->addChild(Two->getSprite(), 3);
 		}
 		
 		
@@ -270,7 +288,82 @@ void Hillside::update(float deltatime)
 
 	Opponent->addForce(gravity);
 	Opponent->update(deltatime);
+
+	//-------Update Character position when they fall off stage
+
+
+
+	//------updates lives
+
+
+	
+
+	if (Chandy->position.y < 0)
+	{
+		
+		loseLife();
+		
+	}
+
+		
+
+
+/*
+	
+
+
+
+	if (lives == 1)
+	{
+		One = new Character({ 520,2770 }, "Fighters/1.png");
+		this->addChild(One->getSprite(), 3);
+	}
+	*/
+
+
 }
+
+int lives = 3;
+
+void Hillside::loseLife()
+{
+
+
+	lives--;
+
+	if (lives == 2)
+	{
+		Chandy->position.y = 2000;
+		Chandy->getSprite()->setPositionY(2000);
+		Chandy->position.x = 1500;
+		Chandy->getSprite()->setPositionX(1500);
+		Three->getSprite()->removeFromParent();
+		Two = new Character({ 520,2770 }, "Fighters/2.png");
+		this->addChild(Two->getSprite(), 3);
+	}
+
+	
+	if (lives == 1)
+	{
+		Chandy->position.y = 2000;
+		Chandy->getSprite()->setPositionY(2000);
+		Chandy->position.x = 1500;
+		Chandy->getSprite()->setPositionX(1500);
+		Two->getSprite()->removeFromParent();
+		One = new Character({ 520,2770 }, "Fighters/1.png");
+		this->addChild(One->getSprite(), 3);
+	}
+
+	if (lives == 0)
+	{
+		One->getSprite()->removeFromParent();
+		Zero = new Character({ 520,2770 }, "Fighters/0.png");
+		this->addChild(Zero->getSprite(), 3);
+	}
+
+	
+}
+
 
 void Hillside::initListeners()
 {
@@ -302,6 +395,17 @@ void Hillside::initSprites()
 	DisplayedStage= new Character({ 2500,805 }, "Platforms/Platform 2.png");
 	this->addChild(DisplayedStage->getSprite(), 2);
 
+	//Displaying lives     
+	ChandyLogo = new Character({ 200,2700 }, "Fighters/Lifesymbol.png");
+	this->addChild(ChandyLogo->getSprite(), 3);
+
+	x = new Character({ 350,2760 }, "Fighters/x.png");
+	this->addChild(x->getSprite(), 3);
+
+	Three = new Character({ 520,2770 }, "Fighters/3.png");
+	this->addChild(Three->getSprite(), 3);
+
+	
 
 	//Initialize the fighters
 	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");

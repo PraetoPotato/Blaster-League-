@@ -14,6 +14,7 @@ public:
 	virtual bool init();
 	virtual void onExit();
 	void update(float deltaTime);
+	void loseLife();
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
@@ -47,6 +48,12 @@ private:
 	Sprite *BG;
 	Character *Stage;
 	Character *DisplayedStage;
+	Character *ChandyLogo;
+	Character *x;
+	Character *Three;
+	Character *Two;
+	Character *One;
+	Character *Zero;
 	Fighter *Chandy;
 	Fighter *Opponent;
 
