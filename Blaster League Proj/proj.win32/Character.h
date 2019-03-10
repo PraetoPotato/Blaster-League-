@@ -15,6 +15,8 @@ public:
 	void setAcceleration(Vec2 accel);
 	void setPosition(Vec2 pos);
 	Vec2 getPosition();
+	float getOverlapX(Character* otherCharacter);
+	float getOverlapY(Character* otherCharacter);
 	float getPositionX();
 	float getPositionY();
 	void addForce(Vec2 force);

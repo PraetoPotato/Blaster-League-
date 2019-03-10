@@ -68,21 +68,20 @@ void Hillside::update(float deltatime)
 
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
-		Chandy->acceleration.y = 0;
 		Chandy->velocity.y = 0;
-		//Chandy->acceleration.x = 0;
-		//Chandy->velocity.x = 0;
+		Chandy->acceleration.y = 0;
 		gravity = Vec2(0, 0);
+	/*	if (DisplayedStage->getSprite()->getBoundingBox().getMaxY()-5 > Chandy->getSprite()->getBoundingBox().getMinY() )
+		{
+			Chandy->velocity.x = 0;
+			Chandy->acceleration.x = 0;
+			gravity = Vec2(0, -1700);
+		}*/
+
+	
 	
 	}
 
-
-
-
-	if (DisplayedStage->getSprite()->getBoundingBox().getMinX() && Chandy->position.y <= 1500&& Chandy->IsCollidingWith(DisplayedStage) == true)
-	{
-
-	}
 
 	if (KeywPressed == true && (Chandy->position.y <= 1500 && Chandy->position.y >= 1350))         
 	{

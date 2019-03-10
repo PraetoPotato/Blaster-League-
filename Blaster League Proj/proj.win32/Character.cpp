@@ -71,6 +71,48 @@ Vec2 Character::getPosition() {
 	return sprite->getPosition();
 }
 
+float Character::getOverlapX(Character * otherCharacter)
+{
+	//The min and max values
+	float CharacterMinX, CharacterMaxX, OtherCharacterMinX, OtherCharacterMaxX;
+	CharacterMinX = getSprite()->getBoundingBox().getMinX();
+	CharacterMaxX = getSprite()->getBoundingBox().getMaxX();
+	OtherCharacterMinX = otherCharacter->getSprite()->getBoundingBox().getMinX();
+	OtherCharacterMaxX = otherCharacter->getSprite()->getBoundingBox().getMaxX();
+	float midX=otherCharacter->getSprite()->getBoundingBox().getMidX();
+
+	if (CharacterMaxX < OtherCharacterMinX)
+	{
+		return midX - CharacterMaxX;
+	}
+
+	if (CharacterMinX < OtherCharacterMaxX)
+	{
+		return CharacterMaxX-midX;
+	}
+}
+
+
+float Character::getOverlapY(Character * otherCharacter)
+{
+	float CharacterMinY, CharacterMaxY, OtherCharacterMinY, OtherCharacterMaxY;
+	CharacterMinY = getSprite()->getBoundingBox().getMinY();
+	CharacterMaxY = getSprite()->getBoundingBox().getMaxY();
+	OtherCharacterMinY = otherCharacter->getSprite()->getBoundingBox().getMinY();
+	OtherCharacterMaxY = otherCharacter->getSprite()->getBoundingBox().getMaxY();
+	float midY = otherCharacter->getSprite()->getBoundingBox().getMidY();
+
+	if (CharacterMaxY < OtherCharacterMinY)
+	{
+		return midY - CharacterMaxY;
+	}
+
+	if (CharacterMinY < OtherCharacterMaxY)
+	{
+		return CharacterMaxY- midY;
+	}
+}
+
 float Character::getPositionX()
 {
 	return position.x;
