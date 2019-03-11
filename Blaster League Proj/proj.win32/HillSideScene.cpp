@@ -61,6 +61,7 @@ void Hillside::update(float deltatime)
 //-----------------------------------------updating cool down timer------------------
 	
 	Chandy->coolDowntimer -= deltatime;
+	Opponent->coolDowntimer -= deltatime;
 //------------------------------------------Check for Collisions--------------------------------------
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
@@ -128,14 +129,29 @@ void Hillside::update(float deltatime)
 	}
 
 
+	
+
+	
+
+
+
+
+
+
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
 	
 
 
-	if (KeywPressed == true )         
+	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 1370)
 	{
-		Chandy->velocity.y=1500;
+
+		if (Chandy->position.y <= 1500)
+		{
+			Chandy->position.y = 1501;
+		}
+		Chandy->position.y = Chandy->position.y + 0.01;
+		Chandy->velocity.y = 1500;
 
 		
 	}
@@ -224,7 +240,7 @@ void Hillside::update(float deltatime)
 	
 	
 
-	if (KeyUpPressed == true && Opponent->position.y <= 1500)
+	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 1370)
 	{
 
 		if (Opponent->position.y <= 1500)
@@ -337,6 +353,17 @@ void Hillside::update(float deltatime)
 
 
 	}
+
+
+	for (unsigned int i = 0; i < OpponentCandies.size(); i++)
+	{
+		//ChandyCandies[i]->addForce(gravity);
+		OpponentCandies[i]->update(deltatime);
+
+
+	}
+
+
 	Chandy->update(deltatime);
 
 	
@@ -359,7 +386,12 @@ void Hillside::update(float deltatime)
 	}
 
 		
+	if (Opponent->position.y < 0)
+	{
 
+		loseLifeP2();
+
+	}
 
 /*
 	
@@ -418,6 +450,41 @@ void Hillside::loseLifeP1()
 	
 }
 
+void Hillside::loseLifeP2()
+{
+	P2Lives--;
+
+	if (P2Lives == 2)
+	{
+		Opponent->position.y = 2000;
+		Opponent->getSprite()->setPositionY(2000);
+		Opponent->position.x = 2500;
+		Opponent->getSprite()->setPositionX(2500);
+		Three_->getSprite()->removeFromParent();
+		Two_ = new Character({ 4820,2770 }, "Fighters/2.png");
+		this->addChild(Two_->getSprite(), 3);
+	}
+
+
+	if (P2Lives == 1)
+	{
+		Opponent->position.y = 2000;
+		Opponent->getSprite()->setPositionY(2000);
+		Opponent->position.x = 2500;
+		Opponent->getSprite()->setPositionX(2500);
+		Two_->getSprite()->removeFromParent();
+		One_ = new Character({ 4820,2770 }, "Fighters/1.png");
+		this->addChild(One_->getSprite(), 3);
+	}
+
+	if (P2Lives == 0)
+	{
+		One_->getSprite()->removeFromParent();
+		Zero_ = new Character({ 4820,2770 }, "Fighters/0.png");
+		this->addChild(Zero_->getSprite(), 3);
+	}
+}
+
 
 void Hillside::initListeners()
 {
@@ -458,6 +525,16 @@ void Hillside::initSprites()
 
 	Three = new Character({ 520,2770 }, "Fighters/3.png");
 	this->addChild(Three->getSprite(), 3);
+
+
+	OpponentLogo = new Character({ 4470,2700 }, "Fighters/Lifesymbol2.png");
+	this->addChild(OpponentLogo->getSprite(), 3);
+
+	x_ = new Character({ 4650,2760 }, "Fighters/x.png");
+	this->addChild(x_->getSprite(), 3);
+
+	Three_ = new Character({ 4820,2770 }, "Fighters/3.png");
+	this->addChild(Three_->getSprite(), 3);
 
 	
 

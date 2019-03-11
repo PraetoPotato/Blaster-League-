@@ -15,6 +15,7 @@ public:
 	virtual void onExit();
 	void update(float deltaTime);
 	void loseLifeP1();
+	void loseLifeP2();
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
@@ -39,6 +40,7 @@ private:
 	bool KeywPressed;
 	bool KeysPressed;
 	bool KeydPressed;
+	bool KeylPressed;
 
 
 	//Specific Conditions
@@ -50,11 +52,17 @@ private:
 	Character *Stage;
 	Character *DisplayedStage;
 	Character *ChandyLogo;
+	Character *OpponentLogo;
 	Character *x;
 	Character *Three;
 	Character *Two;
 	Character *One;
 	Character *Zero;
+	Character *x_;
+	Character *Three_;
+	Character *Two_;
+	Character *One_;
+	Character *Zero_;
 	Fighter *Chandy;
 	Fighter *Opponent;
 
@@ -66,5 +74,8 @@ private:
 	//Projectiles
 	Character *ChandyCandy;
 	std::vector<Character*>ChandyCandies;
+
+	Character *OpponentCandy;
+	std::vector<Character*>OpponentCandies;
 	
 };
