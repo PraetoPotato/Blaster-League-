@@ -62,6 +62,17 @@ void Hillside::update(float deltatime)
 	
 	Chandy->coolDowntimer -= deltatime;
 	Opponent->coolDowntimer -= deltatime;
+	Opponent->coolDowntimer2 -= deltatime;
+
+	if (Opponent->coolDowntimer <= 0)
+	{
+		Opponent->isHit = false;
+	}
+
+	if (Opponent->coolDowntimer2 <= 0)
+	{
+
+	}
 //------------------------------------------Check for Collisions--------------------------------------
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
@@ -99,36 +110,44 @@ void Hillside::update(float deltatime)
 	{
 		if (ChandyCandies[i]->IsCollidingWith(Opponent)==true)
 		{
-	
-
-			if (Chandy->position.x >= Opponent->position.x)
+			if (ChandyCandies[i]->fromOtherCharacter == false)
 			{
-				Opponent->isHit = true;
-				Opponent->velocity = (Vec2(-1000, 0));
-				ChandyCandies[i]->getSprite()->removeFromParent();
-				delete ChandyCandies[i];
-				ChandyCandies.erase(ChandyCandies.begin() + i);
-			
+				if (Chandy->position.x >= Opponent->position.x)
+				{
+					/*KeyRightPressed = true;
+					Opponent->velocity = (Vec2(-1000, 0));*/
+					ChandyCandies[i]->getSprite()->removeFromParent();
+					delete ChandyCandies[i];
+					ChandyCandies.erase(ChandyCandies.begin() + i);
+
+
+
+				}
+				else
+				{
+					Opponent->isHit = true;
+					Opponent->coolDowntimer = 0.3;
+					Opponent->velocity = (Vec2(750, 0));
+					ChandyCandies[i]->getSprite()->removeFromParent();
+					delete ChandyCandies[i];
+					ChandyCandies.erase(ChandyCandies.begin() + i);
+				}
+			}
+
+			else
+			{
 
 			}
-			Opponent->isHit = true;
-			Opponent->velocity = (Vec2(1000, 0));
-			ChandyCandies[i]->getSprite()->removeFromParent();
-			delete ChandyCandies[i];
-			ChandyCandies.erase(ChandyCandies.begin() + i);
+		
 			
 
 
 		}
 	
-		else
-		{
-			Opponent->isHit = false;
 
-		}
 	}
-
-
+	
+	
 	
 
 	
@@ -162,7 +181,7 @@ void Hillside::update(float deltatime)
 			// timer ran out; react here
 			ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
 			ChandyCandy->IsBullet = true;
-
+			ChandyCandy->fromOtherCharacter = false;
 			ChandyCandy->velocity = (Vec2(5000, 0));
 			ChandyCandies.push_back(ChandyCandy);
 			this->addChild(ChandyCandy->getSprite(), 2);
@@ -305,18 +324,6 @@ void Hillside::update(float deltatime)
 	}
 	if (KeyLeftPressed == false)
 	{
-		//Drastically slow the movement until you come to a stop if you let go
-		if (Opponent->acceleration.x != 0 && Opponent->isHit == false)
-		{
-			Opponent->acceleration.x += 10000;
-
-		}
-		if (Opponent->velocity.x >= 0 && KeyRightPressed == false && KeyUpPressed == true)
-		{
-			Opponent->velocity.x = 0;
-			Opponent->acceleration.x = 0;
-			Opponent->position.x = Opponent->getPositionX();
-		}
 
 	}
 	if (KeyLeftPressed == false && KeyRightPressed == false && Opponent->getSprite()->getBoundingBox().getMinY() <= DisplayedStage->getSprite()->getBoundingBox().getMaxY()&& Opponent->isHit == false)//stops movement for chandy if you let go of the a or d
@@ -326,7 +333,23 @@ void Hillside::update(float deltatime)
 	}
 
 
+	if (KeyEnterPressed == true)
+	{
+		if (Opponent->coolDowntimer2 <= 0)
+		{
+			// timer ran out; react here
+			ChandyCandy = new Character({ Opponent->position.x,Opponent->position.y }, "Fighters/PlaceHolder.png");
+			ChandyCandy->IsBullet = true;
+			ChandyCandy->fromOtherCharacter = true;
+			ChandyCandy->velocity = (Vec2(-5000, 0));
+			ChandyCandies.push_back(ChandyCandy);
+			this->addChild(ChandyCandy->getSprite(), 2);
+			Opponent->coolDowntimer2 = 0.25;
 
+			//Two = new Character({ 520,2770 }, "Fighters/2.png");
+			//this->addChild(Two->getSprite(), 3);
+		}
+	}
 
 
 
@@ -362,6 +385,7 @@ void Hillside::update(float deltatime)
 
 
 	}
+//----------------------Hitstun-ish------------------------------------------
 
 
 	Chandy->update(deltatime);
@@ -713,7 +737,12 @@ void Hillside::initKeyboardListener()
 			KeydPressed = true;
 		}
 
+		if (keyCode == EventKeyboard::KeyCode::KEY_ENTER)
+		{
+			std::cout << "Space Bar Was Released!" << std::endl;
+			KeyEnterPressed = true;
 
+		}
 
 
 	};
@@ -782,6 +811,14 @@ void Hillside::initKeyboardListener()
 		{
 			std::cout << "d Key Was Released!" << std::endl;
 			KeydPressed = false;
+		}
+
+		// If Statement for Enter Pressed
+		if (keyCode == EventKeyboard::KeyCode::KEY_ENTER)
+		{
+			std::cout << "Space Bar Was Released!" << std::endl;
+			KeyEnterPressed = false;
+
 		}
 	};
 

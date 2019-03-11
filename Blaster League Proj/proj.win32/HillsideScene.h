@@ -36,6 +36,7 @@ private:
 	bool KeyDownPressed;
 	bool KeyLeftPressed;
 	bool KeyRightPressed;
+	bool KeyEnterPressed;
 	bool KeyaPressed;
 	bool KeywPressed;
 	bool KeysPressed;
