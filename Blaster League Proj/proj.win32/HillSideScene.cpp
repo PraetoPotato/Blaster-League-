@@ -71,20 +71,13 @@ void Hillside::update(float deltatime)
 
 	if (Opponent->coolDowntimer2 <= 0)
 	{
-
+		Chandy->isHit = false;
 	}
 //------------------------------------------Check for Collisions--------------------------------------
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
 		Chandy->velocity.y = 0;
 		Chandy->acceleration.y = 0;
-
-		/*	if (DisplayedStage->getSprite()->getBoundingBox().getMaxY()-5 > Chandy->getSprite()->getBoundingBox().getMinY() )
-			{
-				Chandy->velocity.x = 0;
-				Chandy->acceleration.x = 0;
-				gravity = Vec2(0, -1700);
-			}*/
 
 
 
@@ -95,72 +88,62 @@ void Hillside::update(float deltatime)
 		Opponent->velocity.y = 0;
 		Opponent->acceleration.y = 0;
 
-		/*	if (DisplayedStage->getSprite()->getBoundingBox().getMaxY()-5 > Chandy->getSprite()->getBoundingBox().getMinY() )
-			{
-				Chandy->velocity.x = 0;
-				Chandy->acceleration.x = 0;
-				gravity = Vec2(0, -1700);
-			}*/
-
-
 
 	}
+
+
+	
+//----------------------------------------------Bullets------------------------------
+	
+	//add gravity to each bullet
+	for (int i = 0; i < ChandyCandies.size(); i++)
+	{
+		ChandyCandies[i]->addForce(gravity);
+
+	}
+
+	for (int i = 0; i < OpponentCandies.size(); i++)
+	{
+		OpponentCandies[i]->addForce(gravity);
+
+	}
+
 
 	for (int i = 0; i < ChandyCandies.size(); i++)
 	{
-		if (ChandyCandies[i]->IsCollidingWith(Opponent)==true)
+
+		if (ChandyCandies[i]->IsCollidingWith(Opponent) == true)
 		{
-			if (ChandyCandies[i]->fromOtherCharacter == false)
-			{
-				if (Chandy->position.x >= Opponent->position.x)
-				{
-					/*KeyRightPressed = true;
-					Opponent->velocity = (Vec2(-1000, 0));*/
-					ChandyCandies[i]->getSprite()->removeFromParent();
-					delete ChandyCandies[i];
-					ChandyCandies.erase(ChandyCandies.begin() + i);
-
-
-
-				}
-				else
-				{
-					Opponent->isHit = true;
-					Opponent->coolDowntimer = 0.3;
-					Opponent->velocity = (Vec2(750, 0));
-					ChandyCandies[i]->getSprite()->removeFromParent();
-					delete ChandyCandies[i];
-					ChandyCandies.erase(ChandyCandies.begin() + i);
-				}
-			}
-
-			else
-			{
-
-			}
-		
-			
-
+			Opponent->isHit = true;
+			Opponent->coolDowntimer = 0.3;
+			Opponent->velocity = (Vec2(1500, 0));
+			ChandyCandies[i]->getSprite()->removeFromParent();
+			delete ChandyCandies[i];
+			ChandyCandies.erase(ChandyCandies.begin() + i);
 
 		}
-	
 
 	}
-	
-	
-	
+
+	for (int i = 0; i < OpponentCandies.size(); i++)
+	{
+
+		if (OpponentCandies[i]->IsCollidingWith(Chandy) == true)
+		{
+			Chandy->isHit = true;
+			Chandy->coolDowntimer2 = 0.3;
+			Chandy->velocity = (Vec2(-1500, 0));
+			OpponentCandies[i]->getSprite()->removeFromParent();
+			delete OpponentCandies[i];
+			OpponentCandies.erase(OpponentCandies.begin() + i);
+
+		}
+
+	}
 
 	
-
-
-
-
-
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
-
-	
-
 
 	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 1370)
 	{
@@ -185,10 +168,8 @@ void Hillside::update(float deltatime)
 			ChandyCandy->velocity = (Vec2(5000, 0));
 			ChandyCandies.push_back(ChandyCandy);
 			this->addChild(ChandyCandy->getSprite(), 2);
-			Chandy->coolDowntimer = 0.25;
+			Chandy->coolDowntimer = 0.5;
 			
-			//Two = new Character({ 520,2770 }, "Fighters/2.png");
-			//this->addChild(Two->getSprite(), 3);
 		}
 		
 		
@@ -214,12 +195,13 @@ void Hillside::update(float deltatime)
 	if (KeydPressed == false)
 	{
 		//Drastically slow the movement until you come to a stop if you let go
-		if (Chandy->acceleration.x != 0)
+		if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
 		{
+			Opponent->velocity.x = 0;
 			Chandy->acceleration.x -= 10000;
 			
 		}
-		if (Chandy->velocity.x<=0&&KeyaPressed==false&& KeywPressed == true)
+		if (Chandy->velocity.x<=0&&KeyaPressed==false&& Chandy->isHit == false)
 		{
 			Chandy->velocity.x = 0;
 			Chandy->acceleration.x = 0;
@@ -231,20 +213,20 @@ void Hillside::update(float deltatime)
 	if (KeyaPressed == false)
 	{
 		//Drastically slow the movement until you come to a stop if you let go
-		if (Chandy->acceleration.x != 0)
+		if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
 		{
 			Chandy->acceleration.x += 10000;
 
 		}
-		if (Chandy->velocity.x >= 0&& KeydPressed == false&&KeywPressed==true)
+		if (Chandy->velocity.x >= 0&& KeydPressed == false&&KeywPressed==true&& Chandy->isHit == false)
 		{
 			Chandy->velocity.x = 0;
 			Chandy->acceleration.x = 0;
-			Chandy->position.x = Chandy->getPositionX();
+
 		}
 
 	}
-	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 1500)//stops movement for chandy if you let go of the a or d
+	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 1500 && Chandy->isHit == false)//stops movement for chandy if you let go of the a or d
 	{
 		Chandy->velocity.x = 0;
 		Chandy->acceleration.x = 0;
@@ -272,30 +254,14 @@ void Hillside::update(float deltatime)
 	}
 
 
-/*	
-	if (KeyboardSpacePressed == true)
-	{
-		ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
-		ChandyCandy->IsBullet = true;
-		ChandyCandy->velocity = (Vec2(10000, 0));
-		ChandyCandies.push_back(ChandyCandy);
-		this->addChild(ChandyCandy->getSprite(), 2);
-
-	}
-	
-
-
-	*/
-
-
 	if (KeyRightPressed == true)
 	{
-		Opponent->addForce(Vec2(1000, 0));
+		Opponent->addForce(Vec2(500, 0));
 
 	}
 	if (KeyLeftPressed == true)
 	{
-		Opponent->addForce(Vec2(-1000, 0));
+		Opponent->addForce(Vec2(-500, 0));
 
 	}
 
@@ -304,28 +270,20 @@ void Hillside::update(float deltatime)
 		Opponent->addForce(Vec2(0, -900));
 
 	}
-	if (KeyRightPressed == false)
-	{
-		//Drastically slow the movement until you come to a stop if you let go
-		if (Opponent->acceleration.x != 0 && Opponent->isHit == false)
-		{
-			Opponent->acceleration.x -= 10000;
-
-		}
-		if (Opponent->velocity.x <= 0 && KeyLeftPressed == false && KeyUpPressed == true && Opponent->isHit == false)
-		{
-			
-			Opponent->velocity.x = 0;
-			Opponent->acceleration.x = 0;
-			/*Chandy->position.x = Chandy->getPositionX();*/
-		}
+	//if (KeyRightPressed == false)
+	//{
+	//	//Drastically slow the movement until you come to a stop if you let go
+	//	if (Opponent->velocity.x <= 0  && Opponent->isHit == false)
+	//	{
+	//		
+	//		Opponent->velocity.x = 0;
+	//		Opponent->acceleration.x = 0;
+	//		/*Chandy->position.x = Chandy->getPositionX();*/
+	//	}
 
 
-	}
-	if (KeyLeftPressed == false)
-	{
+	//}
 
-	}
 	if (KeyLeftPressed == false && KeyRightPressed == false && Opponent->getSprite()->getBoundingBox().getMinY() <= DisplayedStage->getSprite()->getBoundingBox().getMaxY()&& Opponent->isHit == false)//stops movement for chandy if you let go of the a or d
 	{
 		Opponent->velocity.x = 0;
@@ -338,13 +296,13 @@ void Hillside::update(float deltatime)
 		if (Opponent->coolDowntimer2 <= 0)
 		{
 			// timer ran out; react here
-			ChandyCandy = new Character({ Opponent->position.x,Opponent->position.y }, "Fighters/PlaceHolder.png");
-			ChandyCandy->IsBullet = true;
-			ChandyCandy->fromOtherCharacter = true;
-			ChandyCandy->velocity = (Vec2(-5000, 0));
-			ChandyCandies.push_back(ChandyCandy);
-			this->addChild(ChandyCandy->getSprite(), 2);
-			Opponent->coolDowntimer2 = 0.25;
+			OpponentCandy = new Character({ Opponent->position.x,Opponent->position.y }, "Fighters/PlaceHolder.png");
+			OpponentCandy->IsBullet = true;
+			OpponentCandy->fromOtherCharacter = true;
+			OpponentCandy->velocity = (Vec2(-5000, 0));
+			OpponentCandies.push_back(OpponentCandy);
+			this->addChild(OpponentCandy->getSprite(), 2);
+			Opponent->coolDowntimer2 = 0.5;
 
 			//Two = new Character({ 520,2770 }, "Fighters/2.png");
 			//this->addChild(Two->getSprite(), 3);
@@ -570,6 +528,7 @@ void Hillside::initSprites()
 	this->addChild(Chandy->getSprite(), 3);
 
 	Opponent = new Fighter({ 2500, 2000 }, "Fighters/Chandy Sprite2.png");
+	Opponent->coolDowntimer2 = 0.25;
 	Opponent->IsBullet = false;
 	Opponent->isHit = false;
 	this->addChild(Opponent->getSprite(), 3);
@@ -737,7 +696,7 @@ void Hillside::initKeyboardListener()
 			KeydPressed = true;
 		}
 
-		if (keyCode == EventKeyboard::KeyCode::KEY_ENTER)
+		if (keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER)
 		{
 			std::cout << "Space Bar Was Released!" << std::endl;
 			KeyEnterPressed = true;
@@ -795,6 +754,7 @@ void Hillside::initKeyboardListener()
 		// If Statement for s_lowercase Pressed
 		if (keyCode == EventKeyboard::KeyCode::KEY_S)
 		{
+		
 			std::cout << "s Key Was Released!" << std::endl;
 			KeysPressed = false;
 		}
@@ -814,7 +774,7 @@ void Hillside::initKeyboardListener()
 		}
 
 		// If Statement for Enter Pressed
-		if (keyCode == EventKeyboard::KeyCode::KEY_ENTER)
+		if (keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER)
 		{
 			std::cout << "Space Bar Was Released!" << std::endl;
 			KeyEnterPressed = false;
