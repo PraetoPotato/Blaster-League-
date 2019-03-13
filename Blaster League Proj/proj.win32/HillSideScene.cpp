@@ -120,6 +120,20 @@ void Hillside::update(float deltatime)
 			ChandyCandies[i]->getSprite()->removeFromParent();
 			delete ChandyCandies[i];
 			ChandyCandies.erase(ChandyCandies.begin() + i);
+			i--;
+		}
+
+	}
+
+	for (int i = 0; i < ChandyCandies.size(); i++)
+	{
+
+		if (ChandyCandies[i]->position.y<=0)
+		{
+			ChandyCandies[i]->getSprite()->removeFromParent();
+			delete ChandyCandies[i];
+			ChandyCandies.erase(ChandyCandies.begin() + i);
+			i--;
 
 		}
 
@@ -136,6 +150,20 @@ void Hillside::update(float deltatime)
 			OpponentCandies[i]->getSprite()->removeFromParent();
 			delete OpponentCandies[i];
 			OpponentCandies.erase(OpponentCandies.begin() + i);
+
+		}
+
+	}
+
+	for (int i = 0; i < OpponentCandies.size(); i++)
+	{
+
+		if (OpponentCandies[i]->position.y <= 0)
+		{
+			OpponentCandies[i]->getSprite()->removeFromParent();
+			delete OpponentCandies[i];
+			OpponentCandies.erase(OpponentCandies.begin() + i);
+			i--;
 
 		}
 
