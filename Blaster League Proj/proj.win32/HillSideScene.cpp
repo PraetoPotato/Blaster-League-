@@ -1,7 +1,8 @@
 #include "HillsideScene.h"
 #include <iostream>
 
-
+int p1Jump = 2;
+int p2Jump = 2;
 
 
 
@@ -173,9 +174,9 @@ void Hillside::update(float deltatime)
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
-	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 1370)
+	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 1370 && Chandy->position.x >985 && Chandy->position.x <4035)
 	{
-
+		
 		if (Chandy->position.y <= 1500)
 		{
 			Chandy->position.y = 1501;
@@ -269,7 +270,7 @@ void Hillside::update(float deltatime)
 	
 	
 
-	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 1370)
+	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 1370 && Opponent->position.x >985 && Opponent->position.x <4035)
 	{
 
 		if (Opponent->position.y <= 1500)
@@ -494,6 +495,15 @@ void Hillside::loseLifeP2()
 		this->addChild(Zero_->getSprite(), 3);
 	}
 }
+
+
+
+
+
+
+
+
+
 
 
 void Hillside::initListeners()
