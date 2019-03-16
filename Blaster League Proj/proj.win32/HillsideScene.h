@@ -16,6 +16,7 @@ public:
 	void update(float deltaTime);
 	void loseLifeP1();
 	void loseLifeP2();
+
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
