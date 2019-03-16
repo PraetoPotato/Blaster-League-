@@ -76,17 +76,37 @@ void Hillside::update(float deltatime)
 //------------------------------------------Check for Collisions--------------------------------------
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
-		Chandy->velocity.y = 0;
-		Chandy->acceleration.y = 0;
+		/*float CharacterMinX, CharacterMaxX, OtherCharacterMinX, OtherCharacterMaxX;
+		CharacterMinX = getSprite()->getBoundingBox().getMinX();
+		CharacterMaxX = getSprite()->getBoundingBox().getMaxX();
+		OtherCharacterMinX = otherCharacter->getSprite()->getBoundingBox().getMinX();
+		OtherCharacterMaxX = otherCharacter->getSprite()->getBoundingBox().getMaxX();
+		float midX = otherCharacter->getSprite()->getBoundingBox().getMidX();*/
+		
+
+		if (Chandy->MinY>(DisplayedStage->MaxY-50))
+		{
+			Chandy->velocity.y = 0;
+			Chandy->acceleration.y = 1700;
+			
+		}
+		else
+		{
+			Chandy->velocity.x = 0;
+			Chandy->acceleration.x = 0;
+		}
+	
 
 
 
 	}
 
+
+
 	if (Opponent->IsCollidingWith(DisplayedStage) == true)
 	{
 		Opponent->velocity.y = 0;
-		Opponent->acceleration.y = 0;
+		Opponent->acceleration.y = 1700;
 
 
 	}
@@ -173,14 +193,9 @@ void Hillside::update(float deltatime)
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
-	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 1370)
+	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 500)
 	{
 
-		if (Chandy->position.y <= 1500)
-		{
-			Chandy->position.y = 1501;
-		}
-		Chandy->position.y = Chandy->position.y + 0.01;
 		Chandy->velocity.y = 1500;
 
 		
@@ -269,14 +284,10 @@ void Hillside::update(float deltatime)
 	
 	
 
-	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 1370)
+	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 500)
 	{
 
-		if (Opponent->position.y <= 1500)
-		{
-			Opponent->position.y = 1501;
-		}
-		Opponent->position.y = Opponent->position.y + 0.01;
+	
 		Opponent->velocity.y = 1500;
 
 	}
@@ -343,15 +354,14 @@ void Hillside::update(float deltatime)
 
 	//-----------------------------gives the charcters gravity ----------------------------------------------
 	
-	if (Chandy->IsCollidingWith(DisplayedStage) == false)
-	{
+	
 		Chandy->addForce(gravity);
-	}
 
-	if (Opponent->IsCollidingWith(DisplayedStage) == false)
-	{
+
+	/*if (Opponent->IsCollidingWith(DisplayedStage) == false)
+	{*/
 		Opponent->addForce(gravity);
-	}
+	//}
 	
 
 	//-----------------------------udate the state of everything on the scene------------------------------------
@@ -516,14 +526,14 @@ void Hillside::initSprites()
 	else
 	{
 		Sprite->setPosition(Vec2(2500, 1500));
-		Sprite->setScale(0.4075);
+		Sprite->setScale(0.2575);
 		this->addChild(Sprite, 1);
 	}
 
 	//Initialize the Stage
 
 	//this is the platform
-	DisplayedStage= new Character({ 2500,805 }, "Platforms/Platform 2.png");
+	DisplayedStage= new Character({ 2500,505 }, "Platforms/Platform 2.png");
 	this->addChild(DisplayedStage->getSprite(), 2);
 
 	//Displaying lives     

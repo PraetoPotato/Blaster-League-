@@ -30,6 +30,8 @@ public:
 	float hitStunTimer;
 	float coolDowntimer2;
 	float coolDowntimer;//cool down timer
+	float MinX, MaxX, MinY, MaxY,MidX;
+	
 protected:
 	Sprite* sprite;
 

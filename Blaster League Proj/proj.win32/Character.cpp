@@ -18,8 +18,15 @@ void Character::load(Vec2 position, std::string texturePath)
 	sprite->setAnchorPoint(Vec2(0.5f, 0.5f)); //Ensure the middle of the character is the anchor point
 	//auto body = PhysicsBody::createCircle((sprite->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f); //This makes the hitbox a circle
 	//auto body = PhysicsBody::createCircle(32.0f); //Use a circle since the bird is roughly circular
+	/*auto body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(0, 1, 0));*/
 	std::cout << sprite->getSpriteFrame()->getRectInPixels().size.height * sprite->getScale() * 0.5f << std::endl;
 	//sprite->setPhysicsBody(body); //Connect the physics body and the sprite
+	MinX = getSprite()->getBoundingBox().getMinX();
+	MinY = getSprite()->getBoundingBox().getMaxX();
+	MinX=getSprite()->getBoundingBox().getMinY();
+	MinY=getSprite()->getBoundingBox().getMaxY();
+	MidX = getSprite()->getBoundingBox().getMidY();
+	
 }
 
 //Updates the positon of the character
@@ -37,7 +44,12 @@ void Character::update(float deltaTime)
 	position = sprite->getPosition();
 	position += velocity * deltaTime;
 	sprite->setPosition(position);
-	
+	MinX = getSprite()->getBoundingBox().getMinX();
+	MinY = getSprite()->getBoundingBox().getMaxX();
+	MinX = getSprite()->getBoundingBox().getMinY();
+	MinY = getSprite()->getBoundingBox().getMaxY();
+	MidX = getSprite()->getBoundingBox().getMidY();
+
 	
 
 
@@ -81,15 +93,16 @@ float Character::getOverlapX(Character * otherCharacter)
 	OtherCharacterMaxX = otherCharacter->getSprite()->getBoundingBox().getMaxX();
 	float midX=otherCharacter->getSprite()->getBoundingBox().getMidX();
 
-	if (CharacterMaxX < OtherCharacterMinX)
+	if (CharacterMaxX > OtherCharacterMaxX)
 	{
-		return midX - CharacterMaxX;
+		return OtherCharacterMaxX - CharacterMinX;
 	}
 
-	if (CharacterMinX < OtherCharacterMaxX)
+	else 
 	{
-		return CharacterMaxX-midX;
+		return  CharacterMaxX - OtherCharacterMinX;
 	}
+
 }
 
 
@@ -102,14 +115,14 @@ float Character::getOverlapY(Character * otherCharacter)
 	OtherCharacterMaxY = otherCharacter->getSprite()->getBoundingBox().getMaxY();
 	float midY = otherCharacter->getSprite()->getBoundingBox().getMidY();
 
-	if (CharacterMaxY < OtherCharacterMinY)
+	if (CharacterMaxY > OtherCharacterMaxY)
 	{
-		return midY - CharacterMaxY;
+		return OtherCharacterMaxY - CharacterMinY;
 	}
 
-	if (CharacterMinY < OtherCharacterMaxY)
+	else
 	{
-		return CharacterMaxY- midY;
+		return  CharacterMaxY - OtherCharacterMinY;
 	}
 }
 
