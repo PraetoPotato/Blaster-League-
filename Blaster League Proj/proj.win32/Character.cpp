@@ -21,6 +21,7 @@ void Character::load(Vec2 position, std::string texturePath)
 	/*auto body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(0, 1, 0));*/
 	std::cout << sprite->getSpriteFrame()->getRectInPixels().size.height * sprite->getScale() * 0.5f << std::endl;
 	//sprite->setPhysicsBody(body); //Connect the physics body and the sprite
+	
 	MinX = getSprite()->getBoundingBox().getMinX();
 	MinY = getSprite()->getBoundingBox().getMaxX();
 	MinX=getSprite()->getBoundingBox().getMinY();
@@ -33,7 +34,6 @@ void Character::load(Vec2 position, std::string texturePath)
 void Character::update(float deltaTime)
 {
 
-	
 	
 	if (IsBullet == false||isHit==false)
 	{

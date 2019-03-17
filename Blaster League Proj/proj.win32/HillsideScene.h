@@ -49,12 +49,18 @@ private:
 	bool FirstShotfromPlayer1 = false;
 	bool FirstShotfromPlayer2 = false;
 
+	bool Player1isFalling = false;
+	bool Player2isFalling = false;
+
 	//Sprites 
 	Sprite *BG;
 	Character *Stage;
 	Character *DisplayedStage;
 	Character *ChandyLogo;
 	Character *OpponentLogo;
+	Character *Platform1;
+	Character *Platform2;
+	Character *Platform3;
 	Character *x;
 	Character *Three;
 	Character *Two;
@@ -68,6 +74,7 @@ private:
 	Fighter *Chandy;
 	Fighter *Opponent;
 
+	Rect aabb;
 	//Hitboxes
 	Vec2 PositionRect;
 	DrawNode *Node;

@@ -58,6 +58,18 @@ void Hillside::update(float deltatime)
 
 	
 	Vec2 gravity(0,-1700);   
+//-----------------------------------------------------------------------
+	
+	if (Chandy->acceleration.y >= 0)
+	{
+		Player1isFalling = false;
+	}
+
+	if (Chandy->acceleration.y < 0)
+	{
+		Player1isFalling = true;
+	}
+		
 
 //-----------------------------------------updating cool down timer------------------
 	
@@ -112,6 +124,67 @@ void Hillside::update(float deltatime)
 
 	}
 
+	/*if (Chandy->getSprite()->getBoundingBox().getMaxY() >= Platform1->getSprite()->getBoundingBox().getMaxY())
+	{
+		if (Chandy->IsCollidingWith(Platform1) == true)
+		{
+			if (Player1isFalling = true)
+			{
+				Chandy->velocity.y = 0;
+				Chandy->acceleration.y = 0;
+			}
+			
+		}
+	}*/
+	/*if (Chandy->getSprite()->getBoundingBox().getMinY() > Platform1->getSprite()->getBoundingBox().getMaxY())
+	{
+		if (Chandy->IsCollidingWith(Platform1) == true)
+		{
+			if (Chandy->getSprite()->getBoundingBox().getMaxY() >= Platform1->getSprite()->getBoundingBox().getMinY())
+			{
+				if (Player1isFalling = true)
+				{
+					Chandy->velocity.y = 0;
+					Chandy->acceleration.y = 0;
+					Chandy->position.x += 1;
+				}
+
+
+			}
+		}
+	}*/
+	/*if (Chandy->getSprite()->getBoundingBox().getMaxY() >= Platform1->getSprite()->getBoundingBox().getMinY())
+	{
+		{
+			if (Chandy->IsCollidingWith(Platform1) == true)
+			{
+
+				if (Player1isFalling = true)
+				{
+					Chandy->velocity.y = 0;
+					Chandy->acceleration.y = 0;
+
+				}
+
+
+			}
+		}
+	}*/
+
+	if (Chandy->IsCollidingWith(Platform1) == true)
+	{
+		if (Chandy->getSprite()->getBoundingBox().getMinY() >= Platform1->getSprite()->getBoundingBox().getMinY())
+		{
+			if (Player1isFalling = true)
+			{
+				Chandy->velocity.y = 0;
+				Chandy->acceleration.y = 0;
+				
+			}
+			
+
+		}
+	}
 
 	
 //----------------------------------------------Bullets------------------------------
@@ -194,14 +267,10 @@ void Hillside::update(float deltatime)
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
-	if (KeywPressed == true && Chandy->position.y <= 1500 && Chandy->position.y > 1370 && Chandy->position.x >985 && Chandy->position.x <4035)
+	if (KeywPressed == true && Chandy->position.y <= 3000 && Chandy->position.y > 500 && Chandy->position.x >985 && Chandy->position.x <4035)
 	{
 
-		if (Chandy->position.y <= 1500)
-		{
-			Chandy->position.y = 1501;
-		}
-		Chandy->position.y = Chandy->position.y + 0.01;
+		
 		Chandy->velocity.y = 1500;
 
 		
@@ -238,7 +307,11 @@ void Hillside::update(float deltatime)
 	
 	if (KeysPressed == true)
 	{
-		Chandy->addForce(Vec2(0,-900));
+		if (Chandy->IsCollidingWith(Platform1) == true)
+		{
+			Chandy->acceleration.y=-2000;
+			
+		}
 
 	}
 	if (KeydPressed == false)
@@ -290,7 +363,7 @@ void Hillside::update(float deltatime)
 	
 	
 
-	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 1370 && Opponent->position.x >985 && Opponent->position.x <4035)
+	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 500 && Opponent->position.x >985 && Opponent->position.x <4035)
 	{
 
 	
@@ -359,15 +432,20 @@ void Hillside::update(float deltatime)
 
 
 	//-----------------------------gives the charcters gravity ----------------------------------------------
+
+	/*if (Chandy->getSprite()->getBoundingBox().getMinY() >= Platform1->getSprite()->getBoundingBox().getMinY())
+	{*/
 	
-	
+	if (Chandy->IsCollidingWith(Platform1) == false&&Player1isFalling==false)
+	{
+		
 		Chandy->addForce(gravity);
 
-
-	/*if (Opponent->IsCollidingWith(DisplayedStage) == false)
-	{*/
+	}
+	if (Opponent->IsCollidingWith(Platform1) == false)
+	{
 		Opponent->addForce(gravity);
-	//}
+	}
 	
 
 	//-----------------------------udate the state of everything on the scene------------------------------------
@@ -445,7 +523,7 @@ void Hillside::loseLifeP1()
 
 	if (P1Lives == 2)
 	{
-		Chandy->position.y = 2000;
+		Chandy->position.y = 3000;
 		Chandy->getSprite()->setPositionY(2000);
 		Chandy->position.x = 1500;
 		Chandy->getSprite()->setPositionX(1500);
@@ -457,7 +535,7 @@ void Hillside::loseLifeP1()
 	
 	if (P1Lives == 1)
 	{
-		Chandy->position.y = 2000;
+		Chandy->position.y = 3000;
 		Chandy->getSprite()->setPositionY(2000);
 		Chandy->position.x = 1500;
 		Chandy->getSprite()->setPositionX(1500);
@@ -551,6 +629,16 @@ void Hillside::initSprites()
 	DisplayedStage= new Character({ 2500,505 }, "Platforms/Platform 2.png");
 	this->addChild(DisplayedStage->getSprite(), 2);
 
+	
+
+	Platform1 = new Character({ 2700,1900 }, "Platforms/Platform top.png");
+	this->addChild(Platform1->getSprite(), 2);
+
+	Rect aabb = Platform1->getSprite()->getBoundingBox();
+	DrawNode* drawNode = DrawNode::create();
+	drawNode->drawRect(aabb.origin, aabb.origin + aabb.size, Color4F(1, 0, 0, 1));
+	this->addChild(drawNode, 100);
+
 	//Displaying lives     
 	ChandyLogo = new Character({ 200,2700 }, "Fighters/Lifesymbol.png");
 	this->addChild(ChandyLogo->getSprite(), 3);
@@ -574,13 +662,13 @@ void Hillside::initSprites()
 	
 
 	//Initialize the fighters
-	Chandy = new Fighter({ 1500,2000 }, "Fighters/Chandy Sprite.png");
+	Chandy = new Fighter({ 1500,2500 }, "Fighters/Chandy Sprite.png");
 	Chandy->coolDowntimer = 0.25;
 	Chandy->IsBullet=false;
 	Chandy->isHit = false;
 	this->addChild(Chandy->getSprite(), 3);
 
-	Opponent = new Fighter({ 2500, 2000 }, "Fighters/Chandy Sprite2.png");
+	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Chandy Sprite2.png");
 	Opponent->coolDowntimer2 = 0.25;
 	Opponent->IsBullet = false;
 	Opponent->isHit = false;

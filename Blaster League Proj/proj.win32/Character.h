@@ -27,6 +27,7 @@ public:
 	Vec2 velocity;
 	bool IsBullet;
 	bool fromOtherCharacter;
+	bool isFalling;
 	float hitStunTimer;
 	float coolDowntimer2;
 	float coolDowntimer;//cool down timer
