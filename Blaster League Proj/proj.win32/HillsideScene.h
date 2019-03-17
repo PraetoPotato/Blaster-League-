@@ -16,7 +16,7 @@ public:
 	void update(float deltaTime);
 	void loseLifeP1();
 	void loseLifeP2();
-
+	void grapple();
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
@@ -71,6 +71,7 @@ private:
 	Character *Two_;
 	Character *One_;
 	Character *Zero_;
+	Character *Hook;
 	Fighter *Chandy;
 	Fighter *Opponent;
 

@@ -1,8 +1,7 @@
 #include "HillsideScene.h"
 #include <iostream>
 
-int p1Jump = 2;
-int p2Jump = 2;
+int p1Jumps = 2;
 
 
 
@@ -589,6 +588,16 @@ void Hillside::loseLifeP2()
 	}
 }
 
+void Hillside::grapple()
+{
+
+
+
+
+
+
+}
+
 
 
 
@@ -659,6 +668,9 @@ void Hillside::initSprites()
 	Three_ = new Character({ 4820,2770 }, "Fighters/3.png");
 	this->addChild(Three_->getSprite(), 3);
 
+
+
+	//Display the hook
 	
 
 	//Initialize the fighters
