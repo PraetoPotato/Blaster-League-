@@ -266,7 +266,7 @@ void Hillside::update(float deltatime)
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
-	if (KeywPressed == true && Chandy->position.y <= 3000 && Chandy->position.y > 500 && Chandy->position.x >985 && Chandy->position.x <4035)
+	if (KeywPressed == true && Chandy->position.y <= 2300 && Chandy->position.y > 500 && Chandy->position.x >985 && Chandy->position.x <4035)
 	{
 
 		
@@ -362,7 +362,7 @@ void Hillside::update(float deltatime)
 	
 	
 
-	if (KeyUpPressed == true && Opponent->position.y <= 1500 && Opponent->position.y > 500 && Opponent->position.x >985 && Opponent->position.x <4035)
+	if (KeyUpPressed == true && Opponent->position.y <= 2300 && Opponent->position.y > 500 && Opponent->position.x >985 && Opponent->position.x <4035)
 	{
 
 	
