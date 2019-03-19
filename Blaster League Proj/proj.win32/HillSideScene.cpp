@@ -180,6 +180,7 @@ void Hillside::update(float deltatime)
 				Chandy->acceleration.y = 0;
 				
 			}
+
 			
 
 		}
@@ -313,42 +314,43 @@ void Hillside::update(float deltatime)
 		}
 
 	}
-	if (KeydPressed == false)
-	{
-		//Drastically slow the movement until you come to a stop if you let go
-		if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
-		{
-			Opponent->velocity.x = 0;
-			Chandy->acceleration.x -= 10000;
-			
-		}
-		if (Chandy->velocity.x<=0&&KeyaPressed==false&& Chandy->isHit == false)
-		{
-			Chandy->velocity.x = 0;
-			Chandy->acceleration.x = 0;
-			/*Chandy->position.x = Chandy->getPositionX();*/
-		}
-		
-	
-	}
-	if (KeyaPressed == false)
-	{
-		//Drastically slow the movement until you come to a stop if you let go
-		if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
-		{
-			Chandy->acceleration.x += 10000;
+	//if (KeydPressed == false)
+	//{
+	//	//Drastically slow the movement until you come to a stop if you let go
+	//	if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
+	//	{
+	//		Chandy->velocity.x = 0;
+	//		Chandy->acceleration.x -= 10000;
+	//		
+	//	}
+	//	if (Chandy->velocity.x<=0&&KeyaPressed==false&& Chandy->isHit == false)
+	//	{
+	//		Chandy->velocity.x = 0;
+	//		Chandy->acceleration.x = 0;
+	//		/*Chandy->position.x = Chandy->getPositionX();*/
+	//	}
+	//	
+	//
+	//}
+	//if (KeyaPressed == false)
+	//{
+	//	//Drastically slow the movement until you come to a stop if you let go
+	//	if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
+	//	{
+	//		Chandy->acceleration.x += 10000;
 
-		}
-		if (Chandy->velocity.x >= 0&& KeydPressed == false&&KeywPressed==true&& Chandy->isHit == false)
-		{
-			Chandy->velocity.x = 0;
-			Chandy->acceleration.x = 0;
+	//	}
+	//	if (Chandy->velocity.x >= 0&& KeydPressed == false&&KeywPressed==true&& Chandy->isHit == false)
+	//	{
+	//		Chandy->velocity.x = 0;
+	//		Chandy->acceleration.x = 0;
 
-		}
+	//	}
 
-	}
-	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 1500 && Chandy->isHit == false)//stops movement for chandy if you let go of the a or d
+	//}
+	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 3000 && Chandy->isHit == false)//stops movement for chandy if you let go of the a or d
 	{
+
 		Chandy->velocity.x = 0;
 		Chandy->acceleration.x = 0;
 	}
@@ -384,7 +386,12 @@ void Hillside::update(float deltatime)
 
 	if (KeyDownPressed == true)
 	{
-		Opponent->addForce(Vec2(0, -900));
+		if (Opponent->IsCollidingWith(Platform1) == true)
+		{
+			Opponent->acceleration.y = -2000;
+
+		}
+
 
 	}
 	//if (KeyRightPressed == false)
@@ -395,7 +402,7 @@ void Hillside::update(float deltatime)
 	//		
 	//		Opponent->velocity.x = 0;
 	//		Opponent->acceleration.x = 0;
-	//		/*Chandy->position.x = Chandy->getPositionX();*/
+	//
 	//	}
 
 
