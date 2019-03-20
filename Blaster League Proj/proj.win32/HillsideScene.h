@@ -58,7 +58,6 @@ private:
 	Character *DisplayedStage;
 	Character *ChandyLogo;
 	Character *OpponentLogo;
-	Character *Platform1;
 	Character *Platform2;
 	Character *Platform3;
 	Character *x;

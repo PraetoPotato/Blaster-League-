@@ -11,6 +11,7 @@ public:
 	//void addforce(Vec2 force);//adds force
 
 
+	int JumpCounter;
 
 private:
 	float temporaryInvincibility;//The amount of time left for invincibility after you died

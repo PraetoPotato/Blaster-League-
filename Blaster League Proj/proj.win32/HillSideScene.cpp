@@ -88,28 +88,9 @@ void Hillside::update(float deltatime)
 //------------------------------------------Check for Collisions--------------------------------------
 	if (Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
-		/*float CharacterMinX, CharacterMaxX, OtherCharacterMinX, OtherCharacterMaxX;
-		CharacterMinX = getSprite()->getBoundingBox().getMinX();
-		CharacterMaxX = getSprite()->getBoundingBox().getMaxX();
-		OtherCharacterMinX = otherCharacter->getSprite()->getBoundingBox().getMinX();
-		OtherCharacterMaxX = otherCharacter->getSprite()->getBoundingBox().getMaxX();
-		float midX = otherCharacter->getSprite()->getBoundingBox().getMidX();*/
-		
-
-		if (Chandy->MinY>(DisplayedStage->MaxY-50))
-		{
-			Chandy->velocity.y = 0;
-			Chandy->acceleration.y = 1700;
-			
-		}
-		else
-		{
-			Chandy->velocity.x = 0;
-			Chandy->acceleration.x = 0;
-		}
-	
-
-
+		Chandy->velocity.y = 0;
+		Chandy->acceleration.y = 1700;
+		Chandy->JumpCounter = 2;
 
 	}
 
@@ -119,72 +100,13 @@ void Hillside::update(float deltatime)
 	{
 		Opponent->velocity.y = 0;
 		Opponent->acceleration.y = 1700;
+		Opponent->JumpCounter = 2;
 
 
 	}
 
-	/*if (Chandy->getSprite()->getBoundingBox().getMaxY() >= Platform1->getSprite()->getBoundingBox().getMaxY())
-	{
-		if (Chandy->IsCollidingWith(Platform1) == true)
-		{
-			if (Player1isFalling = true)
-			{
-				Chandy->velocity.y = 0;
-				Chandy->acceleration.y = 0;
-			}
-			
-		}
-	}*/
-	/*if (Chandy->getSprite()->getBoundingBox().getMinY() > Platform1->getSprite()->getBoundingBox().getMaxY())
-	{
-		if (Chandy->IsCollidingWith(Platform1) == true)
-		{
-			if (Chandy->getSprite()->getBoundingBox().getMaxY() >= Platform1->getSprite()->getBoundingBox().getMinY())
-			{
-				if (Player1isFalling = true)
-				{
-					Chandy->velocity.y = 0;
-					Chandy->acceleration.y = 0;
-					Chandy->position.x += 1;
-				}
 
 
-			}
-		}
-	}*/
-	/*if (Chandy->getSprite()->getBoundingBox().getMaxY() >= Platform1->getSprite()->getBoundingBox().getMinY())
-	{
-		{
-			if (Chandy->IsCollidingWith(Platform1) == true)
-			{
-
-				if (Player1isFalling = true)
-				{
-					Chandy->velocity.y = 0;
-					Chandy->acceleration.y = 0;
-
-				}
-
-
-			}
-		}
-	}*/
-
-	if (Chandy->IsCollidingWith(Platform1) == true)
-	{
-		if (Chandy->getSprite()->getBoundingBox().getMinY() >= Platform1->getSprite()->getBoundingBox().getMinY())
-		{
-			if (Player1isFalling = true)
-			{
-				Chandy->velocity.y = 0;
-				Chandy->acceleration.y = 0;
-				
-			}
-
-			
-
-		}
-	}
 
 	
 //----------------------------------------------Bullets------------------------------
@@ -210,7 +132,7 @@ void Hillside::update(float deltatime)
 		{
 			Opponent->isHit = true;
 			Opponent->coolDowntimer = 0.3;
-			Opponent->velocity = (Vec2(1500, 0));
+			Opponent->velocity = (Vec2(750, 0));
 			ChandyCandies[i]->getSprite()->removeFromParent();
 			delete ChandyCandies[i];
 			ChandyCandies.erase(ChandyCandies.begin() + i);
@@ -240,7 +162,7 @@ void Hillside::update(float deltatime)
 		{
 			Chandy->isHit = true;
 			Chandy->coolDowntimer2 = 0.3;
-			Chandy->velocity = (Vec2(-1500, 0));
+			Chandy->velocity = (Vec2(-750, 0));
 			OpponentCandies[i]->getSprite()->removeFromParent();
 			delete OpponentCandies[i];
 			OpponentCandies.erase(OpponentCandies.begin() + i);
@@ -267,11 +189,15 @@ void Hillside::update(float deltatime)
 
 //-----------------------------------------movement for first fighter-------------------------------------------------
 
-	if (KeywPressed == true && Chandy->position.y <= 2300 && Chandy->position.y > 500 && Chandy->position.x >985 && Chandy->position.x <4035)
+	if (KeywPressed == true)
 	{
-
+		Chandy->JumpCounter--;
+		if (Chandy->JumpCounter > 0)
+		{
+			Chandy->velocity.y = 1500;
+		}
 		
-		Chandy->velocity.y = 1500;
+		
 
 		
 	}
@@ -307,11 +233,12 @@ void Hillside::update(float deltatime)
 	
 	if (KeysPressed == true)
 	{
-		if (Chandy->IsCollidingWith(Platform1) == true)
+		if (Chandy->IsCollidingWith(DisplayedStage) == false)
 		{
-			Chandy->acceleration.y=-2000;
-			
+			Chandy->acceleration.y -= 10000;
+			Chandy->velocity.y -= 10000;
 		}
+
 
 	}
 	//if (KeydPressed == false)
@@ -364,11 +291,14 @@ void Hillside::update(float deltatime)
 	
 	
 
-	if (KeyUpPressed == true && Opponent->position.y <= 2300 && Opponent->position.y > 500 && Opponent->position.x >985 && Opponent->position.x <4035)
+	if (KeyUpPressed == true )
 	{
+		Opponent->JumpCounter--;
+		if (Opponent->JumpCounter > 0)
+		{
+			Opponent->velocity.y = 1500;
+		}
 
-	
-		Opponent->velocity.y = 1500;
 
 	}
 
@@ -386,12 +316,12 @@ void Hillside::update(float deltatime)
 
 	if (KeyDownPressed == true)
 	{
-		if (Opponent->IsCollidingWith(Platform1) == true)
+		if (Opponent->IsCollidingWith(DisplayedStage) == false)
 		{
-			Opponent->acceleration.y = -2000;
-
+			Opponent->acceleration.y -= 10000;
+			Opponent->velocity.y -= 10000;
 		}
-
+		
 
 	}
 	//if (KeyRightPressed == false)
@@ -439,19 +369,15 @@ void Hillside::update(float deltatime)
 
 	//-----------------------------gives the charcters gravity ----------------------------------------------
 
-	/*if (Chandy->getSprite()->getBoundingBox().getMinY() >= Platform1->getSprite()->getBoundingBox().getMinY())
-	{*/
+
 	
-	if (Chandy->IsCollidingWith(Platform1) == false&&Player1isFalling==false)
-	{
 		
 		Chandy->addForce(gravity);
 
-	}
-	if (Opponent->IsCollidingWith(Platform1) == false)
-	{
+
+	
 		Opponent->addForce(gravity);
-	}
+	
 	
 
 	//-----------------------------udate the state of everything on the scene------------------------------------
@@ -645,15 +571,6 @@ void Hillside::initSprites()
 	DisplayedStage= new Character({ 2500,505 }, "Platforms/Platform 2.png");
 	this->addChild(DisplayedStage->getSprite(), 2);
 
-	
-
-	Platform1 = new Character({ 2700,1900 }, "Platforms/Platform top.png");
-	this->addChild(Platform1->getSprite(), 2);
-
-	Rect aabb = Platform1->getSprite()->getBoundingBox();
-	DrawNode* drawNode = DrawNode::create();
-	drawNode->drawRect(aabb.origin, aabb.origin + aabb.size, Color4F(1, 0, 0, 1));
-	this->addChild(drawNode, 100);
 
 	//Displaying lives     
 	ChandyLogo = new Character({ 200,2700 }, "Fighters/Lifesymbol.png");
