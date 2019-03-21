@@ -76,7 +76,6 @@ private:
 
 	Rect aabb;
 	//Hitboxes
-	Vec2 PositionRect;
 	DrawNode *Node;
 
 
