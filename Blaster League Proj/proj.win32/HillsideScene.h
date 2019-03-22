@@ -75,7 +75,7 @@ private:
 	Fighter *Opponent;
 
 	Rect aabb;
-	//Hitboxes
+	//Hitboxesddddddddddddddddddddddd
 	DrawNode *Node;
 
 

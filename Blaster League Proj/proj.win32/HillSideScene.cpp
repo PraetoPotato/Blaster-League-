@@ -125,6 +125,25 @@ void Hillside::update(float deltatime)
 	}
 
 
+	if (Opponent->getSprite()->getBoundingBox().getMidY() < DisplayedStage->getSprite()->getBoundingBox().getMaxY())
+	{
+		if (Opponent->getSprite()->getBoundingBox().getMaxX() <= DisplayedStage->getSprite()->getBoundingBox().getMidX())
+		{
+			if (Opponent->IsCollidingWith(DisplayedStage) == true)
+			{
+				Opponent->velocity.x = -1000;
+			}
+
+		}
+		if (Opponent->getSprite()->getBoundingBox().getMinX() >= DisplayedStage->getSprite()->getBoundingBox().getMidX())
+		{
+			if (Opponent->IsCollidingWith(DisplayedStage) == true)
+			{
+				Opponent->velocity.x = 1000;
+			}
+
+		}
+	}
 
 	if (Opponent->IsCollidingWith(DisplayedStage) == true)
 	{
@@ -278,40 +297,7 @@ void Hillside::update(float deltatime)
 
 
 	}
-	//if (KeydPressed == false)
-	//{
-	//	//Drastically slow the movement until you come to a stop if you let go
-	//	if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
-	//	{
-	//		Chandy->velocity.x = 0;
-	//		Chandy->acceleration.x -= 10000;
-	//		
-	//	}
-	//	if (Chandy->velocity.x<=0&&KeyaPressed==false&& Chandy->isHit == false)
-	//	{
-	//		Chandy->velocity.x = 0;
-	//		Chandy->acceleration.x = 0;
-	//		/*Chandy->position.x = Chandy->getPositionX();*/
-	//	}
-	//	
-	//
-	//}
-	//if (KeyaPressed == false)
-	//{
-	//	//Drastically slow the movement until you come to a stop if you let go
-	//	if (Chandy->acceleration.x != 0 && Chandy->isHit == false)
-	//	{
-	//		Chandy->acceleration.x += 10000;
 
-	//	}
-	//	if (Chandy->velocity.x >= 0&& KeydPressed == false&&KeywPressed==true&& Chandy->isHit == false)
-	//	{
-	//		Chandy->velocity.x = 0;
-	//		Chandy->acceleration.x = 0;
-
-	//	}
-
-	//}
 	if (KeyaPressed == false && KeydPressed == false && Chandy->position.y <= 3000 && Chandy->isHit == false)//stops movement for chandy if you let go of the a or d
 	{
 
@@ -361,19 +347,7 @@ void Hillside::update(float deltatime)
 		
 
 	}
-	//if (KeyRightPressed == false)
-	//{
-	//	//Drastically slow the movement until you come to a stop if you let go
-	//	if (Opponent->velocity.x <= 0  && Opponent->isHit == false)
-	//	{
-	//		
-	//		Opponent->velocity.x = 0;
-	//		Opponent->acceleration.x = 0;
-	//
-	//	}
 
-
-	//}
 
 	if (KeyLeftPressed == false && KeyRightPressed == false && Opponent->getSprite()->getBoundingBox().getMinY() <= DisplayedStage->getSprite()->getBoundingBox().getMaxY()&& Opponent->isHit == false)//stops movement for chandy if you let go of the a or d
 	{
