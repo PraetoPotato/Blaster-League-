@@ -1,8 +1,10 @@
 #include "HillsideScene.h"
+#include "SimpleAudioEngine.h"
 #include <iostream>
 
 int p1Jumps = 2;
-
+// Gun hit noise
+using namespace CocosDenshion;
 
 
 
@@ -27,6 +29,15 @@ static void problemLoading(const char* filename)
 //Initialize everything
 bool Hillside::init()
 {
+
+
+	auto audio = SimpleAudioEngine::getInstance();
+
+	// Set the background music and continuosly play it.
+	audio->playBackgroundMusic("Music/BackgroundMusic.mp3", true);
+
+
+
 	//Ensure the parent init function was called first. If it wasn't, exit this one
 	if (!Scene::init())
 		return false;
@@ -149,6 +160,9 @@ void Hillside::update(float deltatime)
 
 		if (ChandyCandies[i]->IsCollidingWith(Opponent) == true)
 		{
+			
+
+
 			Opponent->isHit = true;
 			Opponent->coolDowntimer = 0.3;
 			Opponent->velocity = (Vec2(750, 0));
@@ -232,6 +246,10 @@ void Hillside::update(float deltatime)
 			ChandyCandies.push_back(ChandyCandy);
 			this->addChild(ChandyCandy->getSprite(), 2);
 			Chandy->coolDowntimer = 0.5;
+			// Gun hit noise
+			auto audio = SimpleAudioEngine::getInstance();
+			// Play sound effect just once
+			audio->playEffect("Music/GunShoot.wav", false, 9.0f, 9.0f, 9.0f);
 			
 		}
 		
@@ -376,6 +394,11 @@ void Hillside::update(float deltatime)
 			OpponentCandies.push_back(OpponentCandy);
 			this->addChild(OpponentCandy->getSprite(), 2);
 			Opponent->coolDowntimer2 = 0.5;
+
+			// Gun hit noise
+			auto audio = SimpleAudioEngine::getInstance();
+			// Play sound effect just once
+			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
 
 			//Two = new Character({ 520,2770 }, "Fighters/2.png");
 			//this->addChild(Two->getSprite(), 3);
