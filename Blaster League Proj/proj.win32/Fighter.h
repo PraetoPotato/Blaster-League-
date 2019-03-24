@@ -12,6 +12,7 @@ public:
 
 
 	int JumpCounter;
+	bool P1;
 private:
 	float temporaryInvincibility;//The amount of time left for invincibility after you died
 	int lives;//the number of lives you have

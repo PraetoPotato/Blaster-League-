@@ -256,19 +256,9 @@ void Hillside::update(float deltatime)
 
 	if (KeyboardSpacePressed == true)
 	{
-		if (Chandy->coolDowntimer <= 0.f) {
-			// timer ran out; react here
-			ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
-			ChandyCandy->IsBullet = true;
-			ChandyCandy->fromOtherCharacter = false;
-			ChandyCandy->velocity = (Vec2(5000, 0));
-			ChandyCandies.push_back(ChandyCandy);
-			this->addChild(ChandyCandy->getSprite(), 2);
-			Chandy->coolDowntimer = 0.5;
-			// Gun hit noise
-			auto audio = SimpleAudioEngine::getInstance();
-			// Play sound effect just once
-			audio->playEffect("Music/GunShoot.wav", false, 9.0f, 9.0f, 9.0f);
+		if (Chandy->coolDowntimer <= 0.f) 
+		{
+			shoot(Chandy);
 			
 		}
 		
@@ -279,11 +269,13 @@ void Hillside::update(float deltatime)
 	if (KeydPressed == true)
 	{
 		Chandy->addForce(Vec2(500, 0));
+		Chandy->getSprite()->setFlippedX(false);
 		
 	}
 	if (KeyaPressed == true)
 	{
 		Chandy->addForce(Vec2(-500, 0));
+		Chandy->getSprite()->setFlippedX(true);
 		
 	}
 	
@@ -329,11 +321,13 @@ void Hillside::update(float deltatime)
 	if (KeyRightPressed == true)
 	{
 		Opponent->addForce(Vec2(500, 0));
+		Opponent->getSprite()->setFlippedX(true);
 
 	}
 	if (KeyLeftPressed == true)
 	{
 		Opponent->addForce(Vec2(-500, 0));
+		Opponent->getSprite()->setFlippedX(false);
 
 	}
 
@@ -360,22 +354,10 @@ void Hillside::update(float deltatime)
 	{
 		if (Opponent->coolDowntimer2 <= 0)
 		{
-			// timer ran out; react here
-			OpponentCandy = new Character({ Opponent->position.x,Opponent->position.y }, "Fighters/PlaceHolder.png");
-			OpponentCandy->IsBullet = true;
-			OpponentCandy->fromOtherCharacter = true;
-			OpponentCandy->velocity = (Vec2(-5000, 0));
-			OpponentCandies.push_back(OpponentCandy);
-			this->addChild(OpponentCandy->getSprite(), 2);
-			Opponent->coolDowntimer2 = 0.5;
+			
+			shoot(Opponent);
+			
 
-			// Gun hit noise
-			auto audio = SimpleAudioEngine::getInstance();
-			// Play sound effect just once
-			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
-
-			//Two = new Character({ 520,2770 }, "Fighters/2.png");
-			//this->addChild(Two->getSprite(), 3);
 		}
 	}
 
@@ -401,7 +383,6 @@ void Hillside::update(float deltatime)
 	{
 		//ChandyCandies[i]->addForce(gravity);
 		ChandyCandies[i]->update(deltatime);
-
 
 	}
 
@@ -547,6 +528,82 @@ void Hillside::grapple()
 
 }
 
+void Hillside::shoot(Fighter *theFighter)
+{
+	if (theFighter->P1 == false)
+	{
+		if (Opponent->getSprite()->isFlippedX() == true)
+		{
+			// timer ran out; react here
+			OpponentCandy = new Character({ Opponent->position.x,Opponent->position.y }, "Fighters/PlaceHolder.png");
+			OpponentCandy->IsBullet = true;
+			OpponentCandy->fromOtherCharacter = true;
+			OpponentCandy->velocity = (Vec2(5000, 0));
+			OpponentCandies.push_back(OpponentCandy);
+			this->addChild(OpponentCandy->getSprite(), 2);
+			Opponent->coolDowntimer2 = 0.5;
+
+			// Gun hit noise
+			auto audio = SimpleAudioEngine::getInstance();
+			// Play sound effect just once
+			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
+		}
+		if (Opponent->getSprite()->isFlippedX() == false)
+		{
+			// timer ran out; react here
+			OpponentCandy = new Character({ Opponent->position.x,Opponent->position.y }, "Fighters/PlaceHolder.png");
+			OpponentCandy->IsBullet = true;
+			OpponentCandy->fromOtherCharacter = true;
+			OpponentCandy->velocity = (Vec2(-5000, 0));
+			OpponentCandies.push_back(OpponentCandy);
+			this->addChild(OpponentCandy->getSprite(), 2);
+			Opponent->coolDowntimer2 = 0.5;
+
+			// Gun hit noise
+			auto audio = SimpleAudioEngine::getInstance();
+			// Play sound effect just once
+			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
+		}
+	}
+
+	if (theFighter->P1 == true)
+	{
+		if (Chandy->getSprite()->isFlippedX() == true)
+		{
+			// timer ran out; react here
+			ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
+			ChandyCandy->IsBullet = true;
+			ChandyCandy->fromOtherCharacter = false;
+			ChandyCandy->velocity = (Vec2(-5000, 0));
+			ChandyCandies.push_back(ChandyCandy);
+			this->addChild(ChandyCandy->getSprite(), 2);
+			Chandy->coolDowntimer = 0.5;
+
+			// Gun hit noise
+			auto audio = SimpleAudioEngine::getInstance();
+			// Play sound effect just once
+			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
+		}
+		if (Chandy->getSprite()->isFlippedX() == false)
+		{
+			// timer ran out; react here
+			ChandyCandy = new Character({ Chandy->position.x,Chandy->position.y }, "Fighters/PlaceHolder.png");
+			ChandyCandy->IsBullet = true;
+			ChandyCandy->fromOtherCharacter = false;
+			ChandyCandy->velocity = (Vec2(5000, 0));
+			ChandyCandies.push_back(ChandyCandy);
+			this->addChild(ChandyCandy->getSprite(), 2);
+			Chandy->coolDowntimer = 0.5;
+
+			// Gun hit noise
+			auto audio = SimpleAudioEngine::getInstance();
+			// Play sound effect just once
+			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
+		}
+	}
+	
+}
+
 
 
 
@@ -618,12 +675,14 @@ void Hillside::initSprites()
 	Chandy->coolDowntimer = 0.25;
 	Chandy->IsBullet=false;
 	Chandy->isHit = false;
+	Chandy->P1 = true;
 	this->addChild(Chandy->getSprite(), 3);
 
 	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Chandy Sprite2.png");
 	Opponent->coolDowntimer2 = 0.25;
 	Opponent->IsBullet = false;
 	Opponent->isHit = false;
+	Opponent->P1 = false;
 	this->addChild(Opponent->getSprite(), 3);
 }
 

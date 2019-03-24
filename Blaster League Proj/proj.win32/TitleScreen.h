@@ -21,17 +21,7 @@ public:
 	void initKeyboardListener();
 
 	Character *StartButton;
-	bool KeyboardSpacePressed;
-	bool KeyUpPressed;
-	bool KeyDownPressed;
-	bool KeyLeftPressed;
-	bool KeyRightPressed;
-	bool KeyEnterPressed;
-	bool KeyaPressed;
-	bool KeywPressed;
-	bool KeysPressed;
-	bool KeydPressed;
-	bool KeylPressed;
+	
 private:
 	//Engine
 	Director* director;

@@ -18,6 +18,7 @@ public:
 	void loseLifeP1();
 	void loseLifeP2();
 	void grapple();
+	void shoot(Fighter *theFighter);
 	CREATE_FUNC(Hillside);
 
 	void initListeners();
