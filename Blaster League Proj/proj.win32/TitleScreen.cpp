@@ -1,4 +1,5 @@
 #include "TitleScreen.h"
+#include "HillSideScene.h"
 #include <iostream>
 cocos2d::Scene * TitleScreen::createScene()
 {
@@ -61,15 +62,15 @@ void TitleScreen::initListeners()
 void TitleScreen::initSprites()
 {
 	//Initialize the Background 
-	auto Sprite = Sprite::create("BackGrounds/Hillside Stage.png");
+	auto Sprite = Sprite::create("BackGrounds/BlasterLeagueMenu.png");
 	if (Sprite == nullptr)
 	{
-		problemLoading("'BackGrounds/HillSide Stage.png'");//replace this image with the background for main menu
+		problemLoading("'BackGrounds/BlasterLeagueMenu.png'");//replace this image with the background for main menu
 	}
 	else
 	{
 		Sprite->setPosition(Vec2(2500, 1500));
-		Sprite->setScale(0.4075);
+		Sprite->setScale(0.3075);
 		this->addChild(Sprite, 1);
 	}
 
@@ -167,9 +168,11 @@ void TitleScreen::initKeyboardListener()
 	//On Key Pressed
 	keyboardListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
-		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+		if (keyCode == EventKeyboard::KeyCode::KEY_C)
 		{
-			std::cout << "Space Bar Was Pressed!" << std::endl;
+			std::cout << "C Was Pressed!" << std::endl;
+			auto gameplayScene = Hillside::createScene();
+			director->replaceScene(gameplayScene);
 
 		}
 	};
@@ -177,9 +180,9 @@ void TitleScreen::initKeyboardListener()
 	//On Key Released
 	keyboardListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
-		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+		if (keyCode == EventKeyboard::KeyCode::KEY_C)
 		{
-			std::cout << "Space Bar Was Released!" << std::endl;
+			std::cout << "C Was Released!" << std::endl;
 
 		}
 		
@@ -193,7 +196,7 @@ void TitleScreen::initKeyboardListener()
 
 void TitleScreen::onExit()
 {
-	_eventDispatcher->removeAllEventListeners();
+	/*_eventDispatcher->removeAllEventListeners();*/
 	Scene::onExit();
 	std::cout << "Exited!" << std::endl;
 }

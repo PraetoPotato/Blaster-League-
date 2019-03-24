@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Character.h"
 #include "Fighter.h"
+#include "TitleScreen.h"
 
 //Namespaces
 using namespace cocos2d;
