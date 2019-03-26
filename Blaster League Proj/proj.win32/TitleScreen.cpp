@@ -74,11 +74,26 @@ void TitleScreen::initSprites()
 		this->addChild(Sprite, 1);
 	}
 
-	StartButton = new Character({ 2500,805 }, "Menu/StartButton.png");
-	this->addChild(StartButton->getSprite(), 2);
 
-
+	auto playLabel = Label::create("Start", "fonts/arial.ttf", 150.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
 	
+
+	/*auto playLabel = Label::create("Play", "fonts/arial.ttf", 50.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
+	playLabel->enableShadow();*/
+
+
+	auto playItem = MenuItemLabel::create(playLabel, [&](Ref* sender)
+	{
+		auto gameplayScene = Hillside::createScene();
+		director->replaceScene(gameplayScene);
+		
+	});
+
+	playItem->setPosition(Vec2(25, -500));
+
+	auto menu = Menu::create(playItem, NULL);
+	this->addChild(menu, 99);
+
 }
 
 void TitleScreen::initMouseListener()

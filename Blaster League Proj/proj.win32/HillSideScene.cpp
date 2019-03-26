@@ -294,12 +294,20 @@ void Hillside::update(float deltatime)
 
 	if (KeydPressed == true)
 	{
+		if (Chandy->velocity.x < 0&&Chandy->isHit == false)
+		{
+			Chandy->velocity.x = 0;
+		}
 		Chandy->addForce(Vec2(500, 0));
 		Chandy->getSprite()->setFlippedX(false);
 		
 	}
 	if (KeyaPressed == true)
 	{
+		if (Chandy->velocity.x > 0&&Chandy->isHit == false)
+		{
+			Chandy->velocity.x = 0;
+		}
 		Chandy->addForce(Vec2(-500, 0));
 		Chandy->getSprite()->setFlippedX(true);
 		
@@ -346,12 +354,20 @@ void Hillside::update(float deltatime)
 
 	if (KeyRightPressed == true)
 	{
+		if (Opponent->velocity.x < 0&&Opponent->isHit==false)
+		{
+			Opponent->velocity.x = 0;
+		}
 		Opponent->addForce(Vec2(500, 0));
 		Opponent->getSprite()->setFlippedX(true);
 
 	}
 	if (KeyLeftPressed == true)
 	{
+		if (Opponent->velocity.x > 0&& Opponent->isHit == false)
+		{
+			Opponent->velocity.x = 0;
+		}
 		Opponent->addForce(Vec2(-500, 0));
 		Opponent->getSprite()->setFlippedX(false);
 
