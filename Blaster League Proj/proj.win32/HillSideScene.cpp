@@ -2,20 +2,26 @@
 #include "SimpleAudioEngine.h"
 #include <iostream>
 
+int Num;
+int Num2=1;
 int p1Jumps = 2;
 // Gun hit noise
 using namespace CocosDenshion;
 
 
 
-cocos2d::Scene * Hillside::createScene()
+cocos2d::Scene * Hillside::createScene(int Number)
 {
+	Num = Number;
 
     auto scene = Scene::createWithPhysics();
 	auto layer = Hillside::create();
 
 	scene->addChild(layer);
 	Vec2 winSize = Director::getInstance()->getWinSizeInPixels();
+	
+	
+	
 
 	return scene;
 }
@@ -26,11 +32,11 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
+
 //Initialize everything
 bool Hillside::init()
 {
-
-
+	
 	auto audio = SimpleAudioEngine::getInstance();
 
 	// Set the background music and continuosly play it.
@@ -126,23 +132,29 @@ void Hillside::update(float deltatime)
 
 
 	if (Opponent->getSprite()->getBoundingBox().getMidY() < DisplayedStage->getSprite()->getBoundingBox().getMaxY())
+		
 	{
-		if (Opponent->getSprite()->getBoundingBox().getMaxX() <= DisplayedStage->getSprite()->getBoundingBox().getMidX())
-		{
-			if (Opponent->IsCollidingWith(DisplayedStage) == true)
+			if (Opponent->getSprite()->getBoundingBox().getMaxX() <= DisplayedStage->getSprite()->getBoundingBox().getMidX())
 			{
-				Opponent->velocity.x = -1000;
-			}
 
-		}
-		if (Opponent->getSprite()->getBoundingBox().getMinX() >= DisplayedStage->getSprite()->getBoundingBox().getMidX())
-		{
-			if (Opponent->IsCollidingWith(DisplayedStage) == true)
+				if (Opponent->IsCollidingWith(DisplayedStage) == true&&Opponent->isHit==false)
+				{
+					Opponent->velocity.x = -1000;
+					Opponent->position.x = DisplayedStage->getSprite()->getBoundingBox().getMinX()-1;
+				}
+
+			}
+			if (Opponent->getSprite()->getBoundingBox().getMinX() >= DisplayedStage->getSprite()->getBoundingBox().getMidX())
 			{
-				Opponent->velocity.x = 1000;
-			}
+				if (Opponent->IsCollidingWith(DisplayedStage) == true)
+				{
+					Opponent->velocity.x = 1000;
+				}
 
-		}
+			}
+		
+
+		
 	}
 
 	if (Opponent->IsCollidingWith(DisplayedStage) == true)
@@ -667,17 +679,55 @@ void Hillside::initListeners()
 
 void Hillside::initSprites()
 {
-	//Initialize the Background 
-	auto Sprite = Sprite::create("BackGrounds/Hillside Stage.png");
-	if (Sprite == nullptr)
+	if (Num == 1)
 	{
-		problemLoading("'BackGrounds/HillSide Stage.png'");
+		//Initialize the Background 
+		auto Sprite = Sprite::create("BackGrounds/Hillside Stage.png");
+		if (Sprite == nullptr)
+		{
+			problemLoading("'BackGrounds/Hillside Stage.png'");
+		}
+		else
+		{
+			Sprite->setPosition(Vec2(2500, 1500));
+			Sprite->setScale(0.2575);
+			this->addChild(Sprite, 2);
+		}
+
 	}
-	else
+
+	if (Num== 2)
 	{
-		Sprite->setPosition(Vec2(2500, 1500));
-		Sprite->setScale(0.2575);
-		this->addChild(Sprite, 1);
+		//Initialize the Background 
+		auto Sprite = Sprite::create("BackGrounds/HillSide.png");
+		if (Sprite == nullptr)
+		{
+			problemLoading("'BackGrounds/HillSide.png'");
+		}
+		else
+		{
+			Sprite->setPosition(Vec2(2500, 1500));
+			Sprite->setScale(0.3575);
+			this->addChild(Sprite, 2);
+		}
+
+	}
+
+	if (Num == 3)
+	{
+		//Initialize the Background 
+		auto Sprite = Sprite::create("BackGrounds/Sewer.png");
+		if (Sprite == nullptr)
+		{
+			problemLoading("'BackGrounds/Sewer.png'");
+		}
+		else
+		{
+			Sprite->setPosition(Vec2(2500, 1500));
+			Sprite->setScale(0.2575);
+			this->addChild(Sprite, 2);
+		}
+
 	}
 
 	//Initialize the Stage
@@ -821,6 +871,11 @@ void Hillside::initKeyboardListener()
 	//On Key Pressed
 	keyboardListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_C)
+		{
+
+
+		}
 
 		// If Statement for Spacebar Pressed
 		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
@@ -904,6 +959,11 @@ void Hillside::initKeyboardListener()
 	//On Key Released
 	keyboardListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
+		if (keyCode == EventKeyboard::KeyCode::KEY_C)
+		{
+		
+
+		}
 		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 		{
 			std::cout << "Space Bar Was Released!" << std::endl;
