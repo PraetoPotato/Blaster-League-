@@ -3,7 +3,6 @@
 #include <iostream>
 
 int p1Jumps = 2;
-// Gun hit noise
 using namespace CocosDenshion;
 
 
@@ -26,16 +25,21 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
+
 //Initialize everything
 bool Hillside::init()
 {
-
-
+	
+	
+	// Setting up audio for background music mp3 file
 	auto audio = SimpleAudioEngine::getInstance();
-
 	// Set the background music and continuosly play it.
 	audio->playBackgroundMusic("Music/BackgroundMusic.mp3", true);
 
+	// setting up audio2 for 321 fight mp3 file
+	auto audio2 = SimpleAudioEngine::getInstance();
+	// Play the 321 fight voice recording once
+	audio2->playEffect("Music/321Fight.mp3", false, 1.0f, 1.0f, 1.0f);
 
 
 	//Ensure the parent init function was called first. If it wasn't, exit this one
@@ -45,6 +49,7 @@ bool Hillside::init()
 
 	//Get the director from cocos so we can use it when needed
 	director = Director::getInstance();
+
 
 	//Init the sprites
 	initSprites();
@@ -501,6 +506,11 @@ void Hillside::loseLifeP1()
 		Three->getSprite()->removeFromParent();
 		Two = new Character({ 520,2770 }, "Fighters/2.png");
 		this->addChild(Two->getSprite(), 3);
+
+		// Lost Life sound
+		auto audio = SimpleAudioEngine::getInstance();
+		// Play sound effect just once
+		audio->playEffect("Music/LostLife.mp3", false, 1.0f, 1.0f, 1.0f);
 	}
 
 	
@@ -513,6 +523,11 @@ void Hillside::loseLifeP1()
 		Two->getSprite()->removeFromParent();
 		One = new Character({ 520,2770 }, "Fighters/1.png");
 		this->addChild(One->getSprite(), 3);
+
+		// Lost Life sound
+		auto audio = SimpleAudioEngine::getInstance();
+		// Play sound effect just once
+		audio->playEffect("Music/LostLife.mp3", false, 1.0f, 1.0f, 1.0f);
 	}
 
 	if (P1Lives == 0)
@@ -520,6 +535,17 @@ void Hillside::loseLifeP1()
 		One->getSprite()->removeFromParent();
 		Zero = new Character({ 520,2770 }, "Fighters/0.png");
 		this->addChild(Zero->getSprite(), 3);
+
+		// Lost Life sound
+		auto audio = SimpleAudioEngine::getInstance();
+		// Play sound effect just once
+		audio->playEffect("Music/LostLife.mp3", false, 1.0f, 1.0f, 1.0f);
+
+		//Switching to player 2 wins screen 
+			//Change   TitleScreen::createScene()
+		auto endScreen = TitleScreen::createScene();
+		Director::getInstance()->pushScene(endScreen);
+
 	}
 
 	
@@ -538,6 +564,11 @@ void Hillside::loseLifeP2()
 		Three_->getSprite()->removeFromParent();
 		Two_ = new Character({ 4820,2770 }, "Fighters/2.png");
 		this->addChild(Two_->getSprite(), 3);
+
+		// Lost Life sound
+		auto audio = SimpleAudioEngine::getInstance();
+		// Play sound effect just once
+		audio->playEffect("Music/LostLife.mp3", false, 1.0f, 1.0f, 1.0f);
 	}
 
 
@@ -550,6 +581,11 @@ void Hillside::loseLifeP2()
 		Two_->getSprite()->removeFromParent();
 		One_ = new Character({ 4820,2770 }, "Fighters/1.png");
 		this->addChild(One_->getSprite(), 3);
+
+		// Lost Life sound
+		auto audio = SimpleAudioEngine::getInstance();
+		// Play sound effect just once
+		audio->playEffect("Music/LostLife.mp3", false, 1.0f, 1.0f, 1.0f);
 	}
 
 	if (P2Lives == 0)
@@ -557,6 +593,17 @@ void Hillside::loseLifeP2()
 		One_->getSprite()->removeFromParent();
 		Zero_ = new Character({ 4820,2770 }, "Fighters/0.png");
 		this->addChild(Zero_->getSprite(), 3);
+
+		// Lost Life sound
+		auto audio = SimpleAudioEngine::getInstance();
+		// Play sound effect just once
+		audio->playEffect("Music/LostLife.mp3", false, 1.0f, 1.0f, 1.0f);
+
+		//Switching to player 1 wins screen 
+		//Change   TitleScreen::createScene()
+		auto endScreen = TitleScreen::createScene();
+		Director::getInstance()->pushScene(endScreen);
+
 	}
 }
 
@@ -983,7 +1030,7 @@ void Hillside::initKeyboardListener()
 
 void Hillside::onExit()
 {
-	_eventDispatcher->removeAllEventListeners();
+	/*_eventDispatcher->removeAllEventListeners();*/
 	Scene::onExit();
 	std::cout << "Exited!" << std::endl;
 }
