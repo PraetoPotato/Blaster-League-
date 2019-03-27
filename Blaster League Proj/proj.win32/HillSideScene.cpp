@@ -196,7 +196,7 @@ void Hillside::update(float deltatime)
 			{
 				Opponent->isHit = true;
 				Opponent->coolDowntimer = 0.3;
-				Opponent->velocity = (Vec2(-750, 0));
+				Opponent->velocity = (Vec2(-1000, 0));
 				ChandyCandies[i]->getSprite()->removeFromParent();
 				delete ChandyCandies[i];
 				ChandyCandies.erase(ChandyCandies.begin() + i);
@@ -206,14 +206,13 @@ void Hillside::update(float deltatime)
 			{
 				Opponent->isHit = true;
 				Opponent->coolDowntimer = 0.3;
-				Opponent->velocity = (Vec2(750, 0));
+				Opponent->velocity = (Vec2(1000, 0));
 				ChandyCandies[i]->getSprite()->removeFromParent();
 				delete ChandyCandies[i];
 				ChandyCandies.erase(ChandyCandies.begin() + i);
 				i--;
 			}
 
-			
 		}
 
 	}
@@ -241,7 +240,7 @@ void Hillside::update(float deltatime)
 			{
 				Chandy->isHit = true;
 				Chandy->coolDowntimer2 = 0.3;
-				Chandy->velocity = (Vec2(-750, 0));
+				Chandy->velocity = (Vec2(-1000, 0));
 				OpponentCandies[i]->getSprite()->removeFromParent();
 				delete OpponentCandies[i];
 				OpponentCandies.erase(OpponentCandies.begin() + i);
@@ -250,7 +249,7 @@ void Hillside::update(float deltatime)
 			{
 				Chandy->isHit = true;
 				Chandy->coolDowntimer2 = 0.3;
-				Chandy->velocity = (Vec2(750, 0));
+				Chandy->velocity = (Vec2(1000, 0));
 				OpponentCandies[i]->getSprite()->removeFromParent();
 				delete OpponentCandies[i];
 				OpponentCandies.erase(OpponentCandies.begin() + i);
@@ -358,6 +357,7 @@ void Hillside::update(float deltatime)
 		if (Opponent->JumpCounter > 0)
 		{
 			Opponent->velocity.y = 1500;
+			
 		}
 
 
@@ -574,10 +574,6 @@ void Hillside::loseLifeP2()
 
 void Hillside::grapple()
 {
-
-
-
-
 
 
 }

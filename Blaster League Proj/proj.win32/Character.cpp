@@ -153,6 +153,11 @@ bool Character::IsCollidingWith(Character* otherCharacter)
 	return false;
 }
 
+float Character::FindLength(Character * otherCharacter)
+{
+	return sqrt(((position.x-otherCharacter->position.x)*(position.x - otherCharacter->position.x))+ ((position.y - otherCharacter->position.y)*(position.y - otherCharacter->position.y)));
+}
+
 Character::~Character()
 {
 	//delete sprite;
