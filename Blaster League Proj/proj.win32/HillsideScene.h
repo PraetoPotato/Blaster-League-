@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Fighter.h"
 #include "TitleScreen.h"
+#include "Map Selection.h"
 
 //Namespaces
 using namespace cocos2d;
@@ -11,7 +12,7 @@ class Hillside : public cocos2d::Scene
 {
 public:
 	//Engine Functions
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(int Number);
 	virtual bool init();
 	virtual void onExit();
 	void update(float deltaTime);
@@ -46,7 +47,8 @@ private:
 	bool KeydPressed;
 	bool KeylPressed;
 
-
+	int StageNum;
+	
 	//Specific Conditions
 	bool FirstShotfromPlayer1 = false;
 	bool FirstShotfromPlayer2 = false;

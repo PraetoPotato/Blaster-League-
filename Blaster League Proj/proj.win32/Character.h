@@ -21,6 +21,9 @@ public:
 	float getPositionY();
 	void addForce(Vec2 force);
 	bool IsCollidingWith(Character* otherCharacter);
+	float FindLength(Character* otherCharacter);
+
+	float length;
 	bool isHit;
 	Vec2 position;
 	Vec2 acceleration;
