@@ -46,6 +46,7 @@ private:
 	bool KeysPressed;
 	bool KeydPressed;
 	bool KeylPressed;
+	bool KeyqPressed;
 
 	int StageNum;
 	
@@ -75,6 +76,7 @@ private:
 	Character *One_;
 	Character *Zero_;
 	Character *Hook;
+	Character *PivotPoint;
 	Fighter *Chandy;
 	Fighter *Opponent;
 

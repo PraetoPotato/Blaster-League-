@@ -302,6 +302,24 @@ void Hillside::update(float deltatime)
 		
 	}
 
+	if (KeyqPressed == true)
+	{
+		if (Chandy->isGrappling==false)
+		{
+			Chandy->isGrappling = true;
+			grapple();
+		}
+		
+		
+	}
+
+	if (KeyqPressed == false)
+	{
+		Chandy->isGrappling = false;
+
+
+	}
+
 
 	if (KeydPressed == true)
 	{
@@ -429,7 +447,8 @@ void Hillside::update(float deltatime)
 
 	
 		Opponent->addForce(gravity);
-	
+	//--------------------------------Updates the angle of the angle between Chandy and the pivot point-------------------
+		Chandy->theta = Chandy->findAngle(PivotPoint);
 	
 
 	//-----------------------------udate the state of everything on the scene------------------------------------
@@ -574,7 +593,7 @@ void Hillside::loseLifeP2()
 
 void Hillside::grapple()
 {
-
+	
 
 }
 
@@ -726,7 +745,11 @@ void Hillside::initSprites()
 
 	}
 
+
 	//Initialize the Stage
+
+	PivotPoint = new Character({ 1000,2000 }, "Fighters/PivotPoint.png");
+	this->addChild(PivotPoint->getSprite(), 2);
 
 	//this is the platform
 	DisplayedStage= new Character({ 2500,505 }, "Platforms/Platform 2.png");
@@ -764,6 +787,9 @@ void Hillside::initSprites()
 	Chandy->IsBullet=false;
 	Chandy->isHit = false;
 	Chandy->P1 = true;
+	Chandy->theta = Chandy->findAngle(PivotPoint);
+	Chandy->length = Chandy->FindLength(PivotPoint);
+	Chandy->origin = Vec2(PivotPoint->position.x, PivotPoint->position.y);
 	this->addChild(Chandy->getSprite(), 3);
 
 	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Chandy Sprite2.png");
@@ -867,9 +893,9 @@ void Hillside::initKeyboardListener()
 	//On Key Pressed
 	keyboardListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
-		if (keyCode == EventKeyboard::KeyCode::KEY_C)
+		if (keyCode == EventKeyboard::KeyCode::KEY_Q)
 		{
-
+			KeyqPressed = true;
 
 		}
 
@@ -955,9 +981,9 @@ void Hillside::initKeyboardListener()
 	//On Key Released
 	keyboardListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
-		if (keyCode == EventKeyboard::KeyCode::KEY_C)
+		if (keyCode == EventKeyboard::KeyCode::KEY_Q)
 		{
-		
+			KeyqPressed = false;
 
 		}
 		if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)

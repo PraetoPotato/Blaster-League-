@@ -21,13 +21,7 @@ void Character::load(Vec2 position, std::string texturePath)
 	/*auto body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(0, 1, 0));*/
 	std::cout << sprite->getSpriteFrame()->getRectInPixels().size.height * sprite->getScale() * 0.5f << std::endl;
 	//sprite->setPhysicsBody(body); //Connect the physics body and the sprite
-	
-	MinX = getSprite()->getBoundingBox().getMinX();
-	MinY = getSprite()->getBoundingBox().getMaxX();
-	MinX=getSprite()->getBoundingBox().getMinY();
-	MinY=getSprite()->getBoundingBox().getMaxY();
-	MidX = getSprite()->getBoundingBox().getMidY();
-	
+	isGrappling = false;
 }
 
 //Updates the positon of the character
@@ -40,20 +34,29 @@ void Character::update(float deltaTime)
 		acceleration.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the acceleration
 		velocity.clamp(Vec2(-2000, -2000), Vec2(2000, 2000));//limit the velocity
 	}
-	velocity += acceleration * deltaTime;
-	position = sprite->getPosition();
-	position += velocity * deltaTime;
-	sprite->setPosition(position);
-	MinX = getSprite()->getBoundingBox().getMinX();
-	MinY = getSprite()->getBoundingBox().getMaxX();
-	MinX = getSprite()->getBoundingBox().getMinY();
-	MinY = getSprite()->getBoundingBox().getMaxY();
-	MidX = getSprite()->getBoundingBox().getMidY();
 
-	
+	if (isGrappling == true)
+	{
+		
+		/*velocity += acceleration * deltaTime;
+		position = sprite->getPosition();
+		position += velocity * deltaTime;
+		sprite->setPosition(position);*/
+		position = sprite->getPosition();
+		position.x =origin.x+length*sin(theta);
+		position.y = origin.y + length * cos(theta);
+		sprite->setPosition(position); 
+	}
+
+	if (isGrappling == false)
+	{
+		velocity += acceleration * deltaTime;
+		position = sprite->getPosition();
+		position += velocity * deltaTime;
+		sprite->setPosition(position);
+	}
 
 
-	
 	
 }
 Sprite* Character::getSprite() {
@@ -151,6 +154,11 @@ bool Character::IsCollidingWith(Character* otherCharacter)
 		return true;
 	}
 	return false;
+}
+
+float Character::findAngle(Character * otherCharacter)
+{
+	return asin((position.x-otherCharacter->position.x)/FindLength(otherCharacter));
 }
 
 float Character::FindLength(Character * otherCharacter)

@@ -21,10 +21,14 @@ public:
 	float getPositionY();
 	void addForce(Vec2 force);
 	bool IsCollidingWith(Character* otherCharacter);
+	float findAngle(Character* otherChatracter);
 	float FindLength(Character* otherCharacter);
 
 	float length;
+	float theta;
+	Vec2 origin;
 	bool isHit;
+	bool isGrappling;
 	Vec2 position;
 	Vec2 acceleration;
 	Vec2 velocity;
