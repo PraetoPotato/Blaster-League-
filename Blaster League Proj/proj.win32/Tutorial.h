@@ -2,21 +2,18 @@
 #include "cocos2d.h"
 #include "Character.h"
 #include "HillsideScene.h"
-#include "Tutorial.h"
-#include "TitleScreen.h"
-
 //Namespaces
 using namespace cocos2d;
 
-class MapSelection : public cocos2d::Scene
+class Tutorial : public cocos2d::Scene
 {
 public:
 	//Engine Functions
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(int num);
 	virtual bool init();
 	virtual void onExit();
 	void update(float deltaTime);
-	CREATE_FUNC(MapSelection);
+	CREATE_FUNC(Tutorial);
 
 	void initListeners();
 	void initSprites();
@@ -24,7 +21,7 @@ public:
 	void initKeyboardListener();
 
 	Character *StartButton;
-	int Num;
+
 private:
 	//Engine
 	Director* director;
@@ -33,8 +30,5 @@ private:
 	Vec2 mousePosition;
 
 
-	//Sprites 
-
-	//Projectiles
 
 };

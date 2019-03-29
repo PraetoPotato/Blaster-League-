@@ -1,16 +1,17 @@
-#include "Map Selection.h"
-#include "HillSideScene.h"
+#include"Tutorial.h"
 #include <iostream>
 
-cocos2d::Scene * MapSelection::createScene()
+int Numb;
+cocos2d::Scene * Tutorial::createScene(int num)
 {
 
 	auto scene = Scene::createWithPhysics();
-	auto layer = MapSelection::create();
+	auto layer = Tutorial::create();
 
 	scene->addChild(layer);
 	Vec2 winSize = Director::getInstance()->getWinSizeInPixels();
 
+	Numb = num;
 	return scene;
 }
 
@@ -21,7 +22,7 @@ static void problemLoading(const char* filename)
 }
 
 //Initialize everything
-bool MapSelection::init()
+bool  Tutorial::init()
 {
 	//Ensure the parent init function was called first. If it wasn't, exit this one
 	if (!Scene::init())
@@ -46,12 +47,12 @@ bool MapSelection::init()
 
 
 //main game loop for this scene, updates everything
-void MapSelection::update(float deltatime)
+void  Tutorial::update(float deltatime)
 {
 
 }
 
-void MapSelection::initListeners()
+void  Tutorial::initListeners()
 {
 	//Init the mouse listener
 	initMouseListener();
@@ -60,33 +61,44 @@ void MapSelection::initListeners()
 	initKeyboardListener();
 }
 
-void MapSelection::initSprites()
+void  Tutorial::initSprites()
 {
-	//Initialize the Background 
-	auto Sprite = Sprite::create("BackGrounds/Stage Select.png");
-	if (Sprite == nullptr)
-	{
-		problemLoading("'BackGrounds/Stage Select.png'");//replace this image with the background for main menu
-	}
-	else
-	{
-		Sprite->setPosition(Vec2(2500, 1500));
-		Sprite->setScale(0.3075);
-		this->addChild(Sprite, 1);
-	}
+	////Initialize the Background 
+	//auto Sprite = Sprite::create("BackGrounds/BlasterLeagueMenu.png");
+	//if (Sprite == nullptr)
+	//{
+	//	problemLoading("'BackGrounds/BlasterLeagueMenu.png'");//replace this image with the background for main menu
+	//}
+	//else
+	//{
+	//	Sprite->setPosition(Vec2(2500, 1500));
+	//	Sprite->setScale(0.3075);
+	//	this->addChild(Sprite, 1);
+	//}
 
 
-	
+	auto playLabel = Label::create("Play", "fonts/arial.ttf", 150.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
 
 
 	/*auto playLabel = Label::create("Play", "fonts/arial.ttf", 50.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
 	playLabel->enableShadow();*/
 
 
+	auto playItem = MenuItemLabel::create(playLabel, [&](Ref* sender)
+	{
+		auto gameplayScene = Hillside::createScene(Numb);
+		director->replaceScene(gameplayScene);
+
+	});
+
+	playItem->setPosition(Vec2(25, -500));
+
+	auto menu = Menu::create(playItem, NULL);
+	this->addChild(menu, 99);
 
 }
 
-void MapSelection::initMouseListener()
+void Tutorial::initMouseListener()
 {
 	//Init the mouse listener
 	mouseListener = EventListenerMouse::create();
@@ -165,7 +177,7 @@ void MapSelection::initMouseListener()
 	_eventDispatcher->addEventListenerWithFixedPriority(mouseListener, 1);
 }
 
-void MapSelection::initKeyboardListener()
+void  Tutorial::initKeyboardListener()
 {
 	//Create the keyboard listener
 	keyboardListener = EventListenerKeyboard::create();
@@ -173,26 +185,11 @@ void MapSelection::initKeyboardListener()
 	//On Key Pressed
 	keyboardListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
-		if (keyCode == EventKeyboard::KeyCode::KEY_1)
+		if (keyCode == EventKeyboard::KeyCode::KEY_C)
 		{
-			
-			
-			auto gameplayScene = Tutorial::createScene(1);
-			director->replaceScene(gameplayScene);
-
-		}
-		if (keyCode == EventKeyboard::KeyCode::KEY_2)
-		{
-			
-			auto gameplayScene = Tutorial::createScene(2);
-			director->replaceScene(gameplayScene);
-
-		}
-		if (keyCode == EventKeyboard::KeyCode::KEY_3)
-		{
-		
-			auto gameplayScene = Tutorial::createScene(3);
-			director->replaceScene(gameplayScene);
+			/*std::cout << "C Was Pressed!" << std::endl;
+			auto gameplayScene = Hillside::createScene();
+			director->replaceScene(gameplayScene);*/
 
 		}
 	};
@@ -200,27 +197,12 @@ void MapSelection::initKeyboardListener()
 	//On Key Released
 	keyboardListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event)
 	{
-		if (keyCode == EventKeyboard::KeyCode::KEY_1)
+		if (keyCode == EventKeyboard::KeyCode::KEY_C)
 		{
-			std::cout << "1 was pressed" << std::endl;
+			std::cout << "C Was Released!" << std::endl;
 
 		}
-		if (keyCode == EventKeyboard::KeyCode::KEY_2)
-		{
-			
-			/*std::cout << "C Was Pressed!" << std::endl;
-			auto gameplayScene = Hillside::createScene();
-			director->replaceScene(gameplayScene);*/
 
-		}
-		if (keyCode == EventKeyboard::KeyCode::KEY_3)
-		{
-
-			/*std::cout << "C Was Pressed!" << std::endl;
-			auto gameplayScene = Hillside::createScene();
-			director->replaceScene(gameplayScene);*/
-
-		}
 	};
 
 
@@ -229,7 +211,7 @@ void MapSelection::initKeyboardListener()
 	_eventDispatcher->addEventListenerWithFixedPriority(keyboardListener, 1);
 }
 
-void MapSelection::onExit()
+void  Tutorial::onExit()
 {
 	/*_eventDispatcher->removeAllEventListeners();*/
 	Scene::onExit();

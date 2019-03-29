@@ -75,8 +75,6 @@ private:
 	Character *Two_;
 	Character *One_;
 	Character *Zero_;
-	Character *Hook;
-	Character *PivotPoint;
 	Fighter *Chandy;
 	Fighter *Opponent;
 

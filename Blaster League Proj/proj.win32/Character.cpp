@@ -35,26 +35,10 @@ void Character::update(float deltaTime)
 		velocity.clamp(Vec2(-2000, -2000), Vec2(2000, 2000));//limit the velocity
 	}
 
-	if (isGrappling == true)
-	{
-		
-		/*velocity += acceleration * deltaTime;
-		position = sprite->getPosition();
-		position += velocity * deltaTime;
-		sprite->setPosition(position);*/
-		position = sprite->getPosition();
-		position.x =origin.x+length*sin(theta);
-		position.y = origin.y + length * cos(theta);
-		sprite->setPosition(position); 
-	}
-
-	if (isGrappling == false)
-	{
-		velocity += acceleration * deltaTime;
-		position = sprite->getPosition();
-		position += velocity * deltaTime;
-		sprite->setPosition(position);
-	}
+	velocity += acceleration * deltaTime;
+	position = sprite->getPosition();
+	position += velocity * deltaTime;
+	sprite->setPosition(position);
 
 
 	
@@ -86,48 +70,8 @@ Vec2 Character::getPosition() {
 	return sprite->getPosition();
 }
 
-float Character::getOverlapX(Character * otherCharacter)
-{
-	//The min and max values
-	float CharacterMinX, CharacterMaxX, OtherCharacterMinX, OtherCharacterMaxX;
-	CharacterMinX = getSprite()->getBoundingBox().getMinX();
-	CharacterMaxX = getSprite()->getBoundingBox().getMaxX();
-	OtherCharacterMinX = otherCharacter->getSprite()->getBoundingBox().getMinX();
-	OtherCharacterMaxX = otherCharacter->getSprite()->getBoundingBox().getMaxX();
-	float midX=otherCharacter->getSprite()->getBoundingBox().getMidX();
-
-	if (CharacterMaxX > OtherCharacterMaxX)
-	{
-		return OtherCharacterMaxX - CharacterMinX;
-	}
-
-	else 
-	{
-		return  CharacterMaxX - OtherCharacterMinX;
-	}
-
-}
 
 
-float Character::getOverlapY(Character * otherCharacter)
-{
-	float CharacterMinY, CharacterMaxY, OtherCharacterMinY, OtherCharacterMaxY;
-	CharacterMinY = getSprite()->getBoundingBox().getMinY();
-	CharacterMaxY = getSprite()->getBoundingBox().getMaxY();
-	OtherCharacterMinY = otherCharacter->getSprite()->getBoundingBox().getMinY();
-	OtherCharacterMaxY = otherCharacter->getSprite()->getBoundingBox().getMaxY();
-	float midY = otherCharacter->getSprite()->getBoundingBox().getMidY();
-
-	if (CharacterMaxY > OtherCharacterMaxY)
-	{
-		return OtherCharacterMaxY - CharacterMinY;
-	}
-
-	else
-	{
-		return  CharacterMaxY - OtherCharacterMinY;
-	}
-}
 
 float Character::getPositionX()
 {
