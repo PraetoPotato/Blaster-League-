@@ -1,6 +1,8 @@
 #include "Map Selection.h"
 #include "HillSideScene.h"
 #include <iostream>
+#include "ui/CocosGUI.h":
+using namespace ui;
 
 cocos2d::Scene * MapSelection::createScene()
 {
@@ -76,6 +78,27 @@ void MapSelection::initSprites()
 	}
 
 
+	auto button = Button::create("BackGrounds/Hillside Stage Button.png", "BackGrounds/Hillside Stage Button.png", "BackGrounds/Hillside Stage Button.png");
+
+	button->setPosition(Vec2(1000,1500));
+	auto gameplayScene = Tutorial::createScene(1);
+	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			std::cout << "Button 1 clicked" << std::endl;
+			
+			director->replaceScene(Tutorial::createScene(1));
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(button,4);
 	
 
 
@@ -177,8 +200,8 @@ void MapSelection::initKeyboardListener()
 		{
 			
 			
-			auto gameplayScene = Tutorial::createScene(1);
-			director->replaceScene(gameplayScene);
+			//auto gameplayScene = Tutorial::createScene(1);
+			//director->replaceScene(gameplayScene);
 
 		}
 		if (keyCode == EventKeyboard::KeyCode::KEY_2)

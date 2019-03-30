@@ -693,7 +693,7 @@ void Hillside::initSprites()
 		else
 		{
 			Sprite->setPosition(Vec2(2500, 1500));
-			Sprite->setScale(0.3575);
+			Sprite->setScale(0.2575);
 			this->addChild(Sprite, 2);
 		}
 
