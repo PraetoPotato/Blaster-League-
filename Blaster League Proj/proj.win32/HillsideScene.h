@@ -89,5 +89,29 @@ private:
 
 	Character *OpponentCandy;
 	std::vector<Character*>OpponentCandies;
-	
+
+	//Animation Frames for P1
+	std::vector<std::string*>P1IdleFrames;
+	std::vector<std::string*>P1RunningFrames;
+	std::vector<std::string*>P1JumpingFrames;
+	std::vector<std::string*>P1FallingFrames;
+
+	//Animation Frames for P1
+	std::vector<std::string*>P2IdleFrames;
+	std::vector<std::string*>P2RunningFrames;
+	std::vector<std::string*>P2JumpingFrames;
+	std::vector<std::string*>P2FallingFrames;
+
+	//functions to initialize the animation frames
+	void initializeIdleAnimP1();
+	void initializeRunningAnimP1();
+	void initializeJumpingAnimP1();
+	void initializeFallingAnimP1();
+
+	void initializeIdleAnimP2();
+	void initializeRunningAnimP2();
+	void initializeJumpingAnimP2();
+	void initializeFallingAnimP2();
+
+
 };

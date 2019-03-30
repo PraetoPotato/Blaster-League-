@@ -70,8 +70,6 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
-
-
 	
 	Vec2 gravity(0,-1700);   
 //-----------------------------------------------------------------------
@@ -414,8 +412,6 @@ void Hillside::update(float deltatime)
 
 		}
 	}
-
-
 
 
 
@@ -1038,4 +1034,9 @@ void Hillside::onExit()
 	_eventDispatcher->removeAllEventListeners();
 	Scene::onExit();
 	std::cout << "Exited!" << std::endl;
+}
+
+void Hillside::initializeIdleAnimP1()
+{
+	//P1IdleFrames.pushback(frameNumber);
 }
