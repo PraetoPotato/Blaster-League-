@@ -166,7 +166,7 @@ void Hillside::update(float deltatime)
 
 //-------------------------------------Conditions for Idle Animation-----------------------------------------------------
 
-	if (Chandy->IsCollidingWith(DisplayedStage)==false)
+	if (Chandy->IsCollidingWith(DisplayedStage)==true&&Chandy->velocity.x==0)
 	{
 		Chandy->playIdleAnim();
 	}
@@ -176,10 +176,19 @@ void Hillside::update(float deltatime)
 		Chandy->playJumpAnim();
 	}
 
-	if (KeyaPressed == true )
+	if (Chandy->velocity.y < 0)
+	{
+		Chandy->playFallAnim();
+	}
+
+
+
+	if (KeyaPressed == true&& Chandy->IsCollidingWith(DisplayedStage) == true ||KeydPressed==true&& Chandy->IsCollidingWith(DisplayedStage) == true)
 	{
 		Chandy->playRunAnim();
 	}
+
+
 	/*if (Chandy->IsCollidingWith(DisplayedStage)==true)
 	{
 		Chandy->playIdleAnim();

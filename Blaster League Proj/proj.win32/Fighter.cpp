@@ -66,7 +66,7 @@ void Fighter::initIdleAnim(std::vector<std::string> Frames, int NumOfFrames)
 
 	
 	idle->setDelayPerUnit(0.1);
-	
+	idle->setLoops(1000000000000);
 
 
 }
