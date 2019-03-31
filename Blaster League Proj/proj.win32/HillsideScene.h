@@ -91,10 +91,10 @@ private:
 	std::vector<Character*>OpponentCandies;
 
 	//Animation Frames for P1
-	std::vector<std::string*>P1IdleFrames;
-	std::vector<std::string*>P1RunningFrames;
-	std::vector<std::string*>P1JumpingFrames;
-	std::vector<std::string*>P1FallingFrames;
+	std::vector<std::string>P1IdleFrames;
+	std::vector<std::string>P1RunningFrames;
+	std::vector<std::string>P1JumpingFrames;
+	std::vector<std::string>P1FallingFrames;
 
 	//Animation Frames for P1
 	std::vector<std::string*>P2IdleFrames;

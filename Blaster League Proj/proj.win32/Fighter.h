@@ -10,10 +10,10 @@ public:
 	Fighter(Vec2 position, std::string texturePath);
 
 	//initialize all the frames for each animation
-	void initRunAnim(std::string* Frames,int NumOfFrames);
-	void initJumpAnim(std::string* Frames, int NumOfFrames);
-	void initFallAnim(std::string* Frames, int NumOfFrames);
-	void initIdleAnim(std::string* Frames, int NumOfFrames);
+	void initRunAnim(std::vector<std::string> Frames,int NumOfFrames);
+	void initJumpAnim(std::vector<std::string> Frames, int NumOfFrames);
+	void initFallAnim(std::vector<std::string> Frames, int NumOfFrames);
+	void initIdleAnim(std::vector<std::string> Frames, int NumOfFrames);
 
 	//play the animtion
 	void playRunAnim();

@@ -164,6 +164,14 @@ void Hillside::update(float deltatime)
 
 	}
 
+//-------------------------------------Conditions for Idle Animation-----------------------------------------------------
+	if (Chandy->IsCollidingWith(DisplayedStage)==false)
+	{
+		Chandy->playIdleAnim();
+	}
+	
+	
+		
 
 
 
@@ -756,6 +764,8 @@ void Hillside::initSprites()
 	Chandy->IsBullet=false;
 	Chandy->isHit = false;
 	Chandy->P1 = true;
+	initializeIdleAnimP1();
+	Chandy->initIdleAnim(P1IdleFrames, P1IdleFrames.size());
 	this->addChild(Chandy->getSprite(), 3);
 
 	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Chandy Sprite2.png");
@@ -1038,5 +1048,11 @@ void Hillside::onExit()
 
 void Hillside::initializeIdleAnimP1()
 {
-	//P1IdleFrames.pushback(frameNumber);
+	P1IdleFrames.push_back("Fighters/Chandy Idle 1.png");
+	P1IdleFrames.push_back("Fighters/Chandy Idle 2.png");
+	P1IdleFrames.push_back("Fighters/Chandy Idle 3.png");
+	P1IdleFrames.push_back("Fighters/Chandy Idle 4.png");
+	P1IdleFrames.push_back("Fighters/Chandy Idle 5.png");
+	P1IdleFrames.push_back("Fighters/Chandy Idle 6.png");
+	P1IdleFrames.push_back("Fighters/Chandy Idle 7.png");
 }

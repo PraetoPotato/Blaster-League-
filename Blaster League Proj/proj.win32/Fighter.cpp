@@ -8,25 +8,33 @@ Fighter::Fighter(Vec2 position, std::string texturePath)
 	//playIdleAnim();
 }
 
-void Fighter::initRunAnim(std::string * Frames, int NumOfFrames)
+void Fighter::initRunAnim(std::vector<std::string> Frames, int NumOfFrames)
 {
 	running = Animation::create();
 }
 
-void Fighter::initJumpAnim(std::string * Frames, int NumOfFrames)
+void Fighter::initJumpAnim(std::vector<std::string> Frames, int NumOfFrames)
 {
 	jump = Animation::create();
 }
 
-void Fighter::initFallAnim(std::string * Frames, int NumOfFrames)
+void Fighter::initFallAnim(std::vector<std::string> Frames, int NumOfFrames)
 {
 	fall = Animation::create();
 }
 
-void Fighter::initIdleAnim(std::string* Frames, int NumOfFrames)
+void Fighter::initIdleAnim(std::vector<std::string> Frames, int NumOfFrames)
 {
 	//takes stuff from the initanimation from the hillsidescene
 	idle = Animation::create();
+	for (unsigned int i = 0; i < NumOfFrames; i++)
+	{
+		idle->addSpriteFrameWithFileName(Frames[i]);
+	}
+
+	idle->retain();
+	idle->setDelayPerUnit(0.1);
+	idle->setLoops(10000000000000);
 
 	//btw these commented code work, you just have to modify it
 
