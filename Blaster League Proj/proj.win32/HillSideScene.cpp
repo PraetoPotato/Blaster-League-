@@ -165,11 +165,40 @@ void Hillside::update(float deltatime)
 	}
 
 //-------------------------------------Conditions for Idle Animation-----------------------------------------------------
+
 	if (Chandy->IsCollidingWith(DisplayedStage)==false)
 	{
 		Chandy->playIdleAnim();
 	}
-	
+
+	if (Chandy->velocity.y > 0)
+	{
+		Chandy->playJumpAnim();
+	}
+
+	if (KeyaPressed == true )
+	{
+		Chandy->playRunAnim();
+	}
+	/*if (Chandy->IsCollidingWith(DisplayedStage)==true)
+	{
+		Chandy->playIdleAnim();
+	}
+	if (KeyaPressed==true|| KeydPressed == true)
+	{
+		Chandy->playRunAnim();
+	}
+
+	if (Chandy->velocity.y>0)
+	{
+		Chandy->playJumpAnim();
+	}
+
+	if (Chandy->IsCollidingWith(DisplayedStage) == false&& Chandy->velocity.y < 0)
+	{
+		Chandy->playFallAnim();
+	}*/
+
 	
 		
 
@@ -765,7 +794,13 @@ void Hillside::initSprites()
 	Chandy->isHit = false;
 	Chandy->P1 = true;
 	initializeIdleAnimP1();
+	initializeJumpingAnimP1();
+	initializeFallingAnimP1();
+	initializeRunningAnimP1();
+	Chandy->initRunAnim(P1RunningFrames, P1RunningFrames.size());
 	Chandy->initIdleAnim(P1IdleFrames, P1IdleFrames.size());
+	Chandy->initJumpAnim(P1JumpingFrames, P1JumpingFrames.size());
+	Chandy->initFallAnim(P1FallingFrames, P1FallingFrames.size());
 	this->addChild(Chandy->getSprite(), 3);
 
 	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Chandy Sprite2.png");
@@ -1055,4 +1090,22 @@ void Hillside::initializeIdleAnimP1()
 	P1IdleFrames.push_back("Fighters/Chandy Idle 5.png");
 	P1IdleFrames.push_back("Fighters/Chandy Idle 6.png");
 	P1IdleFrames.push_back("Fighters/Chandy Idle 7.png");
+}
+
+void Hillside::initializeRunningAnimP1()
+{
+	P1RunningFrames.push_back("Fighters/Chandy Jump.png");
+	P1RunningFrames.push_back("Fighters/Chandy Idle 1.png");
+	
+}
+
+void Hillside::initializeJumpingAnimP1()
+{
+	P1JumpingFrames.push_back("Fighters/Chandy Jump.png");
+	P1JumpingFrames.push_back("Fighters/Chandy Jump 2.png");
+}
+
+void Hillside::initializeFallingAnimP1()
+{
+	P1FallingFrames.push_back("Fighters/Chandy Fall.png");
 }

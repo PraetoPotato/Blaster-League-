@@ -97,10 +97,10 @@ private:
 	std::vector<std::string>P1FallingFrames;
 
 	//Animation Frames for P1
-	std::vector<std::string*>P2IdleFrames;
-	std::vector<std::string*>P2RunningFrames;
-	std::vector<std::string*>P2JumpingFrames;
-	std::vector<std::string*>P2FallingFrames;
+	std::vector<std::string>P2IdleFrames;
+	std::vector<std::string>P2RunningFrames;
+	std::vector<std::string>P2JumpingFrames;
+	std::vector<std::string>P2FallingFrames;
 
 	//functions to initialize the animation frames
 	void initializeIdleAnimP1();
