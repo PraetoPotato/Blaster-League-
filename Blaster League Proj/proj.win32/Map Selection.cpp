@@ -1,7 +1,9 @@
 #include "Map Selection.h"
 #include "HillSideScene.h"
 #include <iostream>
-
+#include "ui/CocosGUI.h":
+using namespace ui;
+int mapNum;
 cocos2d::Scene * MapSelection::createScene()
 {
 
@@ -10,7 +12,7 @@ cocos2d::Scene * MapSelection::createScene()
 
 	scene->addChild(layer);
 	Vec2 winSize = Director::getInstance()->getWinSizeInPixels();
-
+	mapNum;
 	return scene;
 }
 
@@ -76,7 +78,71 @@ void MapSelection::initSprites()
 	}
 
 
+	auto button = Button::create("BackGrounds/Hillside Stage Button.png", "BackGrounds/Hillside Stage Button.png", "BackGrounds/Hillside Stage Button.png");
+
+	button->setPosition(Vec2(1000,1500));
+	auto gameplayScene = Tutorial::createScene(mapNum);
+	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			std::cout << "Button 1 clicked" << std::endl;
+			
+			director->replaceScene(Tutorial::createScene(1));
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(button,4);
 	
+	auto button2 = Button::create("BackGrounds/Sewer Button.png", "BackGrounds/Sewer Button.png", "BackGrounds/Sewer Button.png");
+
+	button2->setPosition(Vec2(2500, 1500));
+
+	button2->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			std::cout << "Button 1 clicked" << std::endl;
+
+			director->replaceScene(Tutorial::createScene(3));
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(button2, 4);
+
+	auto button3= Button::create("BackGrounds/HillSide Button.png", "BackGrounds/HillSide Button.png", "BackGrounds/HillSide Button.png");
+
+	button3->setPosition(Vec2(4000, 1500));
+
+	button3->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			std::cout << "Button 1 clicked" << std::endl;
+
+			director->replaceScene(Tutorial::createScene(2));
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(button3, 4);
 
 
 	/*auto playLabel = Label::create("Play", "fonts/arial.ttf", 50.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
@@ -141,17 +207,17 @@ void MapSelection::initMouseListener()
 	//On Mouse Move'
 	mouseListener->onMouseMove = [&](cocos2d::Event* event)
 	{
-		//Cast the event as a mouse event
-		EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
+		////Cast the event as a mouse event
+		//EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
 
-		//Get the position of the mouse from the event handler
-		auto mouseEventPos = mouseEvent->getLocationInView();
+		////Get the position of the mouse from the event handler
+		//auto mouseEventPos = mouseEvent->getLocationInView();
 
-		//Store the position into the mouse struct
-		mousePosition = Vec2(mouseEventPos.x, 540 + mouseEventPos.y);
+		////Store the position into the mouse struct
+		//mousePosition = Vec2(mouseEventPos.x, 540 + mouseEventPos.y);
 
-		//Output the position to the console
-		//std::cout << this->mouse.position.x << ", " << this->mouse.position.y << std::endl;
+		////Output the position to the console
+		////std::cout << this->mouse.position.x << ", " << this->mouse.position.y << std::endl;
 	};
 
 
@@ -177,21 +243,21 @@ void MapSelection::initKeyboardListener()
 		{
 			
 			
-			auto gameplayScene = Hillside::createScene(1);
-			director->replaceScene(gameplayScene);
+			//auto gameplayScene = Tutorial::createScene(1);
+			//director->replaceScene(gameplayScene);
 
 		}
 		if (keyCode == EventKeyboard::KeyCode::KEY_2)
 		{
 			
-			auto gameplayScene = Hillside::createScene(2);
+			auto gameplayScene = Tutorial::createScene(2);
 			director->replaceScene(gameplayScene);
 
 		}
 		if (keyCode == EventKeyboard::KeyCode::KEY_3)
 		{
 		
-			auto gameplayScene = Hillside::createScene(3);
+			auto gameplayScene = Tutorial::createScene(3);
 			director->replaceScene(gameplayScene);
 
 		}

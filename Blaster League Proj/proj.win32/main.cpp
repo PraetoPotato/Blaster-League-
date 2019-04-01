@@ -40,5 +40,5 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
 	freopen("CONOUT$", "w",stdout);
     // create the application instance
     AppDelegate app;
-    return Application::getInstance()->run();
+	return Application::getInstance()->run();
 }

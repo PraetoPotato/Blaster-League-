@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Character.h"
 #include "HillsideScene.h"
+#include "Tutorial.h"
 #include "TitleScreen.h"
 
 //Namespaces

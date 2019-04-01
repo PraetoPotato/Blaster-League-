@@ -39,6 +39,15 @@
     <ClCompile Include="Map Selection.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="LinePrimitive.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScreen.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -66,6 +75,15 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="Map Selection.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePrimitive.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScreen.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

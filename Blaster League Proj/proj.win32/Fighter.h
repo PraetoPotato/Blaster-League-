@@ -9,16 +9,20 @@ public:
 	Fighter() = default;
 	Fighter(Vec2 position, std::string texturePath);
 
-	void initRunAnim();
-	void initJumpAnim();
-	void initFallAnim();
-	void initIdleAnim();
+	//initialize all the frames for each animation
+	void initRunAnim(std::vector<std::string> Frames,int NumOfFrames);
+	void initJumpAnim(std::vector<std::string> Frames, int NumOfFrames);
+	void initFallAnim(std::vector<std::string> Frames, int NumOfFrames);
+	void initIdleAnim(std::vector<std::string> Frames, int NumOfFrames);
 
+
+	//play the animtion
 	void playRunAnim();
 	void playJumpAnim();
 	void playFallAnim();
 	void playIdleAnim();
 
+	//animations
 	Animation *running;
 	Animation *jump;
 	Animation *fall;
@@ -28,6 +32,8 @@ public:
 
 	//void addforce(Vec2 force);//adds force
 
+	bool isRunning;
+	bool isIdle;
 
 	int JumpCounter;
 	bool P1;

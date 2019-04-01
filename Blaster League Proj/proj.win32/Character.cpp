@@ -1,10 +1,6 @@
 #include "Character.h"
 #include <iostream>
-//void Character::kill(float delay)
-//{
-//	//delays by the provided amount, and then removes the bird.
-//	sprite->runAction(Sequence::createWithTwoActions(DelayTime::create(delay), RemoveSelf::create()));
-//}
+
 Character::Character() {}
 Character::Character(Vec2 position, std::string texturePath)
 {
@@ -12,22 +8,16 @@ Character::Character(Vec2 position, std::string texturePath)
 }
 void Character::load(Vec2 position, std::string texturePath)
 {
-	sprite = Sprite::create(texturePath); //Load the handle
+	sprite = Sprite::create(texturePath); 
 	sprite->setPosition(position);
-	sprite->setScale(0.25f); //Scale the bird since it loads in quite large 
+	sprite->setScale(0.25f); 
 	sprite->setAnchorPoint(Vec2(0.5f, 0.5f)); //Ensure the middle of the character is the anchor point
 	//auto body = PhysicsBody::createCircle((sprite->getSpriteFrame()->getRectInPixels().size.height) * 0.5f * 0.65f); //This makes the hitbox a circle
 	//auto body = PhysicsBody::createCircle(32.0f); //Use a circle since the bird is roughly circular
 	/*auto body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(0, 1, 0));*/
 	std::cout << sprite->getSpriteFrame()->getRectInPixels().size.height * sprite->getScale() * 0.5f << std::endl;
 	//sprite->setPhysicsBody(body); //Connect the physics body and the sprite
-	
-	MinX = getSprite()->getBoundingBox().getMinX();
-	MinY = getSprite()->getBoundingBox().getMaxX();
-	MinX=getSprite()->getBoundingBox().getMinY();
-	MinY=getSprite()->getBoundingBox().getMaxY();
-	MidX = getSprite()->getBoundingBox().getMidY();
-	
+
 }
 
 //Updates the positon of the character
@@ -40,20 +30,13 @@ void Character::update(float deltaTime)
 		acceleration.clamp(Vec2(-1000, -2000), Vec2(1000, 2000));//limit the acceleration
 		velocity.clamp(Vec2(-2000, -2000), Vec2(2000, 2000));//limit the velocity
 	}
+
 	velocity += acceleration * deltaTime;
 	position = sprite->getPosition();
 	position += velocity * deltaTime;
 	sprite->setPosition(position);
-	MinX = getSprite()->getBoundingBox().getMinX();
-	MinY = getSprite()->getBoundingBox().getMaxX();
-	MinX = getSprite()->getBoundingBox().getMinY();
-	MinY = getSprite()->getBoundingBox().getMaxY();
-	MidX = getSprite()->getBoundingBox().getMidY();
-
-	
 
 
-	
 	
 }
 Sprite* Character::getSprite() {
@@ -83,48 +66,8 @@ Vec2 Character::getPosition() {
 	return sprite->getPosition();
 }
 
-float Character::getOverlapX(Character * otherCharacter)
-{
-	//The min and max values
-	float CharacterMinX, CharacterMaxX, OtherCharacterMinX, OtherCharacterMaxX;
-	CharacterMinX = getSprite()->getBoundingBox().getMinX();
-	CharacterMaxX = getSprite()->getBoundingBox().getMaxX();
-	OtherCharacterMinX = otherCharacter->getSprite()->getBoundingBox().getMinX();
-	OtherCharacterMaxX = otherCharacter->getSprite()->getBoundingBox().getMaxX();
-	float midX=otherCharacter->getSprite()->getBoundingBox().getMidX();
-
-	if (CharacterMaxX > OtherCharacterMaxX)
-	{
-		return OtherCharacterMaxX - CharacterMinX;
-	}
-
-	else 
-	{
-		return  CharacterMaxX - OtherCharacterMinX;
-	}
-
-}
 
 
-float Character::getOverlapY(Character * otherCharacter)
-{
-	float CharacterMinY, CharacterMaxY, OtherCharacterMinY, OtherCharacterMaxY;
-	CharacterMinY = getSprite()->getBoundingBox().getMinY();
-	CharacterMaxY = getSprite()->getBoundingBox().getMaxY();
-	OtherCharacterMinY = otherCharacter->getSprite()->getBoundingBox().getMinY();
-	OtherCharacterMaxY = otherCharacter->getSprite()->getBoundingBox().getMaxY();
-	float midY = otherCharacter->getSprite()->getBoundingBox().getMidY();
-
-	if (CharacterMaxY > OtherCharacterMaxY)
-	{
-		return OtherCharacterMaxY - CharacterMinY;
-	}
-
-	else
-	{
-		return  CharacterMaxY - OtherCharacterMinY;
-	}
-}
 
 float Character::getPositionX()
 {
@@ -151,6 +94,11 @@ bool Character::IsCollidingWith(Character* otherCharacter)
 		return true;
 	}
 	return false;
+}
+
+float Character::findAngle(Character * otherCharacter)
+{
+	return asin((position.x-otherCharacter->position.x)/FindLength(otherCharacter));
 }
 
 float Character::FindLength(Character * otherCharacter)

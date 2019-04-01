@@ -156,18 +156,24 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="Map Selection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HillSideScene.cpp" />
+    <ClCompile Include="LinePrimitive.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Fighter.h" />
     <ClInclude Include="FighterSelect.h" />
+    <ClInclude Include="LinePrimitive.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="HillsideScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Map Selection.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="WinScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
