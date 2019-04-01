@@ -44,6 +44,14 @@ bool Hillside::init()
 	// Set the background music and continuosly play it.
 	audio->playBackgroundMusic("Music/BackgroundMusic.mp3", true);
 
+	auto audio4 = SimpleAudioEngine::getInstance();
+	// Set the lost life sound effect
+	audio4->playEffect("Music/321Fight.mp3", false);
+
+	//auto audio2 = SimpleAudioEngine::getInstance();
+	// Set the background music and continuosly play it.
+	//audio2->playEffect("Music/123Fight.mp3", true, 1.0f, 1.0f, 1.0f);
+
 
 
 	//Ensure the parent init function was called first. If it wasn't, exit this one
@@ -245,7 +253,6 @@ void Hillside::update(float deltatime)
 	for (int i = 0; i < ChandyCandies.size(); i++)
 	{
 		ChandyCandies[i]->addForce(gravity);
-
 	}
 
 	for (int i = 0; i < OpponentCandies.size(); i++)
@@ -365,7 +372,6 @@ void Hillside::update(float deltatime)
 		if (Chandy->coolDowntimer <= 0.f) 
 		{
 			shoot(Chandy);
-			
 		}
 		
 		
@@ -533,6 +539,10 @@ void Hillside::update(float deltatime)
 
 	if (Chandy->position.y < 0)
 	{
+		auto audio3 = SimpleAudioEngine::getInstance();
+		// Set the lost life sound effect
+		audio3->playEffect("Music/LostLife.mp3", false);
+
 		if (Chandy->position.x <DisplayedStage->getSprite()->getBoundingBox().getMidX())
 		{
 			ExplosionSprite->position=Vec2(0,0) ;
@@ -554,6 +564,10 @@ void Hillside::update(float deltatime)
 		
 	if (Opponent->position.y < 0)
 	{
+		auto audio3 = SimpleAudioEngine::getInstance();
+		// Set the lost life sound effect for opponent
+		audio3->playEffect("Music/LostLife.mp3", false);
+
 		if (Opponent->position.x < DisplayedStage->getSprite()->getBoundingBox().getMidX())
 		{
 			ExplosionSprite->position = Vec2(0, 0);
