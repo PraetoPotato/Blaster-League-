@@ -1,5 +1,10 @@
 #include"TitleScreen.h"
 #include <iostream>
+#include "SimpleAudioEngine.h"
+
+// Used for audio in game
+using namespace CocosDenshion;
+
 cocos2d::Scene * TitleScreen::createScene()
 {
 
@@ -9,8 +14,14 @@ cocos2d::Scene * TitleScreen::createScene()
 	scene->addChild(layer);
 	Vec2 winSize = Director::getInstance()->getWinSizeInPixels();
 
+	auto audio = SimpleAudioEngine::getInstance();
+
+	// Set the menu music and continuosly play it.
+	audio->playBackgroundMusic("Music/MenuMusic.mp3", true);
+
 	return scene;
 }
+
 
 static void problemLoading(const char* filename)
 {
