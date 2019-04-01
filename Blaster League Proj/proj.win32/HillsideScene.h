@@ -4,7 +4,7 @@
 #include "Fighter.h"
 #include "TitleScreen.h"
 #include "Map Selection.h"
-#include"WinScreen.h"
+
 
 //Namespaces
 using namespace cocos2d;
@@ -77,9 +77,12 @@ private:
 	Character *One_;
 	Character *Zero_;
 	Character *ExplosionSprite;
+	Character *P1Win;
+	Character *P2Win;
 	Fighter *Chandy;
 	Fighter *Opponent;
 
+	
 
 	Rect aabb;
 	//Hitboxesddddddddddddddddddddddd

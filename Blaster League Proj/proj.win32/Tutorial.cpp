@@ -63,21 +63,21 @@ void  Tutorial::initListeners()
 
 void  Tutorial::initSprites()
 {
-	////Initialize the Background 
-	//auto Sprite = Sprite::create("BackGrounds/BlasterLeagueMenu.png");
-	//if (Sprite == nullptr)
-	//{
-	//	problemLoading("'BackGrounds/BlasterLeagueMenu.png'");//replace this image with the background for main menu
-	//}
-	//else
-	//{
-	//	Sprite->setPosition(Vec2(2500, 1500));
-	//	Sprite->setScale(0.3075);
-	//	this->addChild(Sprite, 1);
-	//}
+	//Initialize the Background 
+	auto Sprite = Sprite::create("BackGrounds/TutorialScreen.png");
+	if (Sprite == nullptr)
+	{
+		problemLoading("'BackGrounds/TutorialScreen.png'");//replace this image with the background for main menu
+	}
+	else
+	{
+		Sprite->setPosition(Vec2(2500, 1500));
+		Sprite->setScale(0.2575);
+		this->addChild(Sprite, 1);
+	}
 
 
-	auto playLabel = Label::create("Play", "fonts/arial.ttf", 150.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
+	auto playLabel = Label::create("Start Game", "fonts/arial.ttf", 150.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
 
 
 	/*auto playLabel = Label::create("Play", "fonts/arial.ttf", 50.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);
@@ -91,7 +91,7 @@ void  Tutorial::initSprites()
 
 	});
 
-	playItem->setPosition(Vec2(25, -500));
+	playItem->setPosition(Vec2(25, -1100));
 
 	auto menu = Menu::create(playItem, NULL);
 	this->addChild(menu, 99);

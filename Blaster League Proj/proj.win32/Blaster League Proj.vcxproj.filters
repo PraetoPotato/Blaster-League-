@@ -45,9 +45,6 @@
     <ClCompile Include="Tutorial.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="WinScreen.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -81,9 +78,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="Tutorial.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="WinScreen.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

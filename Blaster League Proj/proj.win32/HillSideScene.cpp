@@ -537,11 +537,15 @@ void Hillside::update(float deltatime)
 
 	
 
-	if (Chandy->position.y < 0)
+	if (Chandy->position.y <= 0)
 	{
-		auto audio3 = SimpleAudioEngine::getInstance();
-		// Set the lost life sound effect
-		audio3->playEffect("Music/LostLife.mp3", false);
+		if (Chandy->position.y <=0&& Chandy->position.y > -100)
+		{
+			auto audio3 = SimpleAudioEngine::getInstance();
+			// Set the lost life sound effect
+			audio3->playEffect("Music/LostLife.mp3", false);
+		}
+	
 
 		if (Chandy->position.x <DisplayedStage->getSprite()->getBoundingBox().getMidX())
 		{
@@ -562,11 +566,15 @@ void Hillside::update(float deltatime)
 	}
 
 		
-	if (Opponent->position.y < 0)
+	if (Opponent->position.y <= 0)
 	{
-		auto audio3 = SimpleAudioEngine::getInstance();
-		// Set the lost life sound effect for opponent
-		audio3->playEffect("Music/LostLife.mp3", false);
+		if (Opponent->position.y  <0&& Opponent->position.y>-100)
+		{
+			auto audio3 = SimpleAudioEngine::getInstance();
+			// Set the lost life sound effect for opponent
+			audio3->playEffect("Music/LostLife.mp3", false);
+		}
+	
 
 		if (Opponent->position.x < DisplayedStage->getSprite()->getBoundingBox().getMidX())
 		{
@@ -585,7 +593,25 @@ void Hillside::update(float deltatime)
 		Explosion();
 		loseLifeP2();
 	}
+	if (P2Lives == 0)
+	{
+		P1Win = new Character({ 2500,2000 }, "BackGrounds/WinP1.png");
+		P1Win->getSprite()->setScale(2);
+		
+		
+		
+		this->addChild(P1Win->getSprite(), 3);
+		
 
+	}
+	if (P1Lives == 0)
+	{
+		P2Win = new Character({ 2500,2000 }, "BackGrounds/WinP2.png");
+		P2Win->getSprite()->setScale(2);
+		this->addChild(P2Win->getSprite(), 3);
+
+		
+	}
 
 }
 
@@ -1155,7 +1181,7 @@ void Hillside::initKeyboardListener()
 
 void Hillside::onExit()
 {
-	_eventDispatcher->removeAllEventListeners();
+	/*_eventDispatcher->removeAllEventListeners();*/
 	Scene::onExit();
 	std::cout << "Exited!" << std::endl;
 }
