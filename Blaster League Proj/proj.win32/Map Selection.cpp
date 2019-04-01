@@ -3,7 +3,7 @@
 #include <iostream>
 #include "ui/CocosGUI.h":
 using namespace ui;
-
+int mapNum;
 cocos2d::Scene * MapSelection::createScene()
 {
 
@@ -12,7 +12,7 @@ cocos2d::Scene * MapSelection::createScene()
 
 	scene->addChild(layer);
 	Vec2 winSize = Director::getInstance()->getWinSizeInPixels();
-
+	mapNum;
 	return scene;
 }
 
@@ -81,7 +81,7 @@ void MapSelection::initSprites()
 	auto button = Button::create("BackGrounds/Hillside Stage Button.png", "BackGrounds/Hillside Stage Button.png", "BackGrounds/Hillside Stage Button.png");
 
 	button->setPosition(Vec2(1000,1500));
-	auto gameplayScene = Tutorial::createScene(1);
+	auto gameplayScene = Tutorial::createScene(mapNum);
 	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -100,6 +100,49 @@ void MapSelection::initSprites()
 
 	this->addChild(button,4);
 	
+	auto button2 = Button::create("BackGrounds/Sewer Button.png", "BackGrounds/Sewer Button.png", "BackGrounds/Sewer Button.png");
+
+	button2->setPosition(Vec2(2500, 1500));
+
+	button2->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			std::cout << "Button 1 clicked" << std::endl;
+
+			director->replaceScene(Tutorial::createScene(3));
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(button2, 4);
+
+	auto button3= Button::create("BackGrounds/HillSide Button.png", "BackGrounds/HillSide Button.png", "BackGrounds/HillSide Button.png");
+
+	button3->setPosition(Vec2(4000, 1500));
+
+	button3->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			std::cout << "Button 1 clicked" << std::endl;
+
+			director->replaceScene(Tutorial::createScene(2));
+
+			break;
+		default:
+			break;
+		}
+	});
+
+	this->addChild(button3, 4);
 
 
 	/*auto playLabel = Label::create("Play", "fonts/arial.ttf", 50.0f, Size::ZERO, TextHAlignment::LEFT, TextVAlignment::BOTTOM);

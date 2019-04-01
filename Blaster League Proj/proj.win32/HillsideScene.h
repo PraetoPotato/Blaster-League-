@@ -4,6 +4,7 @@
 #include "Fighter.h"
 #include "TitleScreen.h"
 #include "Map Selection.h"
+#include"WinScreen.h"
 
 //Namespaces
 using namespace cocos2d;
@@ -75,8 +76,10 @@ private:
 	Character *Two_;
 	Character *One_;
 	Character *Zero_;
+	Character *ExplosionSprite;
 	Fighter *Chandy;
 	Fighter *Opponent;
+
 
 	Rect aabb;
 	//Hitboxesddddddddddddddddddddddd
@@ -102,6 +105,9 @@ private:
 	std::vector<std::string>P2JumpingFrames;
 	std::vector<std::string>P2FallingFrames;
 
+	std::vector<std::string>ExplosionFrames;
+
+	Animation *explosion;
 	//functions to initialize the animation frames
 	void initializeIdleAnimP1();
 	void initializeRunningAnimP1();
@@ -112,6 +118,17 @@ private:
 	void initializeRunningAnimP2();
 	void initializeJumpingAnimP2();
 	void initializeFallingAnimP2();
+
+	//Explosion!!!!!!
+
+	void Explosion();
+	void initializeExplosion();
+
+	void createExplosion(std::vector<std::string> Frames, int NumOfFrames);
+
+	void PlayExplosion();
+
+	
 
 
 };

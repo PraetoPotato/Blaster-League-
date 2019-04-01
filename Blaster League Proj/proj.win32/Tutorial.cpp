@@ -153,17 +153,17 @@ void Tutorial::initMouseListener()
 	//On Mouse Move'
 	mouseListener->onMouseMove = [&](cocos2d::Event* event)
 	{
-		//Cast the event as a mouse event
-		EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
+		////Cast the event as a mouse event
+		//EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
 
-		//Get the position of the mouse from the event handler
-		auto mouseEventPos = mouseEvent->getLocationInView();
+		////Get the position of the mouse from the event handler
+		//auto mouseEventPos = mouseEvent->getLocationInView();
 
-		//Store the position into the mouse struct
-		mousePosition = Vec2(mouseEventPos.x, 540 + mouseEventPos.y);
+		////Store the position into the mouse struct
+		//mousePosition = Vec2(mouseEventPos.x, 540 + mouseEventPos.y);
 
-		//Output the position to the console
-		//std::cout << this->mouse.position.x << ", " << this->mouse.position.y << std::endl;
+		////Output the position to the console
+		////std::cout << this->mouse.position.x << ", " << this->mouse.position.y << std::endl;
 	};
 
 

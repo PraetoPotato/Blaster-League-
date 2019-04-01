@@ -15,6 +15,7 @@ public:
 	void initFallAnim(std::vector<std::string> Frames, int NumOfFrames);
 	void initIdleAnim(std::vector<std::string> Frames, int NumOfFrames);
 
+
 	//play the animtion
 	void playRunAnim();
 	void playJumpAnim();
@@ -31,6 +32,8 @@ public:
 
 	//void addforce(Vec2 force);//adds force
 
+	bool isRunning;
+	bool isIdle;
 
 	int JumpCounter;
 	bool P1;

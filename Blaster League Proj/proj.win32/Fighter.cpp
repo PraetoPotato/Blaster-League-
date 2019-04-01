@@ -4,6 +4,8 @@ Fighter::Fighter(Vec2 position, std::string texturePath)
 {
 	load(position, texturePath);
 	JumpCounter = 2;
+	isRunning = false;
+	isIdle = false;
 	//initIdleAnim();
 	//playIdleAnim();
 }
@@ -20,6 +22,7 @@ void Fighter::initRunAnim(std::vector<std::string> Frames, int NumOfFrames)
 
 
 	running->setDelayPerUnit(0.1);
+	running->setLoops(1000000);
 	
 }
 
@@ -73,7 +76,12 @@ void Fighter::initIdleAnim(std::vector<std::string> Frames, int NumOfFrames)
 
 void Fighter::playRunAnim()
 {
+
 	getSprite()->runAction(Animate::create(running));
+
+	
+
+
 }
 
 void Fighter::playJumpAnim()
@@ -88,7 +96,12 @@ void Fighter::playFallAnim()
 
 void Fighter::playIdleAnim()
 {
+	
 
 	getSprite()->runAction(Animate::create(idle));
+
+	
+	
+	
 
 }

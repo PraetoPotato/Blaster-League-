@@ -5,6 +5,8 @@
 int Num;
 int Num2=1;
 int p1Jumps = 2;
+int P1Lives = 3;
+int P2Lives = 3;
 // Gun hit noise
 using namespace CocosDenshion;
 
@@ -70,7 +72,24 @@ bool Hillside::init()
 //main game loop, updates everything
 void Hillside::update(float deltatime)
 {
-	
+	/*if (P1Lives < 0)
+	{
+
+
+		auto gameplayScene = WinScreen::createScene();
+		director->replaceScene(gameplayScene);
+
+	}
+
+	if (P2Lives < 0)
+	{
+
+
+		auto gameplayScene = WinScreen::createScene();
+		director->replaceScene(gameplayScene);
+
+	}
+*/
 	Vec2 gravity(0,-1700);   
 //-----------------------------------------------------------------------
 	
@@ -166,36 +185,17 @@ void Hillside::update(float deltatime)
 
 //-------------------------------------Conditions for Idle Animation-----------------------------------------------------
 
-	if (Chandy->IsCollidingWith(DisplayedStage)==true&&Chandy->velocity.x==0)
-	{
-		Chandy->playIdleAnim();
-	}
 
-	if (Chandy->velocity.y > 0)
-	{
-		Chandy->playJumpAnim();
-	}
-
-	if (Chandy->velocity.y < 0)
-	{
-		Chandy->playFallAnim();
-	}
-
-
-
-	if (KeyaPressed == true&& Chandy->IsCollidingWith(DisplayedStage) == true ||KeydPressed==true&& Chandy->IsCollidingWith(DisplayedStage) == true)
+	if (Chandy->IsCollidingWith(DisplayedStage)==true)
 	{
 		Chandy->playRunAnim();
+		
+		
 	}
-
-
-	/*if (Chandy->IsCollidingWith(DisplayedStage)==true)
+	if (Chandy->velocity.x!=0&&Chandy->IsCollidingWith(DisplayedStage) == true&&KeyaPressed==true|| Chandy->velocity.x != 0 && Chandy->IsCollidingWith(DisplayedStage) == true && KeydPressed == true)
 	{
 		Chandy->playIdleAnim();
-	}
-	if (KeyaPressed==true|| KeydPressed == true)
-	{
-		Chandy->playRunAnim();
+		
 	}
 
 	if (Chandy->velocity.y>0)
@@ -206,8 +206,33 @@ void Hillside::update(float deltatime)
 	if (Chandy->IsCollidingWith(DisplayedStage) == false&& Chandy->velocity.y < 0)
 	{
 		Chandy->playFallAnim();
-	}*/
+	}
 
+
+
+	if (Opponent->IsCollidingWith(DisplayedStage) == true)
+	{
+		Opponent->playIdleAnim();
+
+
+	}
+	if (Opponent->velocity.x != 0 && Opponent->IsCollidingWith(DisplayedStage) == true && KeyLeftPressed == true || Opponent->velocity.x != 0 && Opponent->IsCollidingWith(DisplayedStage) == true && KeyRightPressed == true)
+	{
+		
+		Opponent->playRunAnim();
+
+	}
+
+	if (Opponent->velocity.y > 0)
+	{
+		Opponent->playJumpAnim();
+	}
+
+	/*if (Opponent->velocity.y < 0)
+	{
+		Opponent->playFallAnim();
+	}*/
+	
 	
 		
 
@@ -508,36 +533,49 @@ void Hillside::update(float deltatime)
 
 	if (Chandy->position.y < 0)
 	{
-		
+		if (Chandy->position.x <DisplayedStage->getSprite()->getBoundingBox().getMidX())
+		{
+			ExplosionSprite->position=Vec2(0,0) ;
+			ExplosionSprite->getSprite()->setPosition(0, 0);
+			ExplosionSprite->getSprite()->setFlippedX(false);
+		}
+
+		if (Chandy->position.x >DisplayedStage->getSprite()->getBoundingBox().getMidX())
+		{
+			ExplosionSprite->position = Vec2(5000, 0);
+			ExplosionSprite->getSprite()->setPosition(5000, 0);
+			ExplosionSprite->getSprite()->setFlippedX(true);
+
+		}
+		Explosion();	
 		loseLifeP1();
-		
 	}
 
 		
 	if (Opponent->position.y < 0)
 	{
+		if (Opponent->position.x < DisplayedStage->getSprite()->getBoundingBox().getMidX())
+		{
+			ExplosionSprite->position = Vec2(0, 0);
+			ExplosionSprite->getSprite()->setPosition(0, 0);
+			ExplosionSprite->getSprite()->setFlippedX(false);
+		}
 
+		if (Opponent->position.x > DisplayedStage->getSprite()->getBoundingBox().getMidX())
+		{
+			ExplosionSprite->position = Vec2(5000, 0);
+			ExplosionSprite->getSprite()->setPosition(5000, 0);
+			ExplosionSprite->getSprite()->setFlippedX(true);
+
+		}
+		Explosion();
 		loseLifeP2();
-
 	}
-
-/*
-	
-
-
-
-	if (lives == 1)
-	{
-		One = new Character({ 520,2770 }, "Fighters/1.png");
-		this->addChild(One->getSprite(), 3);
-	}
-	*/
 
 
 }
 
-int P1Lives = 3;
-int P2Lives = 3;
+
 
 void Hillside::loseLifeP1()
 {
@@ -570,6 +608,7 @@ void Hillside::loseLifeP1()
 
 	if (P1Lives == 0)
 	{
+		
 		One->getSprite()->removeFromParent();
 		Zero = new Character({ 520,2770 }, "Fighters/0.png");
 		this->addChild(Zero->getSprite(), 3);
@@ -687,6 +726,7 @@ void Hillside::shoot(Fighter *theFighter)
 			audio->playEffect("Music/GunShoot.wav", false, 1.0f, 1.0f, 1.0f);
 		}
 	}
+
 	
 }
 
@@ -812,12 +852,28 @@ void Hillside::initSprites()
 	Chandy->initFallAnim(P1FallingFrames, P1FallingFrames.size());
 	this->addChild(Chandy->getSprite(), 3);
 
-	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Chandy Sprite2.png");
+	Opponent = new Fighter({ 2500, 2500 }, "Fighters/Alt Chandy Sprite.png");
 	Opponent->coolDowntimer2 = 0.25;
 	Opponent->IsBullet = false;
 	Opponent->isHit = false;
 	Opponent->P1 = false;
+	initializeIdleAnimP2();
+	initializeJumpingAnimP2();
+	initializeFallingAnimP2();
+	initializeRunningAnimP2();
+	Opponent->initRunAnim(P2RunningFrames, P2RunningFrames.size());
+	Opponent->initIdleAnim(P2IdleFrames, P2IdleFrames.size());
+	Opponent->initJumpAnim(P2JumpingFrames, P2JumpingFrames.size());
+	Opponent->initFallAnim(P2FallingFrames, P2FallingFrames.size());
 	this->addChild(Opponent->getSprite(), 3);
+
+	ExplosionSprite = new Character({ 100, 100 }, "Effects/Explosion.png");
+	ExplosionSprite->coolDowntimer2 = 0.25;
+	ExplosionSprite->IsBullet = false;
+	ExplosionSprite->isHit = false;
+	
+	this->addChild(ExplosionSprite->getSprite(), 3);
+
 }
 
 void Hillside::initHitBoxes()
@@ -1092,19 +1148,19 @@ void Hillside::onExit()
 
 void Hillside::initializeIdleAnimP1()
 {
-	P1IdleFrames.push_back("Fighters/Chandy Idle 1.png");
-	P1IdleFrames.push_back("Fighters/Chandy Idle 2.png");
-	P1IdleFrames.push_back("Fighters/Chandy Idle 3.png");
-	P1IdleFrames.push_back("Fighters/Chandy Idle 4.png");
-	P1IdleFrames.push_back("Fighters/Chandy Idle 5.png");
-	P1IdleFrames.push_back("Fighters/Chandy Idle 6.png");
-	P1IdleFrames.push_back("Fighters/Chandy Idle 7.png");
+	
+	P1RunningFrames.push_back("Fighters/Chandy Idle 1.png");
 }
 
 void Hillside::initializeRunningAnimP1()
 {
-	P1RunningFrames.push_back("Fighters/Chandy Jump.png");
-	P1RunningFrames.push_back("Fighters/Chandy Idle 1.png");
+	P1IdleFrames.push_back("Fighters/Chandy Running 1.png");
+	P1IdleFrames.push_back("Fighters/Chandy Running 1.png");
+	P1IdleFrames.push_back("Fighters/Chandy Running 2.png");
+	P1IdleFrames.push_back("Fighters/Chandy Running 2.png");
+	P1IdleFrames.push_back("Fighters/Chandy Running 3.png");
+	P1IdleFrames.push_back("Fighters/Chandy Running 3.png");
+	
 	
 }
 
@@ -1117,4 +1173,67 @@ void Hillside::initializeJumpingAnimP1()
 void Hillside::initializeFallingAnimP1()
 {
 	P1FallingFrames.push_back("Fighters/Chandy Fall.png");
+}
+
+void Hillside::initializeIdleAnimP2()
+{
+	P2IdleFrames.push_back("Fighters/Alt Chandy Idle 1.png");
+}
+
+void Hillside::initializeRunningAnimP2()
+{
+	P2RunningFrames.push_back("Fighters/Alt Chandy Running 1.png");
+	P2RunningFrames.push_back("Fighters/Alt Chandy Running 2.png");
+	P2RunningFrames.push_back("Fighters/Alt Chandy Running 3.png");
+}
+
+void Hillside::initializeJumpingAnimP2()
+{
+	P2JumpingFrames.push_back("Fighters/Alt Chandy Jump.png");
+}
+
+void Hillside::initializeFallingAnimP2()
+{
+	P2JumpingFrames.push_back("Fighters/Alt Chandy Fall.png");
+}
+
+void Hillside::Explosion()
+{
+	initializeExplosion();
+	createExplosion(ExplosionFrames,ExplosionFrames.size());
+	PlayExplosion();
+
+}
+
+void Hillside::initializeExplosion()
+{
+	ExplosionFrames.push_back("Effects/Explosion.png");
+	ExplosionFrames.push_back("Effects/Explosion 2.png");
+	ExplosionFrames.push_back("Effects/Explosion 3.png");
+	ExplosionFrames.push_back("Effects/Explosion 4.png");
+	ExplosionFrames.push_back("Effects/Explosion 5.png");
+	ExplosionFrames.push_back("Effects/Explosion 6.png");
+	ExplosionFrames.push_back("Effects/Explosion.png");
+}
+
+void Hillside::createExplosion(std::vector<std::string> Frames, int NumOfFrames)
+{
+	explosion = Animation::create();
+
+	for (unsigned int i = 0; i < NumOfFrames; i++)
+	{
+		explosion->retain();
+		explosion->addSpriteFrameWithFileName(Frames[i]);
+	}
+
+
+	explosion->setDelayPerUnit(0.1);
+	explosion->setLoops(1);
+
+}
+
+void Hillside::PlayExplosion()
+{
+	ExplosionSprite->getSprite()->runAction(Animate::create(explosion));
+	
 }
